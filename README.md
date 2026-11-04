@@ -22,7 +22,7 @@ Add a fifth `step` line and the chevrons narrow; add a twelfth and they wrap ont
 ## Install
 
 ```bash
-npm install mplate-core          # library + CLI + MCP server
+npm install @mplate/core         # library + CLI + MCP server
 npm install @resvg/resvg-js      # optional, for PNG export
 ```
 
@@ -41,7 +41,7 @@ npx mplate validate roadmap.mplate  # errors and warnings with line numbers
 **Library**
 
 ```ts
-import { render } from 'mplate-core'
+import { render } from '@mplate/core'
 
 const { svg, diagnostics } = render(`@funnel "Sales pipeline"
   level "Visitors" val:"48,000"
@@ -52,7 +52,7 @@ const { svg, diagnostics } = render(`@funnel "Sales pipeline"
 **MCP (Claude Desktop, Claude Code, any MCP client)**
 
 ```json
-{ "mcpServers": { "mplate": { "command": "npx", "args": ["-y", "-p", "mplate-core", "mplate-mcp"] } } }
+{ "mcpServers": { "mplate": { "command": "npx", "args": ["-y", "-p", "@mplate/core", "mplate-mcp"] } } }
 ```
 
 Then ask: *“Draw our Q3 roadmap as an mplate timeline.”* See [docs/mcp.md](docs/mcp.md).

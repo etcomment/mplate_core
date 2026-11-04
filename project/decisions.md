@@ -53,3 +53,9 @@ Format: context → decision → consequences. Append new records at the end; ne
 
 **Decision.** The test suite renders every template with 1, 4, 10 and 30 elements (clipped to its range), with every built-in theme and at a narrow width, and fails on overlapping text boxes, text outside the canvas, non-finite numbers, or diagnostics on the example.
 **Consequences.** A template is "done" when it passes these tests and looks right in the gallery.
+
+## ADR-011 — npm package `@mplate/core` (2026-11-04)
+
+**Context.** The unscoped name `mplate` is taken on npm by an unrelated, inactive package.
+**Decision.** Publish under the `mplate` npm organisation: `@mplate/core` for the engine, CLI and MCP server. Further packages (for example a browser bundle) use the same scope. The binaries keep the names `mplate` and `mplate-mcp`.
+**Consequences.** Install with `npm install @mplate/core`; run the MCP server with `npx -y -p @mplate/core mplate-mcp`. If the unscoped name becomes available, it can be published later as an alias.

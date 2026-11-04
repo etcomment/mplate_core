@@ -21,8 +21,12 @@ Agent: Claude (Cowork session), at the maintainer's request.
 
 ## Open questions and follow-ups
 
-- npm name: `mplate` is taken on npm; the package is provisionally `mplate-core` (free on 2026-11-04). A scoped name is an alternative. Decide before the first publish.
+- npm name: `mplate` is taken on npm (an unrelated text-templating CLI, single release in 2018). Decided: scoped `@mplate/core` (ADR-011).
 - Text widths are estimated (ADR-007). Check rendering with the real fonts used in slides; add a metric table if text gets clipped in practice.
 - `render()` always uses the built-in registry; downstream products will need an injectable registry (backlog).
 - Manual adjustments by element id are specified but not implemented (backlog).
 - Next templates: see the Phase 2 backlog in `roadmap.md` (11 more to reach 25).
+
+## Addendum — npm name
+
+- Package renamed from `mplate-core` to `@mplate/core` in `package.json`, README and MCP docs; ADR-011 added; roadmap updated (create the npm organisation, ask for the unscoped name).
