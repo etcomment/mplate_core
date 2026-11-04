@@ -10,7 +10,8 @@ Phases follow the project plan. Dates are targets; when a milestone slips, scope
 - [x] CLI and MCP server
 - [x] Layout tests (1/4/10/30 elements, overlap, clipping, themes)
 - [x] 14 original templates, identity cards, generated catalogue
-- [ ] Create the free `mplate` organisation on npm, then publish `@mplate/core` 0.1.0 (ADR-011)
+- [x] Create the free `mplate` organisation on npm (2026-11-04)
+- [ ] Publish `@mplate/core` 0.1.0 (ADR-011)
 - [ ] Ask the owner of the unscoped `mplate` npm package whether he would transfer the name
 - [ ] Pick the five showcase visuals for the README; record the "15 lines → a roadmap" animation
 
