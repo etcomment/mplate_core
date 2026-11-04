@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 574" width="1200" height="574" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="funnel:stack" data-mplate-theme="default">
+  <title>Sales pipeline</title>
+  <rect width="1200" height="574" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Sales pipeline</tspan>
+    </text>
+    <g data-mplate-id="level-0">
+      <path d="M48 123.5 L600 123.5 L551.7 219.5 L96.3 219.5 Z" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#ffffff" text-anchor="middle">
+        <tspan x="324" y="177.66">48,000</tspan>
+      </text>
+      <line x1="583.85" y1="171.5" x2="644" y2="171.5" stroke="#c9cfdc" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <circle cx="644" cy="171.5" r="3.5" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="656" y="165.79">Visitors</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="656" y="188.67">Unique visitors per month</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="level-1">
+      <path d="M96.3 225.5 L551.7 225.5 L503.4 321.5 L144.6 321.5 Z" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="324" y="279.66">6,200</tspan>
+      </text>
+      <line x1="535.55" y1="273.5" x2="644" y2="273.5" stroke="#c9cfdc" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <circle cx="644" cy="273.5" r="3.5" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="656" y="267.79">Leads</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="656" y="290.67">Signed up for the newsletter</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="level-2">
+      <path d="M144.6 327.5 L503.4 327.5 L455.1 423.5 L192.9 423.5 Z" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="324" y="381.66">940</tspan>
+      </text>
+      <line x1="487.25" y1="375.5" x2="644" y2="375.5" stroke="#c9cfdc" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <circle cx="644" cy="375.5" r="3.5" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="656" y="369.79">Opportunities</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="656" y="392.67">Qualified by sales</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="level-3">
+      <path d="M192.9 429.5 L455.1 429.5 L406.8 525.5 L241.2 525.5 Z" fill="#e4572e"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="324" y="483.66">210</tspan>
+      </text>
+      <line x1="438.95" y1="477.5" x2="644" y2="477.5" stroke="#c9cfdc" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <circle cx="644" cy="477.5" r="3.5" fill="#e4572e"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="656" y="471.79">Customers</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="656" y="494.67">Signed a contract</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="matrix:quadrant" data-mplate-theme="default">
+  <title>Prioritisation</title>
+  <rect width="1200" height="750" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Prioritisation</tspan>
+    </text>
+    <g data-mplate-id="quadrant-0">
+      <rect x="88" y="123.5" width="526" height="260" rx="10" fill="#e1e6f9" stroke="#4361d8" stroke-width="2" data-position="top-left"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#4361d8">
+        <tspan x="110" y="165.41">Quick wins</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="110" y="190.58">Do now</tspan>
+      </text>
+      <g data-mplate-id="quadrant-0-item-0">
+        <circle cx="115" cy="217.75" r="4" fill="#4361d8"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="128" y="222.23">Self-service export</tspan>
+        </text>
+      </g>
+    </g>
+    <g data-mplate-id="quadrant-1">
+      <rect x="626" y="123.5" width="526" height="260" rx="10" fill="#d9f0ec" stroke="#13a389" stroke-width="2" data-position="top-right"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#108c76">
+        <tspan x="648" y="165.41">Big bets</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="648" y="190.58">Plan carefully</tspan>
+      </text>
+      <g data-mplate-id="quadrant-1-item-0">
+        <circle cx="653" cy="217.75" r="4" fill="#13a389"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="666" y="222.23">New data platform</tspan>
+        </text>
+      </g>
+    </g>
+    <g data-mplate-id="quadrant-2">
+      <rect x="88" y="395.5" width="526" height="260" rx="10" fill="#fdf0d7" stroke="#f0a202" stroke-width="2" data-position="bottom-left"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#a56f02">
+        <tspan x="110" y="437.41">Fill-ins</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="110" y="462.58">When time allows</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="quadrant-3">
+      <rect x="626" y="395.5" width="526" height="260" rx="10" fill="#fbe4de" stroke="#e4572e" stroke-width="2" data-position="bottom-right"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#e4572e">
+        <tspan x="648" y="437.41">Money pits</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="648" y="462.58">Avoid</tspan>
+      </text>
+    </g>
+    <line x1="88" y1="669.5" x2="1152" y2="669.5" stroke="#c9cfdc" stroke-width="2"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+      <tspan x="88" y="690.17">Low</tspan>
+    </text>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="700" fill="#1b2133" text-anchor="middle">
+      <tspan x="620" y="691.98">Effort</tspan>
+    </text>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="end">
+      <tspan x="1152" y="690.17">High</tspan>
+    </text>
+    <text x="60" y="258.4" transform="rotate(-90 60.00 253.50)" text-anchor="middle" font-size="14" font-weight="400" fill="#5b6478" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif">High</text>
+    <text x="60" y="395.1" transform="rotate(-90 60.00 389.50)" text-anchor="middle" font-size="16" font-weight="700" fill="#1b2133" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif">Impact</text>
+    <text x="60" y="530.4" transform="rotate(-90 60.00 525.50)" text-anchor="middle" font-size="14" font-weight="400" fill="#5b6478" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif">Low</text>
+  </g>
+</svg>

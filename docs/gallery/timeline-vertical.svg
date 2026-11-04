@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 426" width="1200" height="426" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="timeline:vertical" data-mplate-theme="default">
+  <title>Workshop agenda</title>
+  <rect width="1200" height="426" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Workshop agenda</tspan>
+    </text>
+    <line x1="246" y1="131.5" x2="246" y2="369.5" stroke="#c9cfdc" stroke-width="3"/>
+    <g data-mplate-id="milestone-0">
+      <circle cx="246" cy="137.5" r="8" fill="#4361d8" stroke="#ffffff" stroke-width="3"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#4361d8" text-anchor="end">
+        <tspan x="218" y="141.98">09:00</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="276" y="139.79">Welcome</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="276" y="162.67">Goals of the day</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="milestone-1">
+      <circle cx="246" cy="207.5" r="10" fill="#13a389" stroke="#ffffff" stroke-width="3"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#13a389" text-anchor="end">
+        <tspan x="218" y="211.98">09:30</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="276" y="209.79">Current state</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="276" y="232.67">What works, what hurts</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="milestone-2">
+      <circle cx="246" cy="277.5" r="8" fill="#5b6478" stroke="#ffffff" stroke-width="3"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#5b6478" text-anchor="end">
+        <tspan x="218" y="281.98">11:00</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="276" y="279.79">Target state</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="276" y="302.67">Design in small groups</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="milestone-3">
+      <circle cx="246" cy="347.5" r="8" fill="#5b6478" stroke="#ffffff" stroke-width="3"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#5b6478" text-anchor="end">
+        <tspan x="218" y="351.98">14:00</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133">
+        <tspan x="276" y="349.79">Plan</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="276" y="372.67">Owners and next steps</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

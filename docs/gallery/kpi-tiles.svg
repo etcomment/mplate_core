@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 384" width="1200" height="384" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="kpi:tiles" data-mplate-theme="default">
+  <title>Q3 at a glance</title>
+  <rect width="1200" height="384" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Q3 at a glance</tspan>
+    </text>
+    <g data-mplate-id="metric-0">
+      <rect x="48" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
+      <rect x="48" y="145.5" width="5" height="168" rx="2.5" fill="#4361d8"/>
+      <circle cx="275" cy="157.5" r="20.4" fill="#dde3f8"/>
+      <g transform="translate(263.00 145.50) scale(1.0000)" fill="none" stroke="#4361d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="euro">
+        <path d="M4 10h12"/>
+        <path d="M4 14h9"/>
+        <path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="600" fill="#5b6478">
+        <tspan x="76" y="159.07">Revenue</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="40" font-weight="800" fill="#1b2133">
+        <tspan x="76" y="209.7">€4.2M</tspan>
+      </text>
+      <g transform="translate(77.00 230.50) scale(0.7500)" fill="none" stroke="#138a52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="trending-up">
+        <path d="M16 7h6v6"/>
+        <path d="m22 7-8.5 8.5-5-5L2 17"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#138a52">
+        <tspan x="100" y="243.7">+18%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="metric-1">
+      <rect x="329" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
+      <rect x="329" y="145.5" width="5" height="168" rx="2.5" fill="#13a389"/>
+      <circle cx="556" cy="157.5" r="20.4" fill="#d5eeea"/>
+      <g transform="translate(544.00 145.50) scale(1.0000)" fill="none" stroke="#108c76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="users">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <path d="M16 3.128a4 4 0 0 1 0 7.744"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+        <circle cx="9" cy="7" r="4"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="600" fill="#5b6478">
+        <tspan x="357" y="159.07">Retention</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="40" font-weight="800" fill="#1b2133">
+        <tspan x="357" y="209.7">94%</tspan>
+      </text>
+      <g transform="translate(358.00 230.50) scale(0.7500)" fill="none" stroke="#138a52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="trending-up">
+        <path d="M16 7h6v6"/>
+        <path d="m22 7-8.5 8.5-5-5L2 17"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#138a52">
+        <tspan x="381" y="243.7">+2 pts</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="metric-2">
+      <rect x="610" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
+      <rect x="610" y="145.5" width="5" height="168" rx="2.5" fill="#f0a202"/>
+      <circle cx="837" cy="157.5" r="20.4" fill="#fceed1"/>
+      <g transform="translate(825.00 145.50) scale(1.0000)" fill="none" stroke="#a56f02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="trending-down">
+        <path d="M16 17h6v-6"/>
+        <path d="m22 17-8.5-8.5-5 5L2 7"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="600" fill="#5b6478">
+        <tspan x="638" y="159.07">Churn</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="40" font-weight="800" fill="#1b2133">
+        <tspan x="638" y="209.7">0.8%</tspan>
+      </text>
+      <g transform="translate(639.00 230.50) scale(0.7500)" fill="none" stroke="#138a52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="trending-down">
+        <path d="M16 17h6v-6"/>
+        <path d="m22 17-8.5-8.5-5 5L2 7"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#138a52">
+        <tspan x="662" y="243.7">-0.2 pts</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="metric-3">
+      <rect x="891" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
+      <rect x="891" y="145.5" width="5" height="168" rx="2.5" fill="#e4572e"/>
+      <circle cx="1118" cy="157.5" r="20.4" fill="#fae1d9"/>
+      <g transform="translate(1106.00 145.50) scale(1.0000)" fill="none" stroke="#dc481c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="rocket">
+        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/>
+        <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/>
+        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="600" fill="#5b6478">
+        <tspan x="919" y="159.07">Roadmap</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="40" font-weight="800" fill="#1b2133">
+        <tspan x="919" y="209.7">72%</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="919" y="267.27">of planned items shipped</tspan>
+      </text>
+      <rect x="919" y="299.5" width="211" height="8" rx="4" fill="#e6eaf4"/>
+      <rect x="919" y="299.5" width="151.92" height="8" rx="4" fill="#e4572e"/>
+    </g>
+  </g>
+</svg>
