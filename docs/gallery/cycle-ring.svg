@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 657" width="1200" height="657" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="cycle:ring" data-mplate-theme="default">
+  <title>Continuous improvement</title>
+  <rect width="1200" height="657" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Continuous improvement</tspan>
+    </text>
+    <g data-mplate-id="segment-0">
+      <path d="M481.91 243.96 A170 170 0 0 1 718.09 243.96 L673.22 290.43 A105.4 105.4 0 0 0 526.78 290.43 Z" fill="#4361d8"/>
+      <circle cx="600" cy="228.55" r="20.67" fill="#4361d8"/>
+      <g transform="translate(590.18 218.73) scale(0.8183)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="target">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="6"/>
+        <circle cx="12" cy="12" r="2"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="600" y="138.89">Plan</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="600" y="161.42">Set objectives</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="segment-1">
+      <path d="M722.29 248.16 A170 170 0 0 1 722.29 484.34 L675.82 439.47 A105.4 105.4 0 0 0 675.82 293.03 Z" fill="#13a389"/>
+      <circle cx="737.7" cy="366.25" r="20.67" fill="#13a389"/>
+      <g transform="translate(727.88 356.43) scale(0.8183)" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="play">
+        <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133">
+        <tspan x="800" y="360.26">Do</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="800" y="382.8">Run the change</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="segment-2">
+      <path d="M718.09 488.54 A170 170 0 0 1 481.91 488.54 L526.78 442.07 A105.4 105.4 0 0 0 673.22 442.07 Z" fill="#f0a202"/>
+      <circle cx="600" cy="503.95" r="20.67" fill="#f0a202"/>
+      <g transform="translate(590.18 494.13) scale(0.8183)" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="chart-line">
+        <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+        <path d="m19 9-5 5-4-4-3 3"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="600" y="581.64">Check</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="600" y="604.17">Measure results</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="segment-3">
+      <path d="M477.71 484.34 A170 170 0 0 1 477.71 248.16 L524.18 293.03 A105.4 105.4 0 0 0 524.18 439.47 Z" fill="#e4572e"/>
+      <circle cx="462.3" cy="366.25" r="20.67" fill="#e4572e"/>
+      <g transform="translate(452.48 356.43) scale(0.8183)" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="refresh-cw">
+        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+        <path d="M21 3v5h-5"/>
+        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+        <path d="M8 16H3v5"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="400" y="360.26">Act</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="end">
+        <tspan x="400" y="382.8">Standardise what works</tspan>
+      </text>
+    </g>
+    <circle cx="600" cy="366.25" r="95.4" fill="#f4f6fb"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#1b2133" text-anchor="middle">
+      <tspan x="600" y="372.41">Quality</tspan>
+    </text>
+  </g>
+</svg>

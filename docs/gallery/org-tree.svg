@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 517" width="1200" height="517" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="org:tree" data-mplate-theme="default">
+  <title>Programme governance</title>
+  <rect width="1200" height="517" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Programme governance</tspan>
+    </text>
+    <g data-mplate-id="unit-0">
+      <rect x="430" y="123.5" width="340" height="69.5" rx="8" fill="#e5e9fa"/>
+      <rect x="430" y="123.5" width="6" height="69.5" rx="3" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133">
+        <tspan x="450" y="152.89">Steering committee</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="450" y="174.52">Monthly decisions</tspan>
+      </text>
+    </g>
+    <line x1="600" y1="193" x2="600" y2="217" stroke="#c9cfdc" stroke-width="2"/>
+    <line x1="224" y1="217" x2="976" y2="217" stroke="#c9cfdc" stroke-width="2"/>
+    <line x1="224" y1="217" x2="224" y2="241" stroke="#c9cfdc" stroke-width="2"/>
+    <g data-mplate-id="unit-0-unit-0">
+      <rect x="48" y="241" width="352" height="69.5" rx="8" fill="#e5e9fa"/>
+      <rect x="48" y="241" width="6" height="69.5" rx="3" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133">
+        <tspan x="68" y="270.39">Programme director</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="68" y="292.02">Owns the plan</tspan>
+      </text>
+    </g>
+    <line x1="57" y1="310.5" x2="57" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <line x1="57" y1="342.5" x2="66" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <g data-mplate-id="unit-0-unit-0-unit-0">
+      <rect x="66" y="324.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
+      <rect x="66" y="324.5" width="6" height="67" rx="3" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#1b2133">
+        <tspan x="86" y="352.08">PMO</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="86" y="373.02">Planning and reporting</tspan>
+      </text>
+    </g>
+    <line x1="600" y1="217" x2="600" y2="241" stroke="#c9cfdc" stroke-width="2"/>
+    <g data-mplate-id="unit-0-unit-1">
+      <rect x="424" y="241" width="352" height="69.5" rx="8" fill="#def2ee"/>
+      <rect x="424" y="241" width="6" height="69.5" rx="3" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133">
+        <tspan x="444" y="270.39">Business lead</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="444" y="292.02">Requirements and change</tspan>
+      </text>
+    </g>
+    <line x1="433" y1="310.5" x2="433" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <line x1="433" y1="342.5" x2="442" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <g data-mplate-id="unit-0-unit-1-unit-0">
+      <rect x="442" y="324.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
+      <rect x="442" y="324.5" width="6" height="67" rx="3" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#1b2133">
+        <tspan x="462" y="352.08">Key users</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="462" y="373.02">One per site</tspan>
+      </text>
+    </g>
+    <line x1="433" y1="387.5" x2="433" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <line x1="433" y1="419.5" x2="442" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <g data-mplate-id="unit-0-unit-1-unit-1">
+      <rect x="442" y="401.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
+      <rect x="442" y="401.5" width="6" height="67" rx="3" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#1b2133">
+        <tspan x="462" y="429.08">Training</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="462" y="450.02">Rollout of new ways of working</tspan>
+      </text>
+    </g>
+    <line x1="976" y1="217" x2="976" y2="241" stroke="#c9cfdc" stroke-width="2"/>
+    <g data-mplate-id="unit-0-unit-2">
+      <rect x="800" y="241" width="352" height="69.5" rx="8" fill="#fdf2dc"/>
+      <rect x="800" y="241" width="6" height="69.5" rx="3" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133">
+        <tspan x="820" y="270.39">Technical lead</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="820" y="292.02">Architecture and delivery</tspan>
+      </text>
+    </g>
+    <line x1="809" y1="310.5" x2="809" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <line x1="809" y1="342.5" x2="818" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <g data-mplate-id="unit-0-unit-2-unit-0">
+      <rect x="818" y="324.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
+      <rect x="818" y="324.5" width="6" height="67" rx="3" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#1b2133">
+        <tspan x="838" y="352.08">Squad A</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="838" y="373.02">Core platform</tspan>
+      </text>
+    </g>
+    <line x1="809" y1="387.5" x2="809" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <line x1="809" y1="419.5" x2="818" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <g data-mplate-id="unit-0-unit-2-unit-1">
+      <rect x="818" y="401.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
+      <rect x="818" y="401.5" width="6" height="67" rx="3" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" font-weight="700" fill="#1b2133">
+        <tspan x="838" y="429.08">Squad B</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
+        <tspan x="838" y="450.02">Integrations</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

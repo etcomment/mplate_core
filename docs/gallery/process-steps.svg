@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="process:steps" data-mplate-theme="default">
+  <title>How it works</title>
+  <rect width="1200" height="300" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">How it works</tspan>
+    </text>
+    <line x1="186" y1="155.5" x2="1014" y2="155.5" stroke="#c9cfdc" stroke-width="3"/>
+    <g data-mplate-id="step-0">
+      <circle cx="186" cy="155.5" r="38" fill="#ffffff"/>
+      <circle cx="186" cy="155.5" r="32" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">
+        <tspan x="186" y="162.22">1</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="186" y="222.7">Write</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478" text-anchor="middle">
+        <tspan x="186" y="246.83">One line per element</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-1">
+      <circle cx="462" cy="155.5" r="38" fill="#ffffff"/>
+      <circle cx="462" cy="155.5" r="32" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="24" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="462" y="162.22">2</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="462" y="222.7">Render</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478" text-anchor="middle">
+        <tspan x="462" y="246.83">The layout adapts to the count</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-2">
+      <circle cx="738" cy="155.5" r="38" fill="#ffffff"/>
+      <circle cx="738" cy="155.5" r="32" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="24" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="738" y="162.22">3</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="738" y="222.7">Theme</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478" text-anchor="middle">
+        <tspan x="738" y="246.83">Apply your brand tokens</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-3">
+      <circle cx="1014" cy="155.5" r="38" fill="#ffffff"/>
+      <circle cx="1014" cy="155.5" r="32" fill="#e4572e"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="24" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="1014" y="162.22">4</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="1014" y="222.7">Export</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478" text-anchor="middle">
+        <tspan x="1014" y="246.83">SVG for slides and documents</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

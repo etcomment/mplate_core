@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 354" width="1200" height="354" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="cards:grid" data-mplate-theme="default">
+  <title>Four strategic pillars</title>
+  <rect width="1200" height="354" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Four strategic pillars</tspan>
+    </text>
+    <g data-mplate-id="card-0">
+      <rect x="48" y="123.5" width="258" height="182.5" rx="10" fill="#f4f6fb"/>
+      <path d="M48 129.5 L48 129.5 Q48 123.5 54 123.5 L300 123.5 Q306 123.5 306 129.5 L306 129.5 Z" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="800" fill="#4361d8">
+        <tspan x="70" y="175.9">01</tspan>
+      </text>
+      <g transform="translate(253.00 152.50) scale(1.2500)" fill="none" stroke="#4361d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="settings">
+        <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/>
+        <circle cx="12" cy="12" r="3"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="70" y="214.7">Operational</tspan>
+        <tspan x="70" y="238.45">excellence</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="70" y="261.67">Simplify and automate core</tspan>
+        <tspan x="70" y="279.17">processes</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="card-1">
+      <rect x="330" y="123.5" width="258" height="182.5" rx="10" fill="#f4f6fb"/>
+      <path d="M330 129.5 L330 129.5 Q330 123.5 336 123.5 L582 123.5 Q588 123.5 588 129.5 L588 129.5 Z" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="800" fill="#108c76">
+        <tspan x="352" y="175.9">02</tspan>
+      </text>
+      <g transform="translate(535.00 152.50) scale(1.2500)" fill="none" stroke="#108c76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="handshake">
+        <path d="m11 17 2 2a1 1 0 1 0 3-3"/>
+        <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/>
+        <path d="m21 3 1 11h-2"/>
+        <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/>
+        <path d="M3 4h8"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="352" y="214.7">Customer intimacy</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="352" y="237.92">Know each client by name</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="card-2">
+      <rect x="612" y="123.5" width="258" height="182.5" rx="10" fill="#f4f6fb"/>
+      <path d="M612 129.5 L612 129.5 Q612 123.5 618 123.5 L864 123.5 Q870 123.5 870 129.5 L870 129.5 Z" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="800" fill="#be8002">
+        <tspan x="634" y="175.9">03</tspan>
+      </text>
+      <g transform="translate(817.00 152.50) scale(1.2500)" fill="none" stroke="#be8002" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="lightbulb">
+        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+        <path d="M9 18h6"/>
+        <path d="M10 22h4"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="634" y="214.7">Innovation</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="634" y="237.92">Ship one new capability per</tspan>
+        <tspan x="634" y="255.42">quarter</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="card-3">
+      <rect x="894" y="123.5" width="258" height="182.5" rx="10" fill="#f4f6fb"/>
+      <path d="M894 129.5 L894 129.5 Q894 123.5 900 123.5 L1146 123.5 Q1152 123.5 1152 129.5 L1152 129.5 Z" fill="#e4572e"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="800" fill="#e4572e">
+        <tspan x="916" y="175.9">04</tspan>
+      </text>
+      <g transform="translate(1099.00 152.50) scale(1.2500)" fill="none" stroke="#e4572e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="users">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <path d="M16 3.128a4 4 0 0 1 0 7.744"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+        <circle cx="9" cy="7" r="4"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="916" y="214.7">People</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="916" y="237.92">Grow skills and careers</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

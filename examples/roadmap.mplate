@@ -1,0 +1,6 @@
+@timeline "Product roadmap 2027"
+  subtitle "From discovery to general availability"
+  milestone "Discovery" "User research and scoping" date:"Q1" done
+  milestone "Alpha" "Internal pilot with two teams" date:"Q2" current
+  milestone "Beta" "Ten design partners" date:"Q3"
+  milestone "Launch" "General availability" date:"Q4"

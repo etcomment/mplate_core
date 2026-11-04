@@ -1,0 +1,5 @@
+@kpi "Quarterly review" theme:dark
+  metric "Revenue" "€4.2M" "+18%" icon:euro
+  metric "Active customers" "1,284" "+9%" icon:users
+  metric "Churn" "0.8%" "-0.2 pts" good icon:trending-down
+  metric "Roadmap delivered" "72%" pct:72 icon:rocket

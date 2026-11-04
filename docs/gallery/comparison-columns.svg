@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 418" width="1200" height="418" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="comparison:columns" data-mplate-theme="default">
+  <title>Build or buy?</title>
+  <rect width="1200" height="418" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Build or buy?</tspan>
+    </text>
+    <g data-mplate-id="column-0">
+      <rect x="48" y="123.5" width="538" height="246.25" rx="10" fill="#f4f6fb"/>
+      <path d="M48 217.75 L48 133.5 Q48 123.5 58 123.5 L576 123.5 Q586 123.5 586 133.5 L586 217.75 Z" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#ffffff">
+        <tspan x="70" y="165.41">Build</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#ffffff">
+        <tspan x="70" y="190.58">In-house team</tspan>
+      </text>
+      <g data-mplate-id="column-0-point-0">
+        <g transform="translate(70.00 240.75) scale(0.8333)" fill="none" stroke="#138a52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="check">
+          <path d="M20 6 9 17l-5-5"/>
+        </g>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="104" y="254.23">Full control of the roadmap</tspan>
+        </text>
+      </g>
+      <g data-mplate-id="column-0-point-1">
+        <g transform="translate(70.00 276.75) scale(0.8333)" fill="none" stroke="#c9372c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="x">
+          <path d="M18 6 6 18"/>
+          <path d="m6 6 12 12"/>
+        </g>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="104" y="290.23">Twelve months to first value</tspan>
+        </text>
+      </g>
+      <g data-mplate-id="column-0-point-2">
+        <g transform="translate(70.00 312.75) scale(0.8333)" fill="none" stroke="#c9372c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="x">
+          <path d="M18 6 6 18"/>
+          <path d="m6 6 12 12"/>
+        </g>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="104" y="326.23">Hiring risk</tspan>
+        </text>
+      </g>
+    </g>
+    <g data-mplate-id="column-1">
+      <rect x="614" y="123.5" width="538" height="246.25" rx="10" fill="#f4f6fb"/>
+      <path d="M614 217.75 L614 133.5 Q614 123.5 624 123.5 L1142 123.5 Q1152 123.5 1152 133.5 L1152 217.75 Z" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#111111">
+        <tspan x="636" y="165.41">Buy</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#111111">
+        <tspan x="636" y="190.58">SaaS platform</tspan>
+      </text>
+      <g data-mplate-id="column-1-point-0">
+        <g transform="translate(636.00 240.75) scale(0.8333)" fill="none" stroke="#138a52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="check">
+          <path d="M20 6 9 17l-5-5"/>
+        </g>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="670" y="254.23">Live in six weeks</tspan>
+        </text>
+      </g>
+      <g data-mplate-id="column-1-point-1">
+        <g transform="translate(636.00 276.75) scale(0.8333)" fill="none" stroke="#c9372c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="x">
+          <path d="M18 6 6 18"/>
+          <path d="m6 6 12 12"/>
+        </g>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="670" y="290.23">Vendor lock-in</tspan>
+        </text>
+      </g>
+      <g data-mplate-id="column-1-point-2">
+        <g transform="translate(636.00 312.75) scale(0.8333)" fill="none" stroke="#138a52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="check">
+          <path d="M20 6 9 17l-5-5"/>
+        </g>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" fill="#1b2133">
+          <tspan x="670" y="326.23">Predictable subscription</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

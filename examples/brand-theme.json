@@ -1,0 +1,6 @@
+{
+  "name": "default",
+  "palette": ["#004e89", "#ff6b35", "#1a936f", "#c6a15b"],
+  "fonts": { "heading": "Georgia, serif", "body": "Arial, sans-serif" },
+  "shape": { "radius": 4 }
+}

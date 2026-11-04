@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 376" width="1200" height="376" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="timeline:axis" data-mplate-theme="default">
+  <title>Product roadmap</title>
+  <rect width="1200" height="376" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Product roadmap</tspan>
+    </text>
+    <line x1="48" y1="225.5" x2="1152" y2="225.5" stroke="#c9cfdc" stroke-width="6" stroke-linecap="round"/>
+    <line x1="48" y1="225.5" x2="462" y2="225.5" stroke="#4361d8" stroke-width="6" stroke-linecap="round"/>
+    <g data-mplate-id="milestone-0">
+      <line x1="186" y1="225.5" x2="186" y2="175.5" stroke="#4361d8" stroke-width="2" stroke-dasharray="3 4"/>
+      <circle cx="186" cy="225.5" r="10" fill="#4361d8" stroke="#ffffff" stroke-width="4"/>
+      <rect x="147.45" y="241.5" width="77.09" height="24" rx="12" fill="#f4f6fb"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" font-weight="700" fill="#4361d8" text-anchor="middle">
+        <tspan x="186" y="257.14">Q1 2027</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="186" y="141.79">Discovery</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="186" y="164.67">User research and scoping</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="milestone-1">
+      <line x1="462" y1="225.5" x2="462" y2="275.5" stroke="#13a389" stroke-width="2" stroke-dasharray="3 4"/>
+      <circle cx="462" cy="225.5" r="13" fill="#13a389" stroke="#ffffff" stroke-width="4"/>
+      <rect x="423.45" y="185.5" width="77.09" height="24" rx="12" fill="#f4f6fb"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" font-weight="700" fill="#108c76" text-anchor="middle">
+        <tspan x="462" y="201.14">Q2 2027</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="462" y="297.79">Alpha</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="462" y="320.67">Internal pilot</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="milestone-2">
+      <line x1="738" y1="225.5" x2="738" y2="175.5" stroke="#5b6478" stroke-width="2" stroke-dasharray="3 4"/>
+      <circle cx="738" cy="225.5" r="10" fill="#5b6478" stroke="#ffffff" stroke-width="4"/>
+      <rect x="699.45" y="241.5" width="77.09" height="24" rx="12" fill="#f4f6fb"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" font-weight="700" fill="#5b6478" text-anchor="middle">
+        <tspan x="738" y="257.14">Q3 2027</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="738" y="141.79">Beta</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="738" y="164.67">Ten design partners</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="milestone-3">
+      <line x1="1014" y1="225.5" x2="1014" y2="275.5" stroke="#5b6478" stroke-width="2" stroke-dasharray="3 4"/>
+      <circle cx="1014" cy="225.5" r="10" fill="#5b6478" stroke="#ffffff" stroke-width="4"/>
+      <rect x="975.45" y="185.5" width="77.09" height="24" rx="12" fill="#f4f6fb"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" font-weight="700" fill="#5b6478" text-anchor="middle">
+        <tspan x="1014" y="201.14">Q4 2027</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="1014" y="297.79">Launch</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="1014" y="320.67">General availability</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
