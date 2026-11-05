@@ -44,6 +44,7 @@ Engine backlog:
 
 - [ ] Manual adjustments API: apply `{ [elementId]: { fill, text, dx, dy } }` overrides at render time (unblocks studio canvas editing)
 - [ ] Injectable registry in `render()` (custom template sets)
+- [ ] `packages/server` — `@mplate/server`, open-source HTTP API: `POST /render` (SVG or PNG), `POST /validate`, `GET /templates`; stateless, with size and rate limits (ADR-014). After the overrides API.
 - [ ] Font metric tables per theme font (optional) — see ADR-007
 - [ ] `mplate init` to scaffold a document from a template example
 - [ ] JSON Schema for themes
