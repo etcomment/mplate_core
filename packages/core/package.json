@@ -1,6 +1,6 @@
 {
   "name": "@mplate/core",
-  "version": "0.2.0",
+  "version": "0.1.1",
   "description": "Parametric infographics from one line of text per element. DSL, SVG rendering engine, CLI and MCP server.",
   "license": "Apache-2.0",
   "author": "Stiven Guillaume",

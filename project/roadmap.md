@@ -43,7 +43,7 @@ Template backlog (one line = one template; tick when merged with gallery and tes
 Engine backlog:
 
 - [x] Manual adjustments API: `render(source, { overrides })` by element id, with `unusedOverrides` (ADR-015, 2026-11-05)
-- [ ] Publish `@mplate/core` 0.2.0
+- [ ] Publish `@mplate/core` 0.1.1 (when the maintainer decides)
 - [ ] Injectable registry in `render()` (custom template sets)
 - [ ] `packages/server` — `@mplate/server`, open-source HTTP API: `POST /render` (SVG or PNG), `POST /validate`, `GET /templates`; stateless, with size and rate limits (ADR-014). After the overrides API.
 - [ ] Font metric tables per theme font (optional) — see ADR-007
