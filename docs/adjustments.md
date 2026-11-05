@@ -50,4 +50,4 @@ The MCP tool `mplate_render` accepts the same object in its `overrides` argument
 
 An adjustment stays attached to its element id as long as that element exists. When the DSL changes so that an id disappears (a line was deleted), the adjustment is ignored, reported with a warning and listed in `result.unusedOverrides`, so the editor can drop it. Ids follow positions: inserting a line before an element shifts the ids of the elements after it.
 
-In the studio, click an element to select it, drag it to move it, use the arrow keys to nudge it (Shift for 10 px), and use the panel to change its colour or jump to its line in the DSL.
+In the studio, click an element to select it, then drag it, resize it with the corner handles or rotate it with the top handle. The properties panel edits its text (by rewriting its DSL line), its fill colour (an override as above), its stroke and its geometry. Canvas positions, sizes, rotations, strokes and hidden elements are studio adjustments: they are kept in the draft and the share link, and are part of the SVG exported from the studio, but `render()` does not know them.

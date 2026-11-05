@@ -55,8 +55,9 @@ Engine backlog:
 ## Phase 3 — MCP and launch (Mar – Apr 2027)
 
 - [x] Studio: select an element, drag or nudge it, change its colour, jump to its line; adjustments in drafts and share links (2026-11-05)
-- [ ] Studio: edit an element's text from the canvas (rewrite the DSL line rather than storing a text override)
-- [ ] Studio: autocomplete and syntax highlighting for the DSL
+- [x] Studio: edit an element's text from the properties panel, by rewriting the DSL line (2026-11-05)
+- [x] Studio: autocomplete and syntax highlighting for the DSL (2026-11-05)
+- [x] Studio: reuse the maintainer's editor UI on top of `@mplate/core` (ADR-019, 2026-11-05)
 - [ ] Studio: custom domain for the public studio
 - [ ] List the MCP server in MCP directories and "awesome" lists
 - [ ] Launch day (Show HN, Reddit, LinkedIn, X) with the demo and the gallery

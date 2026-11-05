@@ -49,3 +49,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## mplate studio dependencies
+
+The studio (`apps/studio`, not published to npm) bundles these packages in the built site. Their licence texts are shipped in their npm packages.
+
+| Package | Licence |
+| --- | --- |
+| react, react-dom | MIT |
+| zustand | MIT |
+| @uiw/react-codemirror, @codemirror/* | MIT |
+| dagre, graphlib, lodash | MIT |
+| lucide-react | ISC |

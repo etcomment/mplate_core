@@ -14,8 +14,7 @@ Planned as 0.1.1.
 - `createRenderer({ templates, themes })` to add or replace templates and themes without forking; `defineTemplate()` helper; duplicate names are rejected.
 - Manual adjustments: `render(source, { overrides })` changes the text, icon or colour of one element, or moves it with `dx`/`dy`, keyed by element id. Unknown ids are reported in `result.unusedOverrides`. Also available as `mplate render --overrides file.json` and in the `mplate_render` MCP tool. See `docs/adjustments.md`.
 - `result.layout.elements`: every element with its id, keyword, title, DSL line and parent.
-- Studio: click an element to select it, drag or use the arrow keys to move it, change its colour, jump to its DSL line; adjustments are saved in the draft and in share links.
-- mplate studio (`apps/studio`): free, account-free web editor with line diagnostics, live preview, template gallery, themes, width presets, SVG and PNG export, copy SVG, and share links that carry the design in the URL.
+- mplate studio (`apps/studio`): free, account-free web editor, based on the maintainer's editor UI (ADR-019). Canvas with zoom, shapes, icons (Lucide), connections, Mermaid import, layers, properties, smart guides, undo/redo and grouping; the 25 mplate templates in a gallery with themes and widths; a CodeMirror DSL editor with highlighting, autocomplete and line diagnostics; click a template element to edit its text (the DSL line is rewritten), colour, stroke, position, size, rotation or visibility; SVG, PNG and JPG export, copy as image; drafts in the browser and share links that carry the design in the URL.
 - GitHub Pages workflow that deploys the studio.
 
 ### Changed
