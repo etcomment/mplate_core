@@ -42,7 +42,7 @@ Format: context → decision → consequences. Append new records at the end; ne
 ## ADR-008 — Hand-written MCP server over stdio (2026-11-04)
 
 **Decision.** Implement the small subset of MCP needed (initialize, ping, tools/list, tools/call) directly, instead of depending on an SDK.
-**Consequences.** Keeps ADR-003. Supported protocol versions are listed in `src/mcp/server.ts` and must be reviewed when the protocol evolves.
+**Consequences.** Keeps ADR-003. Supported protocol versions are listed in `packages/core/src/mcp/server.ts` and must be reviewed when the protocol evolves.
 
 ## ADR-009 — Stable element ids (2026-11-04)
 
@@ -59,3 +59,13 @@ Format: context → decision → consequences. Append new records at the end; ne
 **Context.** The unscoped name `mplate` is taken on npm by an unrelated, inactive package.
 **Decision.** Publish under the `mplate` npm organisation: `@mplate/core` for the engine, CLI and MCP server. Further packages (for example a browser bundle) use the same scope. The binaries keep the names `mplate` and `mplate-mcp`.
 **Consequences.** Install with `npm install @mplate/core`; run the MCP server with `npx -y -p @mplate/core mplate-mcp`. If the unscoped name becomes available, it can be published later as an alias.
+
+## ADR-012 — Monorepo with npm workspaces (2026-11-05)
+
+**Decision.** One repository: `packages/core` (`@mplate/core`, published) and `apps/studio` (`@mplate/studio`, private, deployed as a static site). `docs/`, `examples/` and `project/` stay at the root. The root `package.json` is private and only orchestrates workspaces.
+**Consequences.** The studio always uses the engine from the same commit. CI builds the core first, then type-checks, tests and builds every workspace. `LICENSE`, `NOTICE` and `THIRD_PARTY_NOTICES.md` live at the root and are copied into `packages/core` at pack time.
+
+## ADR-013 — The studio is free and open source (2026-11-05)
+
+**Decision.** The studio (web editor without account) is part of the open-source project under Apache 2.0. It is written from scratch on top of `@mplate/core`; no code is copied from the earlier prototype. Commercial offerings, if any, are built separately and cover: accounts and cloud saving, brand kits, team sharing and libraries, and native PPTX export.
+**Consequences.** The studio must work fully offline from the engine: drafts in `localStorage`, sharing through the URL fragment (the design is encoded in the link, nothing is sent to a server). Features in the commercial list above are not added to the open-source studio. Vanilla TypeScript and Vite for now; the framework choice is revisited when canvas editing arrives.

@@ -15,9 +15,10 @@ npm test          # unit and layout tests
 npm run typecheck
 npm run build
 npm run gallery   # regenerates docs/templates.md and docs/gallery/
+npm run studio:dev  # the web studio, with hot reload
 ```
 
-Node ≥ 20. The runtime has **zero dependencies**; please keep it that way. Dev dependencies are fine.
+Node ≥ 20. The repository is an npm workspace: the engine lives in `packages/core`, the studio in `apps/studio`. The engine has **zero runtime dependencies**; please keep it that way.
 
 ## Templates
 

@@ -11,8 +11,11 @@ Phases follow the project plan. Dates are targets; when a milestone slips, scope
 - [x] Layout tests (1/4/10/30 elements, overlap, clipping, themes)
 - [x] 14 original templates, identity cards, generated catalogue
 - [x] Create the free `mplate` organisation on npm (2026-11-04)
-- [ ] Publish `@mplate/core` 0.1.0 (ADR-011)
+- [x] Publish `@mplate/core` 0.1.0 (ADR-011, 2026-11-04)
 - [ ] Ask the owner of the unscoped `mplate` npm package whether he would transfer the name
+- [x] Monorepo: `packages/core` and `apps/studio` (ADR-012)
+- [x] Studio MVP without account: DSL editor with line diagnostics, live preview, template gallery, themes, SVG/PNG export, share link (ADR-013)
+- [ ] Enable GitHub Pages (Settings → Pages → Source: GitHub Actions) so `studio.yml` publishes the studio
 - [ ] Pick the five showcase visuals for the README; record the "15 lines → a roadmap" animation
 
 ## Phase 2 — Open engine (Dec 2026 – Feb 2027)
@@ -39,21 +42,21 @@ Template backlog (one line = one template; tick when merged with gallery and tes
 
 Engine backlog:
 
+- [ ] Manual adjustments API: apply `{ [elementId]: { fill, text, dx, dy } }` overrides at render time (unblocks studio canvas editing)
 - [ ] Injectable registry in `render()` (custom template sets)
-- [ ] Manual adjustments API: apply `{ [elementId]: { fill, text, dx, dy } }` overrides at render time
 - [ ] Font metric tables per theme font (optional) — see ADR-007
-- [ ] Browser bundle and a minimal playground page (no account)
 - [ ] `mplate init` to scaffold a document from a template example
 - [ ] JSON Schema for themes
 
 ## Phase 3 — MCP and launch (Mar – Apr 2027)
 
-- [ ] Public editor without accounts (separate repository)
-- [ ] SVG and basic PNG export from the editor
+- [ ] Studio: manual adjustments on the canvas (select an element, change colour, text, position), stored by element id (needs the overrides API)
+- [ ] Studio: autocomplete and syntax highlighting for the DSL
+- [ ] Studio: custom domain for the public studio
 - [ ] List the MCP server in MCP directories and "awesome" lists
 - [ ] Launch day (Show HN, Reddit, LinkedIn, X) with the demo and the gallery
 - [ ] One visual a week published with its source
 
 ## Later (not in this repository)
 
-Accounts, organisations, saving and versions, brand kits, PPTX export and master import, locked templates, SSO. The engine provides the generic hooks (theme tokens, element ids, identity cards).
+Accounts, organisations, saving and versions, brand kits, sharing and team libraries, PPTX export and master import, locked templates, SSO. The engine provides the generic hooks (theme tokens, element ids, identity cards).

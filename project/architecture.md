@@ -1,5 +1,19 @@
 # Architecture
 
+## Repository layout
+
+```
+packages/core/   @mplate/core — DSL, engine, templates, CLI, MCP server (published to npm)
+apps/studio/     @mplate/studio — free web editor, Vite + TypeScript, deployed to GitHub Pages
+docs/            user documentation and the generated gallery
+examples/        sample documents and a brand theme
+project/         framing documents and work log
+```
+
+Commands run from the root with npm workspaces: `npm run build`, `npm test`, `npm run typecheck`, `npm run gallery`, `npm run studio:dev`.
+
+## Engine pipeline
+
 ```
 source text
    │  dsl/tokenize.ts, dsl/parse.ts
@@ -19,6 +33,8 @@ RenderResult { ok, svg, width, height, template, diagnostics, layout }
 ```
 
 ## Modules
+
+Paths below are relative to `packages/core/`.
 
 | Path | Responsibility |
 | --- | --- |
@@ -45,3 +61,16 @@ RenderResult { ok, svg, width, height, template, diagnostics, layout }
 ## Coordinates
 
 All templates draw on a canvas of fixed width (default 1200 px) with 48 px padding; the height grows with the content. The heading (title, subtitle) is drawn by the pipeline, and `canvas.top` points below it.
+
+## Studio
+
+| Path | Responsibility |
+| --- | --- |
+| `apps/studio/index.html` | Layout: top bar, editor pane, preview pane, templates dialog |
+| `src/main.ts` | Wiring: render on input (debounced), diagnostics list, theme and width, exports, share |
+| `src/editor.ts` | Textarea editor with line numbers, diagnostic marks, Tab and auto-indent |
+| `src/gallery.ts` | Template gallery rendered from the identity cards |
+| `src/exporters.ts` | SVG download, PNG rasterisation in the browser, clipboard |
+| `src/state.ts` | Draft in `localStorage`, share links (`#dsl=` + base64url JSON) |
+
+The studio never sends the design to a server.
