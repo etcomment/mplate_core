@@ -96,7 +96,7 @@ function colorOverrides(colors: Record<string, string>): Overrides {
 
 export function renderTemplate(source: string, theme: string, width: number, colors: Record<string, string>): TemplateRender | null {
   if (!source.trim()) return null
-  const result = render(source, { theme, width, overrides: colorOverrides(colors) })
+  const result = render(source, { theme, width, background: false, overrides: colorOverrides(colors) })
   const outcome: TemplateRender = {
     ok: result.ok,
     svg: result.svg,
