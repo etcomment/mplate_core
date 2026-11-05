@@ -65,3 +65,12 @@ describe('createRenderer', () => {
     expect(renderer.listThemes().map((theme) => theme.name)).toContain('acme')
   })
 })
+
+describe('built-in catalogue', () => {
+  it('passes the same checks as custom templates', async () => {
+    const { BUILT_IN_TEMPLATES } = await import('../src/templates/registry.js')
+    const { checkTemplates } = await import('../src/renderer.js')
+    expect(() => checkTemplates(BUILT_IN_TEMPLATES)).not.toThrow()
+    expect(BUILT_IN_TEMPLATES).toHaveLength(25)
+  })
+})

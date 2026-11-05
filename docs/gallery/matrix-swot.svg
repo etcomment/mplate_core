@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 483" width="1200" height="483" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="matrix:swot" data-mplate-theme="default">
+  <title>Opening a Lyon office</title>
+  <rect width="1200" height="483" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Opening a Lyon office</tspan>
+    </text>
+    <rect x="48" y="123.5" width="544" height="147.5" rx="10" fill="#e3f1ea"/>
+    <circle cx="88" cy="163.5" r="20" fill="#138a52"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#ffffff" text-anchor="middle">
+      <tspan x="88" y="169.1">S</tspan>
+    </text>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#138a52">
+      <tspan x="122" y="169.1">Strengths</tspan>
+    </text>
+    <g data-mplate-id="strength-0">
+      <circle cx="73" cy="207.5" r="4" fill="#138a52"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#1b2133">
+        <tspan x="86" y="211.08">Two clients already in the region</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="strength-1">
+      <circle cx="73" cy="234.25" r="4" fill="#138a52"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#1b2133">
+        <tspan x="86" y="237.83">Senior team ready to relocate</tspan>
+      </text>
+    </g>
+    <rect x="608" y="123.5" width="544" height="147.5" rx="10" fill="#f6efe4"/>
+    <circle cx="648" cy="163.5" r="20" fill="#b7791f"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#111111" text-anchor="middle">
+      <tspan x="648" y="169.1">W</tspan>
+    </text>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#b7791f">
+      <tspan x="682" y="169.1">Weaknesses</tspan>
+    </text>
+    <g data-mplate-id="weakness-0">
+      <circle cx="633" cy="207.5" r="4" fill="#b7791f"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#1b2133">
+        <tspan x="646" y="211.08">No local brand awareness</tspan>
+      </text>
+    </g>
+    <rect x="48" y="287" width="544" height="147.5" rx="10" fill="#e8ecfa"/>
+    <circle cx="88" cy="327" r="20" fill="#4361d8"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#ffffff" text-anchor="middle">
+      <tspan x="88" y="332.6">O</tspan>
+    </text>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#4361d8">
+      <tspan x="122" y="332.6">Opportunities</tspan>
+    </text>
+    <g data-mplate-id="opportunity-0">
+      <circle cx="73" cy="371" r="4" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#1b2133">
+        <tspan x="86" y="374.58">Public tenders in 2027</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="opportunity-1">
+      <circle cx="73" cy="397.75" r="4" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#1b2133">
+        <tspan x="86" y="401.33">Partnership with a local school</tspan>
+      </text>
+    </g>
+    <rect x="608" y="287" width="544" height="147.5" rx="10" fill="#f9e7e6"/>
+    <circle cx="648" cy="327" r="20" fill="#c9372c"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#ffffff" text-anchor="middle">
+      <tspan x="648" y="332.6">T</tspan>
+    </text>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#c9372c">
+      <tspan x="682" y="332.6">Threats</tspan>
+    </text>
+    <g data-mplate-id="threat-0">
+      <circle cx="633" cy="371" r="4" fill="#c9372c"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#1b2133">
+        <tspan x="646" y="374.58">Two competitors hiring locally</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

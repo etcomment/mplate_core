@@ -61,6 +61,7 @@ function buildItem(node: DslNode, spec: ElementSpec, context: BuildContext, inde
     color: context.theme.color(colorReference ?? '', index),
     hasExplicitColor: colorReference !== undefined,
     flags: [],
+    values: [],
     attributes: { ...node.attributes },
     children: [],
     line: node.line,
@@ -76,6 +77,7 @@ function buildItem(node: DslNode, spec: ElementSpec, context: BuildContext, inde
   positionalValues.forEach((value, position) => {
     const field = spec.positional[position]
     if (field) assignField(item, field, value.text)
+    else if (spec.acceptsExtraValues) item.values.push(value.text)
     else context.diagnostics.push({ severity: 'warning', line: node.line, message: `Extra value "${value.text}" ignored for ${spec.keyword}`, hint: `${spec.keyword} accepts: ${spec.positional.join(', ')}` })
   })
   for (const [name, raw] of Object.entries(node.attributes)) {

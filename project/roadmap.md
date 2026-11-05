@@ -20,31 +20,33 @@ Phases follow the project plan. Dates are targets; when a milestone slips, scope
 
 ## Phase 2 — Open engine (Dec 2026 – Feb 2027)
 
-Goal: 25 original templates (14 shipped; pick 11 from the backlog below), all driven by theme tokens, each with its identity card.
+Goal: 25 original templates (reached on 2026-11-05), all driven by theme tokens, each with its identity card.
 
 Template backlog (one line = one template; tick when merged with gallery and tests):
 
-- [ ] `timeline:swimlanes` — milestones on several lanes (product roadmap by team)
-- [ ] `timeline:gantt` — bars with start/end dates
-- [ ] `process:loop` — steps with a return arrow
-- [ ] `process:vertical` — stacked steps for long descriptions
-- [ ] `funnel:bars` — horizontal bars with conversion rates
-- [ ] `cycle:orbit` — nodes on a circle around a centre
+- [x] `timeline:swimlanes` — milestones on several lanes (product roadmap by team)
+- [x] `timeline:gantt` — bars with start/end dates
+- [x] `process:loop` — steps with a return arrow
+- [x] `process:vertical` — stacked steps for long descriptions
+- [x] `funnel:bars` — horizontal bars with conversion rates
+- [x] `cycle:orbit` — nodes on a circle around a centre
 - [ ] `pyramid:inverted`
 - [ ] `cards:icons` — large icon tiles
-- [ ] `kpi:gauges` — radial gauges with `pct:`
-- [ ] `comparison:table` — feature matrix with ticks
-- [ ] `matrix:swot` — four labelled boxes with bullets
+- [x] `kpi:gauges` — radial gauges with `pct:`
+- [x] `comparison:table` — feature matrix with ticks
+- [x] `matrix:swot` — four labelled boxes with bullets
 - [ ] `org:horizontal` — left-to-right tree
-- [ ] `stack:layers` — architecture layers
-- [ ] `venn:circles` — 2–3 overlapping sets
+- [x] `stack:layers` — architecture layers
+- [x] `venn:circles` — 2–3 overlapping sets
 - [ ] `agenda:list` — time slots
 
 Engine backlog:
 
 - [x] Manual adjustments API: `render(source, { overrides })` by element id, with `unusedOverrides` (ADR-015, 2026-11-05)
 - [ ] Publish `@mplate/core` 0.1.1 (when the maintainer decides)
-- [ ] Injectable registry in `render()` (custom template sets)
+- [x] `createRenderer({ templates, themes })` for custom template sets (ADR-018, 2026-11-05)
+- [x] Brand kit format v1 with JSON Schema and validation (ADR-017, 2026-11-05)
+- [ ] Brand kit import in the studio
 - [ ] `packages/server` — `@mplate/server`, open-source HTTP API: `POST /render` (SVG or PNG), `POST /validate`, `GET /templates`; stateless, with size and rate limits (ADR-014). After the overrides API.
 - [ ] Font metric tables per theme font (optional) — see ADR-007
 - [ ] `mplate init` to scaffold a document from a template example

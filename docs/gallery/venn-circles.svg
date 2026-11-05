@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 797" width="1200" height="797" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="venn:circles" data-mplate-theme="default">
+  <title>Where innovation happens</title>
+  <rect width="1200" height="797" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Where innovation happens</tspan>
+    </text>
+    <g data-mplate-id="set-0">
+      <circle cx="494.6" cy="358.75" r="170" fill="#4361d8" fill-opacity="0.28" stroke="#4361d8" stroke-width="3"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#4361d8" text-anchor="end">
+        <tspan x="375.6" y="144.7">Desirable</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="end">
+        <tspan x="375.6" y="167.92">People want it</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="set-1">
+      <circle cx="705.4" cy="358.75" r="170" fill="#13a389" fill-opacity="0.28" stroke="#13a389" stroke-width="3"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#13a389">
+        <tspan x="824.4" y="144.7">Feasible</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="824.4" y="167.92">We can build it</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="set-2">
+      <circle cx="600" cy="516.85" r="170" fill="#f0a202" fill-opacity="0.28" stroke="#f0a202" stroke-width="3"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#be8002" text-anchor="middle">
+        <tspan x="600" y="720.05">Viable</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="600" y="743.27">It makes money</tspan>
+      </text>
+    </g>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="800" fill="#1b2133" text-anchor="middle">
+      <tspan x="600" y="416.21">Innovation</tspan>
+    </text>
+  </g>
+</svg>

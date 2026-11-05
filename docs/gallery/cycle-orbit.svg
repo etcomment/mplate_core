@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 664" width="1200" height="664" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="cycle:orbit" data-mplate-theme="default">
+  <title>Customer lifecycle</title>
+  <rect width="1200" height="664" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Customer lifecycle</tspan>
+    </text>
+    <circle cx="600" cy="399.93" r="187.68" fill="none" stroke="#c9cfdc" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
+    <path d="M718.11 254.08 L698.41 248.4 L706.03 236.66 Z" fill="#c9cfdc"/>
+    <path d="M775.21 467.19 L774.52 446.69 L788.05 450.32 Z" fill="#c9cfdc"/>
+    <path d="M590.18 587.35 L609.46 580.36 L610.19 594.34 Z" fill="#c9cfdc"/>
+    <path d="M418.72 448.51 L431.32 464.68 L418.25 469.7 Z" fill="#c9cfdc"/>
+    <path d="M497.78 242.53 L486.29 259.52 L477.48 248.64 Z" fill="#c9cfdc"/>
+    <circle cx="600" cy="399.93" r="84.46" fill="#f4f6fb"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="21" font-weight="800" fill="#1b2133" text-anchor="middle">
+      <tspan x="600" y="405.81">Customer</tspan>
+    </text>
+    <g data-mplate-id="stage-0">
+      <circle cx="600" cy="212.25" r="33" fill="#ffffff"/>
+      <circle cx="600" cy="212.25" r="28" fill="#4361d8"/>
+      <g transform="translate(586.70 198.95) scale(1.1083)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="search">
+        <path d="m21 21-4.34-4.34"/>
+        <circle cx="11" cy="11" r="8"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="600" y="146.89">Discover</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="600" y="169.42">Finds us through content</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="stage-1">
+      <circle cx="778.49" cy="341.93" r="33" fill="#ffffff"/>
+      <circle cx="778.49" cy="341.93" r="28" fill="#13a389"/>
+      <g transform="translate(765.19 328.63) scale(1.1083)" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="play">
+        <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133">
+        <tspan x="820.49" y="335.94">Try</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="820.49" y="358.48">Free studio, no account</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="stage-2">
+      <circle cx="710.32" cy="551.77" r="33" fill="#ffffff"/>
+      <circle cx="710.32" cy="551.77" r="28" fill="#f0a202"/>
+      <g transform="translate(697.02 538.47) scale(1.1083)" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="users">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <path d="M16 3.128a4 4 0 0 1 0 7.744"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+        <circle cx="9" cy="7" r="4"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133">
+        <tspan x="752.32" y="545.78">Adopt</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478">
+        <tspan x="752.32" y="568.31">Team plan and brand kit</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="stage-3">
+      <circle cx="489.68" cy="551.77" r="33" fill="#ffffff"/>
+      <circle cx="489.68" cy="551.77" r="28" fill="#e4572e"/>
+      <g transform="translate(476.38 538.47) scale(1.1083)" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="trending-up">
+        <path d="M16 7h6v6"/>
+        <path d="m22 7-8.5 8.5-5-5L2 17"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="447.68" y="545.78">Expand</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="end">
+        <tspan x="447.68" y="568.31">More teams, more kits</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="stage-4">
+      <circle cx="421.51" cy="341.93" r="33" fill="#ffffff"/>
+      <circle cx="421.51" cy="341.93" r="28" fill="#7d5bd0"/>
+      <g transform="translate(408.21 328.63) scale(1.1083)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="megaphone">
+        <path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/>
+        <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/>
+        <path d="M8 6v8"/>
+      </g>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="379.51" y="335.94">Advocate</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="end">
+        <tspan x="379.51" y="358.48">Shares visuals publicly</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 496" width="1200" height="496" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="funnel:bars" data-mplate-theme="default">
+  <title>Recruitment pipeline</title>
+  <rect width="1200" height="496" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Recruitment pipeline</tspan>
+    </text>
+    <g data-mplate-id="level-0">
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="288" y="153.98">Applications</tspan>
+      </text>
+      <rect x="304" y="123.5" width="758" height="52" rx="6" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="800" fill="#ffffff">
+        <tspan x="316" y="154.26">1,240</tspan>
+      </text>
+      <path d="M1070 177.5 l6 6 l6 -6" fill="none" stroke="#5b6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478">
+        <tspan x="1088" y="187.42">33%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="level-1">
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="288" y="221.98">Screened</tspan>
+      </text>
+      <rect x="304" y="191.5" width="250.63" height="52" rx="6" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="800" fill="#111111">
+        <tspan x="316" y="222.26">410</tspan>
+      </text>
+      <path d="M1070 245.5 l6 6 l6 -6" fill="none" stroke="#5b6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478">
+        <tspan x="1088" y="255.42">23%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="level-2">
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="288" y="289.98">Interviewed</tspan>
+      </text>
+      <rect x="304" y="259.5" width="58.68" height="52" rx="6" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="800" fill="#1b2133">
+        <tspan x="372.68" y="290.26">96</tspan>
+      </text>
+      <path d="M1070 313.5 l6 6 l6 -6" fill="none" stroke="#5b6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478">
+        <tspan x="1088" y="323.42">19%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="level-3">
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="288" y="357.98">Offers</tspan>
+      </text>
+      <rect x="304" y="327.5" width="11" height="52" rx="6" fill="#e4572e"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="800" fill="#1b2133">
+        <tspan x="325" y="358.26">18</tspan>
+      </text>
+      <path d="M1070 381.5 l6 6 l6 -6" fill="none" stroke="#5b6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478">
+        <tspan x="1088" y="391.42">78%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="level-4">
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="700" fill="#1b2133" text-anchor="end">
+        <tspan x="288" y="425.98">Hired</tspan>
+      </text>
+      <rect x="304" y="395.5" width="8.56" height="52" rx="6" fill="#7d5bd0"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="800" fill="#1b2133">
+        <tspan x="322.56" y="426.26">14</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

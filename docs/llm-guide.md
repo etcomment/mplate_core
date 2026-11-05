@@ -75,6 +75,52 @@ Example:
   step "Export" "SVG for slides and documents"
 ```
 
+## Vertical steps — `process:vertical`
+
+Steps stacked top to bottom with a numbered badge, a connecting line and room for long descriptions. A figure (val:) is shown on the right.
+
+- Header: `@process style:vertical` (aliases: @process3)
+- Elements: 1 to 20 (best with 3 to 8)
+- Good for: procedure; method with detailed steps; onboarding checklist
+
+Element lines:
+- `step "title" "subtitle" "value"` (aliases: stage, phase): One step
+
+Example:
+
+```mplate
+@process style:vertical "Incident procedure"
+  step "Detect" "Monitoring raises an alert or a user calls the service desk" val:"5 min"
+  step "Qualify" "Assess impact and urgency, open a ticket with the right priority" val:"15 min"
+  step "Resolve" "Apply the known fix or escalate to the expert team" val:"4 h"
+  step "Close" "Confirm with the user and record the root cause" val:"1 day"
+```
+
+## Process loop — `process:loop`
+
+Steps on a closed track: left to right on the top, back right to left on the bottom, so the last step leads into the first.
+
+- Header: `@process style:loop` (aliases: @process4)
+- Elements: 1 to 10 (best with 4 to 8)
+- Good for: sprint cycle; continuous delivery loop; feedback loop
+
+Element lines:
+- `step "title" "subtitle"` (aliases: stage, phase): One step, in order around the loop
+
+Settings (at most once):
+- `center "text"`: Label in the middle of the loop
+
+Example:
+
+```mplate
+@process style:loop "Sprint cycle"
+  center "Two weeks"
+  step "Plan" "Pick the sprint goal"
+  step "Build" "Develop and test"
+  step "Review" "Demo to stakeholders"
+  step "Improve" "Retrospective"
+```
+
 ## Horizontal timeline — `timeline:axis`
 
 Milestones on a horizontal axis, alternating above and below, with the date on the axis. Flag a milestone `done` or `current` to show progress.
@@ -117,6 +163,63 @@ Example:
   milestone "Plan" "Owners and next steps" date:14:00
 ```
 
+## Swimlane roadmap — `timeline:swimlanes`
+
+One lane per team or workstream, periods as columns, milestones as cards in the right cell. Indent milestones under their lane.
+
+- Header: `@timeline style:swimlanes` (aliases: @roadmap-lanes, @productroadmap)
+- Elements: 1 to 8 (best with 2 to 5)
+- Good for: product roadmap by team; programme plan by workstream; portfolio view
+
+Element lines:
+- `lane "title" "subtitle"` (aliases: team, stream, workstream): One lane; its milestones are indented below it
+  - `milestone "title" "subtitle"` (aliases: item, event): A milestone in a period of the lane (date: one of the periods) (indented under lane)
+
+Settings (at most once):
+- `periods "period" "…"`: Column labels in order; milestones refer to them with date:
+
+Example:
+
+```mplate
+@timeline style:swimlanes "Roadmap 2027"
+  periods "Q1" "Q2" "Q3" "Q4"
+  lane "Product"
+    milestone "Discovery" "Interviews" date:Q1
+    milestone "Beta" "Ten customers" date:Q3
+  lane "Platform"
+    milestone "New API" date:Q2
+    milestone "Scale-out" date:Q4
+  lane "Sales"
+    milestone "Pilot offer" date:Q2
+    milestone "Launch" date:Q4
+```
+
+## Gantt chart — `timeline:gantt`
+
+Tasks as bars across periods, from: and to: name the first and last period. pct: shows progress; the flag milestone draws a diamond.
+
+- Header: `@timeline style:gantt` (aliases: @gantt)
+- Elements: 1 to 30 (best with 4 to 15)
+- Good for: project schedule; release plan; phasing of a programme
+
+Element lines:
+- `task "title"` (aliases: bar, activity): One task from a period to a period (from:, to:) — flags: milestone
+
+Settings (at most once):
+- `periods "period" "…"`: Column labels in order (months, sprints, quarters)
+
+Example:
+
+```mplate
+@timeline style:gantt "Delivery plan"
+  periods "Jan" "Feb" "Mar" "Apr" "May" "Jun"
+  task "Scoping" from:Jan to:Jan pct:100
+  task "Design" from:Feb to:Mar pct:60
+  task "Build" from:Mar to:May pct:10
+  task "Training" from:May to:Jun
+  task "Go live" from:Jun milestone
+```
+
 ## Stacked funnel — `funnel:stack`
 
 Narrowing layers with the key figure inside each layer and the explanation on the right.
@@ -136,6 +239,28 @@ Example:
   level "Leads" "Signed up for the newsletter" val:"6,200"
   level "Opportunities" "Qualified by sales" val:"940"
   level "Customers" "Signed a contract" val:"210"
+```
+
+## Conversion bars — `funnel:bars`
+
+One horizontal bar per stage, sized by its figure (val: or pct:), with the conversion rate from one stage to the next.
+
+- Header: `@funnel style:bars` (aliases: @funnel2, @conversion)
+- Elements: 1 to 12 (best with 3 to 7)
+- Good for: sales conversion; recruitment pipeline; adoption funnel
+
+Element lines:
+- `level "title" "subtitle" "value"` (aliases: stage, step): One stage with its figure in val: (or pct:)
+
+Example:
+
+```mplate
+@funnel style:bars "Recruitment pipeline"
+  level "Applications" val:"1,240"
+  level "Screened" val:"410"
+  level "Interviewed" val:"96"
+  level "Offers" val:"18"
+  level "Hired" val:"14"
 ```
 
 ## Layered pyramid — `pyramid:layers`
@@ -182,6 +307,32 @@ Example:
   segment "Do" "Run the change" icon:play
   segment "Check" "Measure results" icon:chart-line
   segment "Act" "Standardise what works" icon:refresh-cw
+```
+
+## Orbit cycle — `cycle:orbit`
+
+Stages as badges on a circular track with arrows showing the direction, around a central label. Lighter than the ring for long labels.
+
+- Header: `@cycle style:orbit` (aliases: @cycle2)
+- Elements: 1 to 10 (best with 4 to 8)
+- Good for: customer lifecycle; learning loop; annual planning cycle
+
+Element lines:
+- `stage "title" "subtitle"` (aliases: step, segment): One stage, clockwise from the top
+
+Settings (at most once):
+- `center "text"`: Text in the middle
+
+Example:
+
+```mplate
+@cycle style:orbit "Customer lifecycle"
+  center "Customer"
+  stage "Discover" "Finds us through content" icon:search
+  stage "Try" "Free studio, no account" icon:play
+  stage "Adopt" "Team plan and brand kit" icon:users
+  stage "Expand" "More teams, more kits" icon:trending-up
+  stage "Advocate" "Shares visuals publicly" icon:megaphone
 ```
 
 ## Hub and spokes — `brain:spokes`
@@ -277,6 +428,27 @@ Example:
   metric "Roadmap" "72%" pct:72 sub:"of planned items shipped" icon:rocket
 ```
 
+## Gauges — `kpi:gauges`
+
+Radial gauges filled to pct:, with the figure in the centre and a label below. Ideal for completion, satisfaction or targets reached.
+
+- Header: `@kpi style:gauges` (aliases: @gauges, @kpi2)
+- Elements: 1 to 18 (best with 3 to 6)
+- Good for: project completion; objectives reached; survey scores
+
+Element lines:
+- `gauge "title" "subtitle" "value"` (aliases: metric, kpi): One gauge; pct: sets the fill (0–100)
+
+Example:
+
+```mplate
+@kpi style:gauges "Programme health"
+  gauge "Scope delivered" "Features in production" pct:72
+  gauge "Budget used" "Of the yearly budget" pct:58
+  gauge "Team satisfaction" "Quarterly survey" pct:81 val:"8.1/10"
+  gauge "Risks closed" "Since kick-off" pct:44
+```
+
 ## Comparison columns — `comparison:columns`
 
 Two to four options side by side, each with a coloured header and a list of points. Mark points with `yes` or `no` for ticks and crosses.
@@ -303,11 +475,38 @@ Example:
     point "Predictable subscription" yes
 ```
 
+## Feature table — `comparison:table`
+
+A comparison matrix: options as columns, one row per criterion. Cells accept yes, no, partial or any short text. highlight names the recommended column.
+
+- Header: `@comparison style:table` (aliases: @features, @comparison2)
+- Elements: 1 to 30 (best with 4 to 12)
+- Good for: offer tiers; vendor comparison; capability matrix
+
+Element lines:
+- `row "title"` (aliases: feature, criterion): One criterion followed by one value per column (yes, no, partial or text)
+
+Settings (at most once):
+- `columns "option" "…"`: The options compared, in order
+- `highlight "option"`: The recommended option
+
+Example:
+
+```mplate
+@comparison style:table "Which plan?"
+  columns "Free" "Pro" "Team"
+  highlight "Team"
+  row "Unlimited visuals" yes yes yes
+  row "Brand kit" no partial yes
+  row "PowerPoint export" no yes yes
+  row "Members" "1" "1" "Up to 25"
+```
+
 ## 2×2 matrix — `matrix:quadrant`
 
 Four quadrants on two labelled axes, filled top-left, top-right, bottom-left, bottom-right. Indent items under a quadrant to list them inside it.
 
-- Header: `@matrix  or  @matrix style:quadrant` (aliases: @matrix2x2, @quadrant, @swot)
+- Header: `@matrix  or  @matrix style:quadrant` (aliases: @matrix2x2, @quadrant)
 - Elements: 1 to 4 (best with 4 to 4)
 - Good for: prioritisation (impact / effort); SWOT; positioning map
 
@@ -331,6 +530,35 @@ Example:
     item "New data platform"
   quadrant "Fill-ins" "When time allows"
   quadrant "Money pits" "Avoid"
+```
+
+## SWOT — `matrix:swot`
+
+Strengths, weaknesses, opportunities and threats in four boxes. Write one line per point; each keyword sends the point to its box. labels renames the boxes.
+
+- Header: `@matrix style:swot` (aliases: @swot)
+- Elements: 1 to 40 (best with 8 to 16)
+- Good for: strategic analysis; project review; market entry
+
+Element lines:
+- `strength "title"` (aliases: strengths, s): A point in Strengths
+- `weakness "title"` (aliases: weaknesses, w): A point in Weaknesses
+- `opportunity "title"` (aliases: opportunities, o): A point in Opportunities
+- `threat "title"` (aliases: threats, t): A point in Threats
+
+Settings (at most once):
+- `labels "strengths" "weaknesses" "opportunities" "threats"`: Box titles in order S, W, O, T (to translate them)
+
+Example:
+
+```mplate
+@matrix style:swot "Opening a Lyon office"
+  strength "Two clients already in the region"
+  strength "Senior team ready to relocate"
+  weakness "No local brand awareness"
+  opportunity "Public tenders in 2027"
+  opportunity "Partnership with a local school"
+  threat "Two competitors hiring locally"
 ```
 
 ## Organisation chart — `org:tree`
@@ -358,5 +586,58 @@ Example:
     unit "Technical lead" "Architecture and delivery"
       unit "Squad A" "Core platform"
       unit "Squad B" "Integrations"
+```
+
+## Layered stack — `stack:layers`
+
+Horizontal layers from top to bottom, each with its components as chips that wrap onto several lines. Indent components under their layer.
+
+- Header: `@stack  or  @stack style:layers` (aliases: @architecture, @layers, @stack1)
+- Elements: 1 to 10 (best with 3 to 6)
+- Good for: application architecture; capability map; technology stack
+
+Element lines:
+- `layer "title" "subtitle"` (aliases: tier, level): One layer; its components are indented below it
+  - `component "title"` (aliases: item, block, app): One component of the layer (indented under layer)
+
+Example:
+
+```mplate
+@stack "Target architecture"
+  layer "Channels" "Where users meet us"
+    component "Website" icon:globe
+    component "Mobile app" icon:smartphone
+    component "Partner API" icon:link
+  layer "Services"
+    component "Orders" icon:shopping-cart
+    component "Billing" icon:credit-card
+    component "Identity" icon:lock
+  layer "Data" "Single source of truth"
+    component "Warehouse" icon:database
+    component "Event bus" icon:share-2
+```
+
+## Venn diagram — `venn:circles`
+
+Two or three overlapping sets with their labels outside the circles and an optional label for the shared centre.
+
+- Header: `@venn  or  @venn style:circles` (aliases: @venn1)
+- Elements: 1 to 3 (best with 2 to 3)
+- Good for: sweet spot; skills overlap; product–market fit
+
+Element lines:
+- `set "title" "subtitle"` (aliases: circle, group): One set
+
+Settings (at most once):
+- `center "text"`: Label of the area shared by all sets
+
+Example:
+
+```mplate
+@venn "Where innovation happens"
+  center "Innovation"
+  set "Desirable" "People want it"
+  set "Feasible" "We can build it"
+  set "Viable" "It makes money"
 ```
 

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 436" width="1200" height="436" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="process:vertical" data-mplate-theme="default">
+  <title>Incident procedure</title>
+  <rect width="1200" height="436" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Incident procedure</tspan>
+    </text>
+    <line x1="76" y1="147.5" x2="76" y2="363.5" stroke="#c9cfdc" stroke-width="3"/>
+    <g data-mplate-id="step-0">
+      <circle cx="76" cy="147.5" r="29" fill="#ffffff"/>
+      <circle cx="76" cy="147.5" r="24" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="800" fill="#ffffff" text-anchor="middle">
+        <tspan x="76" y="152.54">1</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="122" y="141.45">Detect</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="122" y="165.58">Monitoring raises an alert or a user calls the service desk</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#4361d8" text-anchor="end">
+        <tspan x="1152" y="153.66">5 min</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-1">
+      <circle cx="76" cy="219.5" r="29" fill="#ffffff"/>
+      <circle cx="76" cy="219.5" r="24" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="76" y="224.54">2</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="122" y="213.45">Qualify</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="122" y="237.58">Assess impact and urgency, open a ticket with the right priority</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#13a389" text-anchor="end">
+        <tspan x="1152" y="225.66">15 min</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-2">
+      <circle cx="76" cy="291.5" r="29" fill="#ffffff"/>
+      <circle cx="76" cy="291.5" r="24" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="76" y="296.54">3</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="122" y="285.45">Resolve</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="122" y="309.58">Apply the known fix or escalate to the expert team</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#be8002" text-anchor="end">
+        <tspan x="1152" y="297.66">4 h</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-3">
+      <circle cx="76" cy="363.5" r="29" fill="#ffffff"/>
+      <circle cx="76" cy="363.5" r="24" fill="#e4572e"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="18" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="76" y="368.54">4</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="19" font-weight="700" fill="#1b2133">
+        <tspan x="122" y="357.45">Close</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="15" fill="#5b6478">
+        <tspan x="122" y="381.58">Confirm with the user and record the root cause</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="22" font-weight="800" fill="#e4572e" text-anchor="end">
+        <tspan x="1152" y="369.66">1 day</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
