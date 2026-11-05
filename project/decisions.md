@@ -69,3 +69,8 @@ Format: context → decision → consequences. Append new records at the end; ne
 
 **Decision.** The studio (web editor without account) is part of the open-source project under Apache 2.0. It is written from scratch on top of `@mplate/core`; no code is copied from the earlier prototype. Commercial offerings, if any, are built separately and cover: accounts and cloud saving, brand kits, team sharing and libraries, and native PPTX export.
 **Consequences.** The studio must work fully offline from the engine: drafts in `localStorage`, sharing through the URL fragment (the design is encoded in the link, nothing is sent to a server). Features in the commercial list above are not added to the open-source studio. Vanilla TypeScript and Vite for now; the framework choice is revisited when canvas editing arrives.
+
+## ADR-014 — What runs on the user's side is free; hosted services have quotas (2026-11-05)
+
+**Decision.** Everything that runs on the user's machine or browser is free and open source without limits: `@mplate/core`, the CLI, the MCP server and the studio. An HTTP server package, `@mplate/server` (`POST /render`, `POST /validate`, `GET /templates`), will also be open source so anyone can self-host it. A hosted instance run by the project, if any, uses API keys and a free quota; usage beyond the quota belongs to the commercial offering.
+**Consequences.** `@mplate/server` must be stateless and configurable (port, allowed origins, request size and rate limits) so it is safe to expose. Quota, keys and billing are not part of this repository. Brand kits and PPTX export applied by a hosted API follow ADR-013.

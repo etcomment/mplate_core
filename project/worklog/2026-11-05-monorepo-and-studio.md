@@ -24,3 +24,7 @@ Agent: Claude (Cowork session), at the maintainer's request.
 - Maintainer action: enable GitHub Pages with "GitHub Actions" as the source so the studio is published.
 - Next engine feature: manual adjustments by element id (overrides API), then canvas editing in the studio.
 - Syntax highlighting and autocomplete in the editor (consider CodeMirror 6 when it becomes worth the dependency).
+
+## Addendum — web API
+
+- Decided with the maintainer: the HTTP API package `@mplate/server` will be open source and self-hostable; a hosted instance would use keys and a free quota (ADR-014). Added to the engine backlog after the overrides API.
