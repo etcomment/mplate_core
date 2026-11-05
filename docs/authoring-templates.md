@@ -48,3 +48,19 @@ Rules:
 Add the template to `packages/core/src/templates/registry.ts`. The test suite then automatically renders it with 1, 4, 10 and 30 elements (clipped to its range), with every theme and at a narrow width, and fails on overlapping text, text outside the canvas, `NaN`, or diagnostics on the example.
 
 Run `npm test`, then `npm run gallery` to refresh `docs/templates.md` and `docs/gallery/`.
+
+## 5. Use your own templates
+
+Templates do not have to live in this repository. Build a renderer with your own templates and themes:
+
+```ts
+import { createRenderer, defineTemplate } from '@mplate/core'
+
+const ribbon = defineTemplate({ card: { id: 'ribbon:plain', family: 'ribbon', style: 'plain', isDefaultStyle: true, /* … */ }, render(canvas, input) { /* … */ } })
+
+const mplate = createRenderer({ templates: [ribbon], themes: [myTheme] })
+mplate.render('@ribbon\n  band "Hello"')
+mplate.syntaxGuide()   // includes your templates, ready for an LLM
+```
+
+Options: `includeBuiltInTemplates: false` keeps only your templates; `includeBuiltInThemes: false` keeps only your themes. A custom template with the same id as a built-in one replaces it; a custom default style takes over its family. Duplicate names and malformed ids throw at creation time.

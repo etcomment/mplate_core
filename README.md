@@ -81,7 +81,7 @@ Then ask: *“Draw our Q3 roadmap as an mplate timeline.”* See [docs/mcp.md](d
     <child> "text" yes
 ```
 
-Full reference: [docs/dsl.md](docs/dsl.md) · Theming: [docs/theming.md](docs/theming.md) · Manual adjustments: [docs/adjustments.md](docs/adjustments.md) · Writing a template: [docs/authoring-templates.md](docs/authoring-templates.md).
+Full reference: [docs/dsl.md](docs/dsl.md) · Theming: [docs/theming.md](docs/theming.md) · Manual adjustments: [docs/adjustments.md](docs/adjustments.md) · Brand kits: [docs/brand-kits.md](docs/brand-kits.md) · Custom templates: [docs/authoring-templates.md](docs/authoring-templates.md#5-use-your-own-templates).
 
 ## Repository layout
 

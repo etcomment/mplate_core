@@ -1,6 +1,8 @@
 import { listIcons } from './icons/index.js'
-import { registry } from './templates/registry.js'
+import type { TemplateRegistry } from './templates/lookup.js'
+import { registry as builtInRegistry } from './templates/registry.js'
 import type { ElementSpec, IdentityCard } from './templates/types.js'
+import type { ThemeCatalog } from './theme/resolve.js'
 import { BUILT_IN_THEMES } from './theme/themes.js'
 
 function describeElement(spec: ElementSpec, indent: string = ''): string[] {
@@ -35,11 +37,11 @@ export function formatCard(card: IdentityCard): string {
   return lines.join('\n')
 }
 
-export function listTemplates(): IdentityCard[] {
+export function listTemplates(registry: TemplateRegistry = builtInRegistry): IdentityCard[] {
   return registry.cards()
 }
 
-export function describeTemplate(id: string): IdentityCard | undefined {
+export function describeTemplate(id: string, registry: TemplateRegistry = builtInRegistry): IdentityCard | undefined {
   const [family, style] = id.replace(/^@/, '').split(/[:\s]+/)
   const direct = registry.byId(id)
   if (direct) return direct.card
@@ -68,8 +70,8 @@ Rules:
 - The same content renders with 1 to N elements: add or remove lines and the layout adapts.
 `
 
-export function syntaxGuide(): string {
-  const themes = Object.values(BUILT_IN_THEMES).map((theme) => `- \`${theme.name}\`: ${theme.description}`)
+export function syntaxGuide(registry: TemplateRegistry = builtInRegistry, themeCatalog: ThemeCatalog = BUILT_IN_THEMES): string {
+  const themes = Object.values(themeCatalog).map((theme) => `- \`${theme.name}\`: ${theme.description}`)
   return [
     GRAMMAR,
     '## Themes',
@@ -82,6 +84,6 @@ export function syntaxGuide(): string {
     '',
     '# Templates',
     '',
-    ...listTemplates().map((card) => formatCard(card) + '\n'),
+    ...listTemplates(registry).map((card) => formatCard(card) + '\n'),
   ].join('\n')
 }

@@ -8,6 +8,8 @@ Planned as 0.1.1.
 
 ### Added
 
+- Brand kits: an open JSON format (`kind: "mplate-brand-kit"`, version 1) with palette, colours, fonts, shape, logo and default styles per family; `parseBrandKit()` validates it and warns about unreadable colours; `render(source, { brandKit })`, `mplate render --brand kit.json` and the MCP `brand_kit` argument. JSON Schema in `docs/brand-kit.schema.json`. See `docs/brand-kits.md`.
+- `createRenderer({ templates, themes })` to add or replace templates and themes without forking; `defineTemplate()` helper; duplicate names are rejected.
 - Manual adjustments: `render(source, { overrides })` changes the text, icon or colour of one element, or moves it with `dx`/`dy`, keyed by element id. Unknown ids are reported in `result.unusedOverrides`. Also available as `mplate render --overrides file.json` and in the `mplate_render` MCP tool. See `docs/adjustments.md`.
 - `result.layout.elements`: every element with its id, keyword, title, DSL line and parent.
 - Studio: click an element to select it, drag or use the arrow keys to move it, change its colour, jump to its DSL line; adjustments are saved in the draft and in share links.

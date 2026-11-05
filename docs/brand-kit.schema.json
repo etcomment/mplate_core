@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/etcomment/mplate_core/main/docs/brand-kit.schema.json",
+  "title": "mplate brand kit",
+  "description": "Colours, fonts, shape, logo and default styles applied to every mplate visual.",
+  "type": "object",
+  "required": ["kind", "version", "name"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "kind": { "const": "mplate-brand-kit" },
+    "version": { "const": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "extends": { "type": "string", "description": "Base theme: default, ocean, mono, dark, or a theme registered with createRenderer" },
+    "palette": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/hex" }, "description": "Ordered accent colours; elements take them in order, shades are generated beyond the list" },
+    "colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "background": { "$ref": "#/$defs/hex" },
+        "surface": { "$ref": "#/$defs/hex" },
+        "surfaceAlt": { "$ref": "#/$defs/hex" },
+        "text": { "$ref": "#/$defs/hex" },
+        "textMuted": { "$ref": "#/$defs/hex" },
+        "textInverse": { "$ref": "#/$defs/hex" },
+        "line": { "$ref": "#/$defs/hex" },
+        "positive": { "$ref": "#/$defs/hex" },
+        "negative": { "$ref": "#/$defs/hex" },
+        "warning": { "$ref": "#/$defs/hex" }
+      }
+    },
+    "fonts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "heading": { "type": "string", "description": "CSS font-family list, e.g. \"Montserrat, Arial, sans-serif\"" },
+        "body": { "type": "string" }
+      }
+    },
+    "shape": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "radius": { "type": "number", "minimum": 0, "maximum": 40 },
+        "strokeWidth": { "type": "number", "minimum": 0, "maximum": 10 }
+      }
+    },
+    "logo": {
+      "type": "object",
+      "required": ["src", "width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "src": { "type": "string", "description": "Inline SVG markup or a data: URI (PNG, JPEG, WebP, SVG). Remote URLs are not allowed." },
+        "width": { "type": "number", "exclusiveMinimum": 0, "maximum": 600 },
+        "height": { "type": "number", "exclusiveMinimum": 0, "maximum": 300 },
+        "position": { "enum": ["top-left", "top-right", "bottom-left", "bottom-right"], "default": "top-right" }
+      }
+    },
+    "styles": {
+      "type": "object",
+      "description": "Default style per family, used when the header has no style, e.g. { \"process\": \"steps\" }",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "hex": { "type": "string", "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$" }
+  }
+}

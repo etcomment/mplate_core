@@ -1,5 +1,6 @@
 import { describeTemplate, formatCard, listTemplates, syntaxGuide } from '../describe.js'
 import { svgToPng } from '../export/png.js'
+import { parseBrandKit } from '../brand/parse.js'
 import type { Overrides } from '../render/overrides.js'
 import { render } from '../render/render.js'
 import { BUILT_IN_THEMES } from '../theme/themes.js'
@@ -96,6 +97,7 @@ export const TOOLS: ToolDefinition[] = [
         format: { type: 'string', enum: ['svg', 'png'], description: 'Output format. PNG needs the optional @resvg/resvg-js package.' },
         output_path: { type: 'string', description: 'Absolute file path to write the result to instead of returning it inline' },
         preview: { type: 'boolean', description: 'Also return a PNG preview image (needs @resvg/resvg-js)' },
+        brand_kit: { type: 'object', description: 'Brand kit JSON (kind "mplate-brand-kit", version 1): palette, colors, fonts, shape, logo, default styles. See docs/brand-kits.md.' },
         overrides: { type: 'object', description: 'Manual adjustments keyed by element id (e.g. "step-1"): { title?, subtitle?, value?, label?, icon?, color?, dx?, dy? }', additionalProperties: { type: 'object' } },
       },
       required: ['dsl'],
@@ -105,8 +107,11 @@ export const TOOLS: ToolDefinition[] = [
       const theme = stringArgument(argumentsObject, 'theme')
       const width = typeof argumentsObject.width === 'number' ? argumentsObject.width : undefined
       const overrides = typeof argumentsObject.overrides === 'object' && argumentsObject.overrides !== null && !Array.isArray(argumentsObject.overrides) ? (argumentsObject.overrides as Overrides) : undefined
-      const result = render(stringArgument(argumentsObject, 'dsl') ?? '', { ...(theme ? { theme } : {}), ...(width ? { width } : {}), ...(overrides ? { overrides } : {}) })
-      const diagnostics = result.diagnostics.map(formatDiagnostic)
+      const kitResult = argumentsObject.brand_kit === undefined ? undefined : parseBrandKit(argumentsObject.brand_kit)
+      if (kitResult && !kitResult.kit) return { content: [text(['Invalid brand kit.', ...kitResult.diagnostics.map(formatDiagnostic)].join('\n'))], isError: true }
+      const brandKit = kitResult?.kit
+      const result = render(stringArgument(argumentsObject, 'dsl') ?? '', { ...(theme ? { theme } : {}), ...(width ? { width } : {}), ...(overrides ? { overrides } : {}), ...(brandKit ? { brandKit } : {}) })
+      const diagnostics = [...(kitResult?.diagnostics ?? []), ...result.diagnostics].map(formatDiagnostic)
       if (!result.ok) return { content: [text(['Render failed.', ...diagnostics].join('\n'))], isError: true }
       const format = stringArgument(argumentsObject, 'format') ?? 'svg'
       const outputPath = stringArgument(argumentsObject, 'output_path')
