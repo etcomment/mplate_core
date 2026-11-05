@@ -10,6 +10,7 @@ export interface ElementSpec {
   flags?: string[]
   attributes?: string[]
   child?: ElementSpec
+  acceptsExtraValues?: boolean
 }
 
 export interface SettingSpec {
@@ -56,6 +57,7 @@ export interface Item {
   color: string
   hasExplicitColor: boolean
   flags: string[]
+  values: string[]
   attributes: Record<string, string>
   children: Item[]
   line: number

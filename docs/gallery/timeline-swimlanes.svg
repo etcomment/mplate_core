@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 434" width="1200" height="434" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="timeline:swimlanes" data-mplate-theme="default">
+  <title>Roadmap 2027</title>
+  <rect width="1200" height="434" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Roadmap 2027</tspan>
+    </text>
+    <rect x="262" y="123.5" width="219" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="371.5" y="144.42">Q1</tspan>
+    </text>
+    <rect x="485" y="123.5" width="219" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="594.5" y="144.42">Q2</tspan>
+    </text>
+    <rect x="708" y="123.5" width="219" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="817.5" y="144.42">Q3</tspan>
+    </text>
+    <rect x="931" y="123.5" width="219" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="1040.5" y="144.42">Q4</tspan>
+    </text>
+    <g data-mplate-id="lane-0">
+      <rect x="48" y="167.5" width="1104" height="74.5" rx="10" fill="#f4f6fb"/>
+      <rect x="48" y="177.5" width="5" height="54.5" rx="2.5" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#4361d8">
+        <tspan x="66" y="193.98">Product</tspan>
+      </text>
+      <g data-mplate-id="lane-0-milestone-0">
+        <rect x="266" y="179.5" width="211" height="50.5" rx="8" fill="#dde3f8" stroke="#4361d8" stroke-width="1.2"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b2133">
+          <tspan x="276" y="200.17">Discovery</tspan>
+        </text>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="12" fill="#5b6478">
+          <tspan x="276" y="217.86">Interviews</tspan>
+        </text>
+      </g>
+      <g data-mplate-id="lane-0-milestone-1">
+        <rect x="712" y="179.5" width="211" height="50.5" rx="8" fill="#dde3f8" stroke="#4361d8" stroke-width="1.2"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b2133">
+          <tspan x="722" y="200.17">Beta</tspan>
+        </text>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="12" fill="#5b6478">
+          <tspan x="722" y="217.86">Ten customers</tspan>
+        </text>
+      </g>
+    </g>
+    <g data-mplate-id="lane-1">
+      <rect x="48" y="250" width="1104" height="64" rx="10" fill="#ffffff"/>
+      <rect x="48" y="260" width="5" height="44" rx="2.5" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#108c76">
+        <tspan x="66" y="276.48">Platform</tspan>
+      </text>
+      <g data-mplate-id="lane-1-milestone-0">
+        <rect x="489" y="262" width="211" height="33.5" rx="8" fill="#d5eeea" stroke="#13a389" stroke-width="1.2"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b2133">
+          <tspan x="499" y="282.67">New API</tspan>
+        </text>
+      </g>
+      <g data-mplate-id="lane-1-milestone-1">
+        <rect x="935" y="262" width="211" height="33.5" rx="8" fill="#d5eeea" stroke="#13a389" stroke-width="1.2"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b2133">
+          <tspan x="945" y="282.67">Scale-out</tspan>
+        </text>
+      </g>
+    </g>
+    <g data-mplate-id="lane-2">
+      <rect x="48" y="322" width="1104" height="64" rx="10" fill="#f4f6fb"/>
+      <rect x="48" y="332" width="5" height="44" rx="2.5" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#be8002">
+        <tspan x="66" y="348.48">Sales</tspan>
+      </text>
+      <g data-mplate-id="lane-2-milestone-0">
+        <rect x="489" y="334" width="211" height="33.5" rx="8" fill="#fceed1" stroke="#f0a202" stroke-width="1.2"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b2133">
+          <tspan x="499" y="354.67">Pilot offer</tspan>
+        </text>
+      </g>
+      <g data-mplate-id="lane-2-milestone-1">
+        <rect x="935" y="334" width="211" height="33.5" rx="8" fill="#fceed1" stroke="#f0a202" stroke-width="1.2"/>
+        <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b2133">
+          <tspan x="945" y="354.67">Launch</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

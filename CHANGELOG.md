@@ -8,6 +8,8 @@ Planned as 0.1.1.
 
 ### Added
 
+- 11 new original templates (25 in total): `timeline:swimlanes`, `timeline:gantt`, `process:vertical`, `process:loop`, `funnel:bars`, `cycle:orbit`, `kpi:gauges`, `comparison:table`, `matrix:swot`, `stack:layers` and `venn:circles`.
+- Elements can accept extra positional values (`row "Feature" yes no "10 GB"` in `comparison:table`).
 - Brand kits: an open JSON format (`kind: "mplate-brand-kit"`, version 1) with palette, colours, fonts, shape, logo and default styles per family; `parseBrandKit()` validates it and warns about unreadable colours; `render(source, { brandKit })`, `mplate render --brand kit.json` and the MCP `brand_kit` argument. JSON Schema in `docs/brand-kit.schema.json`. See `docs/brand-kits.md`.
 - `createRenderer({ templates, themes })` to add or replace templates and themes without forking; `defineTemplate()` helper; duplicate names are rejected.
 - Manual adjustments: `render(source, { overrides })` changes the text, icon or colour of one element, or moves it with `dx`/`dy`, keyed by element id. Unknown ids are reported in `result.unusedOverrides`. Also available as `mplate render --overrides file.json` and in the `mplate_render` MCP tool. See `docs/adjustments.md`.
@@ -17,6 +19,8 @@ Planned as 0.1.1.
 - GitHub Pages workflow that deploys the studio.
 
 ### Changed
+
+- `@swot` now points to `matrix:swot` instead of `matrix:quadrant`.
 
 - The repository is now an npm workspace: the engine moved to `packages/core` (published as `@mplate/core`).
 

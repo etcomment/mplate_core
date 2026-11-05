@@ -63,13 +63,15 @@ Then ask: *“Draw our Q3 roadmap as an mplate timeline.”* See [docs/mcp.md](d
 
 ## Templates
 
-14 templates in 11 families — process, timeline, funnel, pyramid, cycle, brain (mind map), cards, KPI, comparison, matrix and org chart. Full catalogue with examples: [docs/templates.md](docs/templates.md).
+25 templates in 13 families — process, timeline (axis, vertical, swimlanes, Gantt), funnel, pyramid, cycle, brain (mind map), cards, KPI (tiles, gauges), comparison (columns, table), matrix (2×2, SWOT), org chart, architecture stack and Venn. Full catalogue with examples: [docs/templates.md](docs/templates.md).
 
 | | | |
 | --- | --- | --- |
 | ![](docs/gallery/timeline-axis.svg) | ![](docs/gallery/funnel-stack.svg) | ![](docs/gallery/cycle-ring.svg) |
 | ![](docs/gallery/brain-spokes.svg) | ![](docs/gallery/kpi-tiles.svg) | ![](docs/gallery/comparison-columns.svg) |
 | ![](docs/gallery/pyramid-layers.svg) | ![](docs/gallery/cards-grid.svg) | ![](docs/gallery/org-tree.svg) |
+| ![](docs/gallery/timeline-swimlanes.svg) | ![](docs/gallery/timeline-gantt.svg) | ![](docs/gallery/kpi-gauges.svg) |
+| ![](docs/gallery/comparison-table.svg) | ![](docs/gallery/matrix-swot.svg) | ![](docs/gallery/stack-layers.svg) |
 
 ## The language in 30 seconds
 

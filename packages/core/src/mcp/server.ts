@@ -19,7 +19,7 @@ export interface JsonRpcResponse {
   error?: { code: number; message: string }
 }
 
-const INSTRUCTIONS = 'mplate turns a few lines of text into a designed infographic (process, timeline, funnel, pyramid, cycle, mind map, cards, KPI tiles, comparison, 2×2 matrix). Call mplate_guide once to learn the DSL, write one line per element, then call mplate_render. The layout adapts to the number of elements.'
+const INSTRUCTIONS = 'mplate turns a few lines of text into a designed infographic (process, timeline, roadmap by team, Gantt, funnel, pyramid, cycle, mind map, cards, KPI tiles and gauges, comparison, feature table, 2×2 matrix, SWOT, org chart, architecture stack, Venn). Call mplate_guide once to learn the DSL, write one line per element, then call mplate_render. The layout adapts to the number of elements.'
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)

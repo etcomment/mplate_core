@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 404" width="1200" height="404" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="timeline:gantt" data-mplate-theme="default">
+  <title>Delivery plan</title>
+  <rect width="1200" height="404" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Delivery plan</tspan>
+    </text>
+    <rect x="302" y="123.5" width="138" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="371" y="144.42">Jan</tspan>
+    </text>
+    <rect x="444" y="123.5" width="138" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="513" y="144.42">Feb</tspan>
+    </text>
+    <rect x="586" y="123.5" width="138" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="655" y="144.42">Mar</tspan>
+    </text>
+    <rect x="728" y="123.5" width="138" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="797" y="144.42">Apr</tspan>
+    </text>
+    <rect x="870" y="123.5" width="138" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="939" y="144.42">May</tspan>
+    </text>
+    <rect x="1012" y="123.5" width="138" height="34" rx="6" fill="#e6eaf4"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="700" fill="#5b6478" text-anchor="middle">
+      <tspan x="1081" y="144.42">Jun</tspan>
+    </text>
+    <line x1="442" y1="165.5" x2="442" y2="355.5" stroke="#c9cfdc" stroke-width="1" stroke-dasharray="2 4"/>
+    <line x1="584" y1="165.5" x2="584" y2="355.5" stroke="#c9cfdc" stroke-width="1" stroke-dasharray="2 4"/>
+    <line x1="726" y1="165.5" x2="726" y2="355.5" stroke="#c9cfdc" stroke-width="1" stroke-dasharray="2 4"/>
+    <line x1="868" y1="165.5" x2="868" y2="355.5" stroke="#c9cfdc" stroke-width="1" stroke-dasharray="2 4"/>
+    <line x1="1010" y1="165.5" x2="1010" y2="355.5" stroke="#c9cfdc" stroke-width="1" stroke-dasharray="2 4"/>
+    <g data-mplate-id="task-0">
+      <rect x="48" y="165.5" width="1104" height="38" fill="#f4f6fb"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="600" fill="#1b2133">
+        <tspan x="58" y="188.42">Scoping</tspan>
+      </text>
+      <rect x="304" y="172.5" width="134" height="24" rx="6" fill="#b4c0ef"/>
+      <rect x="304" y="172.5" width="134" height="24" rx="6" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="end">
+        <tspan x="432" y="187.86">100%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="task-1">
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="600" fill="#1b2133">
+        <tspan x="58" y="226.42">Design</tspan>
+      </text>
+      <rect x="446" y="210.5" width="276" height="24" rx="6" fill="#a1dad0"/>
+      <rect x="446" y="210.5" width="165.6" height="24" rx="6" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="12" font-weight="700" fill="#111111" text-anchor="end">
+        <tspan x="716" y="225.86">60%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="task-2">
+      <rect x="48" y="241.5" width="1104" height="38" fill="#f4f6fb"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="600" fill="#1b2133">
+        <tspan x="58" y="264.42">Build</tspan>
+      </text>
+      <rect x="588" y="248.5" width="418" height="24" rx="6" fill="#f9da9a"/>
+      <rect x="588" y="248.5" width="41.8" height="24" rx="6" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="12" font-weight="700" fill="#111111" text-anchor="end">
+        <tspan x="1000" y="263.86">10%</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="task-3">
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="600" fill="#1b2133">
+        <tspan x="58" y="302.42">Training</tspan>
+      </text>
+      <rect x="872" y="286.5" width="276" height="24" rx="6" fill="#f4bcab"/>
+    </g>
+    <g data-mplate-id="task-4">
+      <rect x="48" y="317.5" width="1104" height="38" fill="#f4f6fb"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" font-weight="600" fill="#1b2133">
+        <tspan x="58" y="340.42">Go live</tspan>
+      </text>
+      <path d="M1081 325.5 L1092 336.5 L1081 347.5 L1070 336.5 Z" fill="#7d5bd0"/>
+    </g>
+  </g>
+</svg>

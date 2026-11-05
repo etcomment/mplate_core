@@ -9,7 +9,7 @@ export const matrixQuadrant: TemplateDefinition = {
     family: 'matrix',
     style: 'quadrant',
     isDefaultStyle: true,
-    aliases: ['matrix2x2', 'quadrant', 'swot'],
+    aliases: ['matrix2x2', 'quadrant'],
     name: '2×2 matrix',
     description: 'Four quadrants on two labelled axes, filled top-left, top-right, bottom-left, bottom-right. Indent items under a quadrant to list them inside it.',
     useCases: ['prioritisation (impact / effort)', 'SWOT', 'positioning map'],

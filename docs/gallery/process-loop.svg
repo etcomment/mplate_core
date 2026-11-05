@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 511" width="1200" height="511" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="process:loop" data-mplate-theme="default">
+  <title>Sprint cycle</title>
+  <rect width="1200" height="511" fill="#ffffff"/>
+  <g data-mplate-layer="content">
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
+      <tspan x="48" y="75.15">Sprint cycle</tspan>
+    </text>
+    <path d="M145 210.25 L1055 210.25 A85 85 0 0 1 1055 380.25 L145 380.25 A85 85 0 0 1 145 210.25" fill="none" stroke="#c9cfdc" stroke-width="6"/>
+    <path d="M1131 291.25 L1149 291.25 L1140 305.25 Z" fill="#c9cfdc"/>
+    <path d="M51 299.25 L69 299.25 L60 285.25 Z" fill="#c9cfdc"/>
+    <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#5b6478" text-anchor="middle">
+      <tspan x="600" y="300.85">Two weeks</tspan>
+    </text>
+    <g data-mplate-id="step-0">
+      <circle cx="372.5" cy="210.25" r="32" fill="#ffffff"/>
+      <circle cx="372.5" cy="210.25" r="26" fill="#4361d8"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#ffffff" text-anchor="middle">
+        <tspan x="372.5" y="215.85">1</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="372.5" y="142.89">Plan</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="372.5" y="165.42">Pick the sprint goal</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-1">
+      <circle cx="827.5" cy="210.25" r="32" fill="#ffffff"/>
+      <circle cx="827.5" cy="210.25" r="26" fill="#13a389"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="827.5" y="215.85">2</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="827.5" y="142.89">Build</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="827.5" y="165.42">Develop and test</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-2">
+      <circle cx="827.5" cy="380.25" r="32" fill="#ffffff"/>
+      <circle cx="827.5" cy="380.25" r="26" fill="#f0a202"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="827.5" y="385.85">3</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="827.5" y="435.64">Review</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="827.5" y="458.17">Demo to stakeholders</tspan>
+      </text>
+    </g>
+    <g data-mplate-id="step-3">
+      <circle cx="372.5" cy="380.25" r="32" fill="#ffffff"/>
+      <circle cx="372.5" cy="380.25" r="26" fill="#e4572e"/>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="20" font-weight="800" fill="#111111" text-anchor="middle">
+        <tspan x="372.5" y="385.85">4</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2133" text-anchor="middle">
+        <tspan x="372.5" y="435.64">Improve</tspan>
+      </text>
+      <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="14" fill="#5b6478" text-anchor="middle">
+        <tspan x="372.5" y="458.17">Retrospective</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
