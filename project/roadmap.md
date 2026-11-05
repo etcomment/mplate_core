@@ -42,7 +42,8 @@ Template backlog (one line = one template; tick when merged with gallery and tes
 
 Engine backlog:
 
-- [ ] Manual adjustments API: apply `{ [elementId]: { fill, text, dx, dy } }` overrides at render time (unblocks studio canvas editing)
+- [x] Manual adjustments API: `render(source, { overrides })` by element id, with `unusedOverrides` (ADR-015, 2026-11-05)
+- [ ] Publish `@mplate/core` 0.2.0
 - [ ] Injectable registry in `render()` (custom template sets)
 - [ ] `packages/server` — `@mplate/server`, open-source HTTP API: `POST /render` (SVG or PNG), `POST /validate`, `GET /templates`; stateless, with size and rate limits (ADR-014). After the overrides API.
 - [ ] Font metric tables per theme font (optional) — see ADR-007
@@ -51,7 +52,8 @@ Engine backlog:
 
 ## Phase 3 — MCP and launch (Mar – Apr 2027)
 
-- [ ] Studio: manual adjustments on the canvas (select an element, change colour, text, position), stored by element id (needs the overrides API)
+- [x] Studio: select an element, drag or nudge it, change its colour, jump to its line; adjustments in drafts and share links (2026-11-05)
+- [ ] Studio: edit an element's text from the canvas (rewrite the DSL line rather than storing a text override)
 - [ ] Studio: autocomplete and syntax highlighting for the DSL
 - [ ] Studio: custom domain for the public studio
 - [ ] List the MCP server in MCP directories and "awesome" lists

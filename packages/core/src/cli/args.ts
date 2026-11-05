@@ -5,7 +5,7 @@ export interface ParsedArguments {
 }
 
 const SHORT_OPTIONS: Record<string, string> = { o: 'output', t: 'theme', w: 'width', f: 'format', h: 'help', v: 'version' }
-const VALUE_OPTIONS = new Set(['output', 'theme', 'width', 'format', 'scale'])
+const VALUE_OPTIONS = new Set(['output', 'theme', 'width', 'format', 'scale', 'overrides'])
 
 export function parseArguments(argv: string[]): ParsedArguments {
   const positionals: string[] = []

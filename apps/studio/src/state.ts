@@ -1,7 +1,10 @@
+import type { Overrides } from '@mplate/core'
+
 export interface StudioState {
   source: string
   theme: string
   width: number
+  overrides?: Overrides
 }
 
 const STORAGE_KEY = 'mplate-studio:draft'
@@ -20,7 +23,8 @@ export function encodeShare(state: StudioState): string {
 function isStudioState(value: unknown): value is StudioState {
   if (typeof value !== 'object' || value === null) return false
   const candidate = value as Record<string, unknown>
-  return typeof candidate.source === 'string' && typeof candidate.theme === 'string' && typeof candidate.width === 'number'
+  const hasValidOverrides = candidate.overrides === undefined || (typeof candidate.overrides === 'object' && candidate.overrides !== null && !Array.isArray(candidate.overrides))
+  return typeof candidate.source === 'string' && typeof candidate.theme === 'string' && typeof candidate.width === 'number' && hasValidOverrides
 }
 
 export function decodeShare(encoded: string): StudioState | undefined {

@@ -43,7 +43,32 @@
       </section>
       <section class="pane preview-pane" aria-label="Preview">
         <div class="status" id="status"></div>
-        <div class="preview" id="preview"></div>
+        <div class="inspector" id="inspector" hidden>
+          <div class="inspector-title">
+            <strong id="inspector-name"></strong>
+            <button type="button" class="link-button" id="inspector-line"></button>
+          </div>
+          <label class="field">
+            <span>Colour</span>
+            <input type="color" id="inspector-color" />
+          </label>
+          <button type="button" class="button small" id="inspector-color-reset">Theme colour</button>
+          <label class="field">
+            <span>X</span>
+            <input type="number" id="inspector-dx" step="1" />
+          </label>
+          <label class="field">
+            <span>Y</span>
+            <input type="number" id="inspector-dy" step="1" />
+          </label>
+          <button type="button" class="button small" id="inspector-reset">Reset element</button>
+          <button type="button" class="button small" id="inspector-close" aria-label="Close the inspector">Done</button>
+        </div>
+        <div class="preview" id="preview" tabindex="0" aria-label="Preview. Click an element to adjust it; drag to move it; arrow keys nudge it."></div>
+        <div class="adjustments" id="adjustments" hidden>
+          <span id="adjustments-count"></span>
+          <button type="button" class="link-button" id="adjustments-clear">Remove all adjustments</button>
+        </div>
       </section>
     </main>
     <dialog id="templates-dialog" class="templates-dialog" aria-label="Templates">

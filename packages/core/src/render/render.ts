@@ -8,11 +8,13 @@ import { registry } from '../templates/registry.js'
 import type { IdentityCard, TemplateDefinition } from '../templates/types.js'
 import { Canvas, type TextBox } from './canvas.js'
 import { buildTemplateInput } from './items.js'
+import { applyContentOverrides, collectElements, offsetsFrom, reportUnusedOverrides, type ElementInfo, type Overrides } from './overrides.js'
 
 export interface RenderOptions {
   theme?: ThemeInput
   width?: number
   background?: boolean
+  overrides?: Overrides
 }
 
 export interface RenderResult {
@@ -22,7 +24,8 @@ export interface RenderResult {
   height: number
   template?: IdentityCard
   diagnostics: Diagnostic[]
-  layout: { textBoxes: TextBox[]; elementIds: string[] }
+  layout: { textBoxes: TextBox[]; elementIds: string[]; elements: ElementInfo[] }
+  unusedOverrides: string[]
 }
 
 const DEFAULT_WIDTH = 1200
@@ -62,7 +65,7 @@ function themeOverrideFrom(nodes: DslNode[], diagnostics: Diagnostic[]): ThemeOv
 }
 
 function failure(diagnostics: Diagnostic[], template?: TemplateDefinition): RenderResult {
-  const result: RenderResult = { ok: false, svg: '', width: 0, height: 0, diagnostics, layout: { textBoxes: [], elementIds: [] } }
+  const result: RenderResult = { ok: false, svg: '', width: 0, height: 0, diagnostics, layout: { textBoxes: [], elementIds: [], elements: [] }, unusedOverrides: [] }
   if (template) result.template = template.card
   return result
 }
@@ -110,9 +113,13 @@ export function renderDocument(document: DslDocument, options: RenderOptions = {
   if (diagnostics.some((diagnostic) => diagnostic.severity === 'error')) return failure(diagnostics, template)
   const requestedWidth = options.width ?? Number(header.attributes.width ?? DEFAULT_WIDTH)
   const width = Number.isFinite(requestedWidth) ? Math.min(3000, Math.max(480, requestedWidth)) : DEFAULT_WIDTH
-  const canvas = new Canvas(theme, width, diagnostics)
+  const overrides = options.overrides ?? {}
+  applyContentOverrides(input.items, overrides, theme, diagnostics)
+  const canvas = new Canvas(theme, width, diagnostics, 48, offsetsFrom(overrides))
   drawHeading(canvas, input.title, input.subtitle)
   template.render(canvas, input)
+  const elements = collectElements(input.items)
+  const unusedOverrides = reportUnusedOverrides(overrides, new Set(elements.map((entry) => entry.id)), diagnostics)
   const height = Math.ceil(canvas.height)
   const hasBackground = options.background ?? header.attributes.background !== 'none'
   const children = [
@@ -143,7 +150,8 @@ export function renderDocument(document: DslDocument, options: RenderOptions = {
     height,
     template: template.card,
     diagnostics,
-    layout: { textBoxes: canvas.textBoxes, elementIds: canvas.elementIds },
+    layout: { textBoxes: canvas.textBoxes, elementIds: canvas.elementIds, elements },
+    unusedOverrides,
   }
 }
 
