@@ -74,3 +74,8 @@ Format: context → decision → consequences. Append new records at the end; ne
 
 **Decision.** Everything that runs on the user's machine or browser is free and open source without limits: `@mplate/core`, the CLI, the MCP server and the studio. An HTTP server package, `@mplate/server` (`POST /render`, `POST /validate`, `GET /templates`), will also be open source so anyone can self-host it. A hosted instance run by the project, if any, uses API keys and a free quota; usage beyond the quota belongs to the commercial offering.
 **Consequences.** `@mplate/server` must be stateless and configurable (port, allowed origins, request size and rate limits) so it is safe to expose. Quota, keys and billing are not part of this repository. Brand kits and PPTX export applied by a hosted API follow ADR-013.
+
+## ADR-015 — Manual adjustments live outside the DSL (2026-11-05)
+
+**Decision.** Adjustments are a JSON object keyed by element id (`{ "step-1": { "color": "#7a1fa2", "dy": 20 } }`) passed to `render()`. Fields: `title`, `subtitle`, `value`, `label`, `icon`, `color`, `dx`, `dy`. Content fields are applied to the items before layout; `dx`/`dy` translate the element's group after layout. An adjustment whose id no longer exists is ignored, reported as a warning and returned in `unusedOverrides`.
+**Consequences.** The DSL stays clean and portable; editors store adjustments next to it (the studio keeps them in the draft and the share link). Ids are positional (ADR-009), so inserting a line shifts the ids of later elements; a stable explicit id attribute in the DSL may be added later if this proves painful. In the studio, text is edited in the DSL rather than through overrides, so the DSL remains the single source of truth for content.

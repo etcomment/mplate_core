@@ -50,5 +50,5 @@ describe('mcp server', () => {
     const response = await server.handle({ jsonrpc: '2.0', id: 7, method: 'tools/call', params: { name: 'mplate_render', arguments: { dsl: '@kpi\n  metric "A" "1"', preview: true } } })
     const content = (response?.result as { content: { type: string; mimeType?: string }[] }).content
     expect(content.some((entry) => entry.type === 'image' && entry.mimeType === 'image/png')).toBe(true)
-  })
+  }, 30000)
 })

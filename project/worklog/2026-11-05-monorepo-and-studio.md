@@ -28,3 +28,10 @@ Agent: Claude (Cowork session), at the maintainer's request.
 ## Addendum — web API
 
 - Decided with the maintainer: the HTTP API package `@mplate/server` will be open source and self-hostable; a hosted instance would use keys and a free quota (ADR-014). Added to the engine backlog after the overrides API.
+
+## Addendum — manual adjustments (core 0.2.0)
+
+- Core: `overrides` render option (text, icon, colour, `dx`/`dy`) keyed by element id; `layout.elements` with DSL lines; `unusedOverrides`; CLI `--overrides`; MCP `overrides` argument; 7 new tests (140 in core). Version bumped to 0.2.0 (not yet published).
+- Studio: element selection with a dashed outline, drag to move, arrow-key nudging, colour picker, "Line N" jumps to the DSL, reset per element and for all; adjustments saved in drafts and share links; adjustments of deleted elements are dropped with a notice. Checked in Chromium (drag, colour, nudge, removal), no console errors.
+- Docs: `docs/adjustments.md`, ADR-015, CHANGELOG 0.2.0, roadmap.
+- Fixed in the studio: elements with `hidden` were still displayed because of `display: flex` rules.

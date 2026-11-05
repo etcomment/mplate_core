@@ -1,8 +1,9 @@
 import './styles.css'
-import { BUILT_IN_THEMES, describeTemplate, render, type Diagnostic, type RenderResult } from '@mplate/core'
+import { BUILT_IN_THEMES, describeTemplate, render, type Diagnostic, type Overrides, type RenderResult } from '@mplate/core'
 import { createEditor } from './editor.js'
 import { copyText, downloadPng, downloadSvg, fileNameFor } from './exporters.js'
 import { fillGallery } from './gallery.js'
+import { createInspector } from './inspector.js'
 import { loadDraft, readSharedState, saveDraft, shareUrl, type StudioState } from './state.js'
 
 function byId<T extends HTMLElement>(id: string): T {
@@ -25,13 +26,16 @@ const toast = byId<HTMLElement>('toast')
 const fallbackSource = describeTemplate('process:chevrons')?.example ?? '@process\n  step "Plan"\n  step "Do"'
 const initial: StudioState = readSharedState(window.location) ?? loadDraft() ?? { source: fallbackSource, theme: 'default', width: 1200 }
 
+let overrides: Overrides = initial.overrides ?? {}
 let lastResult: RenderResult | undefined
 let lastGoodSvg = ''
 let renderTimer: number | undefined
 let toastTimer: number | undefined
 
 function currentState(): StudioState {
-  return { source: editor.value(), theme: themeSelect.value, width: Number(widthSelect.value) }
+  const state: StudioState = { source: editor.value(), theme: themeSelect.value, width: Number(widthSelect.value) }
+  if (Object.keys(overrides).length > 0) state.overrides = overrides
+  return state
 }
 
 function showToast(message: string): void {
@@ -64,21 +68,27 @@ function showDiagnostics(diagnostics: Diagnostic[]): void {
 
 function refresh(): void {
   const state = currentState()
-  const result = render(state.source, { theme: state.theme, width: state.width })
+  const result = render(state.source, { theme: state.theme, width: state.width, overrides })
   lastResult = result
-  showDiagnostics(result.diagnostics)
-  editor.markLines(result.diagnostics)
+  if (result.ok && result.unusedOverrides.length > 0) {
+    overrides = Object.fromEntries(Object.entries(overrides).filter(([id]) => !result.unusedOverrides.includes(id)))
+    showToast(`Removed ${result.unusedOverrides.length} adjustment${result.unusedOverrides.length === 1 ? '' : 's'}: the element no longer exists`)
+  }
+  const diagnostics = result.diagnostics.filter((diagnostic) => !diagnostic.message.startsWith('Adjustment for '))
+  showDiagnostics(diagnostics)
+  editor.markLines(diagnostics)
   if (result.ok) {
     lastGoodSvg = result.svg
     preview.innerHTML = result.svg
     preview.classList.remove('stale')
     const count = result.layout.elementIds.filter((id) => /^[a-zA-Z]+-\d+$/.test(id)).length
-    status.textContent = `${result.template?.name ?? ''} · ${result.template?.id ?? ''} · ${count} element${count === 1 ? '' : 's'} · ${result.width}×${result.height}`
+    status.textContent = `${result.template?.name ?? ''} · ${result.template?.id ?? ''} · ${count} element${count === 1 ? '' : 's'} · ${result.width}×${result.height} · click an element to adjust it`
+    inspector.afterRender()
   } else {
     preview.classList.toggle('stale', lastGoodSvg !== '')
     status.textContent = 'Fix the errors on the left to update the preview'
   }
-  saveDraft(state)
+  saveDraft(currentState())
 }
 
 function scheduleRefresh(): void {
@@ -87,6 +97,16 @@ function scheduleRefresh(): void {
 }
 
 const editor = createEditor(sourceInput, gutter, scheduleRefresh)
+const inspector = createInspector({
+  preview,
+  getOverrides: () => overrides,
+  setOverrides: (next) => {
+    overrides = next
+    refresh()
+  },
+  getElements: () => lastResult?.layout.elements ?? [],
+  focusLine: (line) => editor.focusLine(line),
+})
 
 for (const theme of Object.values(BUILT_IN_THEMES)) themeSelect.append(new Option(theme.name, theme.name))
 themeSelect.value = initial.theme in BUILT_IN_THEMES ? initial.theme : 'default'
@@ -96,6 +116,7 @@ widthSelect.addEventListener('change', refresh)
 
 byId('templates-button').addEventListener('click', () => {
   fillGallery(gallery, themeSelect.value, (card) => {
+    overrides = {}
     editor.setValue(card.example)
     dialog.close()
     refresh()

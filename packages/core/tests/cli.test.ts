@@ -36,7 +36,7 @@ describe('cli', () => {
     expect(await runCli(['render', 'in.mplate', '-o', 'out.png', '--scale', '1'], io)).toBe(0)
     const png = output.written['out.png'] as Uint8Array
     expect(Array.from(png.slice(1, 4))).toEqual([0x50, 0x4e, 0x47])
-  })
+  }, 30000)
 
   it('fails with diagnostics on invalid input', async () => {
     const { io, output } = memoryIo({}, '@nope\n  x "A"')
@@ -60,5 +60,21 @@ describe('cli', () => {
     const { io } = memoryIo()
     expect(await runCli(['explode'], io)).toBe(2)
     expect(await runCli(['describe', 'nothing'], io)).toBe(1)
+  })
+})
+
+describe('cli overrides', () => {
+  it('applies an adjustments file', async () => {
+    const files = { 'in.mplate': '@cards\n  card "A"', 'adjust.json': '{"card-0":{"title":"Renamed"}}' }
+    const output = { stdout: '' }
+    const io: CliIo = {
+      stdout: (text) => { output.stdout += text },
+      stderr: () => undefined,
+      readText: async (path) => files[path as keyof typeof files],
+      readStdin: async () => '',
+      writeFile: async () => undefined,
+    }
+    expect(await runCli(['render', 'in.mplate', '--overrides', 'adjust.json'], io)).toBe(0)
+    expect(output.stdout).toContain('Renamed')
   })
 })

@@ -5,6 +5,7 @@ import type { Box } from '../svg/paths.js'
 import { measureText } from '../text/metrics.js'
 import { fitText } from '../text/wrap.js'
 import type { ResolvedTheme } from '../theme/resolve.js'
+import type { Offset } from './overrides.js'
 
 export type TextAlign = 'start' | 'middle' | 'end'
 export type VerticalAlign = 'top' | 'middle' | 'bottom'
@@ -47,8 +48,10 @@ export class Canvas {
   private readonly root: SvgElement = element('g', { 'data-mplate-layer': 'content' })
   private readonly stack: SvgElement[] = [this.root]
   private readonly ownerStack: string[] = ['root']
+  private readonly offsets: Map<string, Offset>
 
-  constructor(theme: ResolvedTheme, width: number, diagnostics: Diagnostic[], padding: number = 48) {
+  constructor(theme: ResolvedTheme, width: number, diagnostics: Diagnostic[], padding: number = 48, offsets: Map<string, Offset> = new Map()) {
+    this.offsets = offsets
     this.theme = theme
     this.width = width
     this.padding = padding
@@ -75,15 +78,27 @@ export class Canvas {
   }
 
   group(id: string, draw: () => void, attributes: Attributes = {}): void {
-    const node = this.add(element('g', { 'data-mplate-id': id, ...attributes }))
+    const offset = this.offsets.get(id)
+    const transform = offset ? `translate(${offset.dx.toFixed(2)} ${offset.dy.toFixed(2)})` : undefined
+    const node = this.add(element('g', { 'data-mplate-id': id, transform, ...attributes }))
     this.elementIds.push(id)
     this.stack.push(node)
     this.ownerStack.push(id)
+    const firstBox = this.textBoxes.length
     try {
       draw()
     } finally {
       this.stack.pop()
       this.ownerStack.pop()
+    }
+    if (offset) this.shiftTextBoxes(firstBox, offset)
+  }
+
+  private shiftTextBoxes(firstBox: number, offset: Offset): void {
+    for (const box of this.textBoxes.slice(firstBox)) {
+      box.x += offset.dx
+      box.y += offset.dy
+      this.extendHeight(box.y + box.height)
     }
   }
 

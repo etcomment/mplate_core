@@ -74,4 +74,4 @@ Parsing and rendering never throw on bad input. They return diagnostics with a l
 
 ## Stable element ids
 
-Each element is rendered inside `<g data-mplate-id="…">` with an id derived from its keyword and position (`step-0`, `column-1-point-2`). Editors use these ids to attach manual adjustments to elements across re-renders.
+Each element is rendered inside `<g data-mplate-id="…">` with an id derived from its keyword and position (`step-0`, `column-1-point-2`). Editors use these ids to attach manual adjustments to elements across re-renders; see [adjustments.md](adjustments.md).
