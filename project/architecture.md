@@ -4,7 +4,7 @@
 
 ```
 packages/core/   @mplate/core — DSL, engine, templates, CLI, MCP server (published to npm)
-apps/studio/     @mplate/studio — free web editor, Vite + TypeScript, deployed to GitHub Pages
+apps/studio/     @mplate/studio — free web editor, React + Vite, deployed to GitHub Pages
 docs/            user documentation and the generated gallery
 examples/        sample documents and a brand theme
 project/         framing documents and work log
@@ -64,13 +64,18 @@ All templates draw on a canvas of fixed width (default 1200 px) with 48 px paddi
 
 ## Studio
 
+React app (ADR-019). The editor shell is the maintainer's prototype UI; the template layer is an adapter around `@mplate/core`.
+
 | Path | Responsibility |
 | --- | --- |
-| `apps/studio/index.html` | Layout: top bar, editor pane, preview pane, templates dialog |
-| `src/main.ts` | Wiring: render on input (debounced), diagnostics list, theme and width, exports, share |
-| `src/editor.ts` | Textarea editor with line numbers, diagnostic marks, Tab and auto-indent |
-| `src/gallery.ts` | Template gallery rendered from the identity cards |
-| `src/exporters.ts` | SVG download, PNG rasterisation in the browser, clipboard |
-| `src/state.ts` | Draft in `localStorage`, share links (`#dsl=` + base64url JSON) |
+| `src/App.tsx` | Layout: toolbar, left tabs (shapes, templates), canvas, layers and properties, code drawer, status bar; keyboard shortcuts |
+| `src/editor/`, `src/core/`, `src/store/diagramStore.ts` | Canvas, shapes and connections model, commands (undo/redo), smart guides |
+| `src/mermaid/` | Mermaid import into canvas shapes |
+| `src/panels/` | Toolbar, shape library, icon panel (Lucide), layers, properties, code drawer |
+| `src/templates/store.ts` | Template state: DSL, theme, width, render result, colours, positions, rotations, stroke, hidden elements, groups |
+| `src/templates/TemplateRenderer.tsx` | Puts the engine's SVG on the canvas, measures each `data-mplate-id` group, applies move/resize/rotate transforms, selection |
+| `src/templates/dslLines.ts`, `elementFields.ts` | Read and rewrite one element line of the DSL (text edits from the properties panel) |
+| `src/templates/session.ts`, `src/share.ts` | Draft in `localStorage`, share links (`#dsl=` + base64url JSON with colours and canvas adjustments) |
+| `src/lib/codemirror/` | DSL highlighting, autocomplete (headers, keywords, attributes, icons) and diagnostics from `validate()` |
 
-The studio never sends the design to a server.
+No server receives the design. SVG export may download the font from Google Fonts to embed it in the file.

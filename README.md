@@ -21,7 +21,7 @@ Add a fifth `step` line and the chevrons narrow; add a twelfth and they wrap ont
 
 ## Try it in the browser
 
-The **mplate studio** is a free, open-source editor: type on the left, see the visual on the right, export SVG or PNG, share a link. No account, nothing is sent to a server. Run it locally with `npm install && npm run studio:dev`; the public instance is deployed from `apps/studio` to GitHub Pages.
+The **mplate studio** is a free, open-source editor: pick a template, type the DSL in the code drawer, then fine-tune on the canvas (move, resize, recolour, edit text), add shapes, icons or a Mermaid diagram, export SVG, PNG or JPG, share a link. No account, and the design is never sent to a server. Run it locally with `npm install && npm run studio:dev`; the public instance is deployed from `apps/studio` to GitHub Pages.
 
 ## Install
 

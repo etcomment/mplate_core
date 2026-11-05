@@ -2,7 +2,7 @@
   "name": "@mplate/studio",
   "version": "0.1.0",
   "private": true,
-  "description": "Free online editor for mplate: write the DSL, see the visual, export SVG or PNG. No account.",
+  "description": "Free online editor for mplate: canvas, shapes, Mermaid and the mplate template DSL, with SVG/PNG export and share links. No account.",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
@@ -13,12 +13,27 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@mplate/core": "*"
+    "@mplate/core": "*",
+    "@codemirror/autocomplete": "^6.20.4",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/legacy-modes": "^6.5.5",
+    "@codemirror/lint": "^6.9.7",
+    "@codemirror/view": "^6.43.15",
+    "@uiw/react-codemirror": "^4.25.12",
+    "dagre": "^0.8.5",
+    "lucide-react": "^1.69.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
     "typescript": "5.9.3",
     "vite": "^6.4.5",
     "vitest": "^3.2.7",
-    "jsdom": "^26.1.0"
+    "jsdom": "^26.1.0",
+    "@types/dagre": "^0.7.54",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0"
   }
 }

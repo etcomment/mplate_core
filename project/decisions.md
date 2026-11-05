@@ -67,8 +67,8 @@ Format: context → decision → consequences. Append new records at the end; ne
 
 ## ADR-013 — The studio is free and open source (2026-11-05)
 
-**Decision.** The studio (web editor without account) is part of the open-source project under Apache 2.0. It is written from scratch on top of `@mplate/core`; no code is copied from the earlier prototype. Commercial offerings, if any, are built separately and cover: accounts and cloud saving, brand kits, team sharing and libraries, and native PPTX export.
-**Consequences.** The studio must work fully offline from the engine: drafts in `localStorage`, sharing through the URL fragment (the design is encoded in the link, nothing is sent to a server). Features in the commercial list above are not added to the open-source studio. Vanilla TypeScript and Vite for now; the framework choice is revisited when canvas editing arrives.
+**Decision.** The studio (web editor without account) is part of the open-source project under Apache 2.0. It is built on top of `@mplate/core` (the clause on not reusing prototype code is revised by ADR-019). Commercial offerings, if any, are built separately and cover: accounts and cloud saving, brand kits, team sharing and libraries, and native PPTX export.
+**Consequences.** The studio must work fully offline from the engine: drafts in `localStorage`, sharing through the URL fragment (the design is encoded in the link, nothing is sent to a server). Features in the commercial list above are not added to the open-source studio. The framework choice is settled by ADR-019 (React).
 
 ## ADR-014 — What runs on the user's side is free; hosted services have quotas (2026-11-05)
 
@@ -95,3 +95,10 @@ Format: context → decision → consequences. Append new records at the end; ne
 
 **Decision.** `createRenderer({ templates, themes, includeBuiltInTemplates, includeBuiltInThemes })` returns a renderer with its own registry and theme catalogue. The module-level `render()` keeps using the built-in set. Templates are validated at creation: `family:style` ids, unique ids and aliases, one default style per family.
 **Consequences.** Premium or company-specific templates can be shipped as separate packages that depend on `@mplate/core`. Internally, rendering goes through an `Engine` (`registry` + `themes`); new features must take it as a parameter rather than importing the built-in registry.
+
+## ADR-019 — The studio reuses the maintainer's editor UI (2026-11-05)
+
+**Context.** The first studio (vanilla TypeScript, written from scratch) did not look or work like the editor the maintainer had built in his earlier prototype. The maintainer owns that editor code and asked for it to be reused.
+**Decision.** `apps/studio` is the maintainer's React editor (toolbar, shape library, icon panel, canvas with zoom, smart guides, layers, properties, code drawer with CodeMirror, Mermaid import, undo/redo, SVG/PNG/JPG export), contributed by him under Apache 2.0. Everything tied to the prototype's templates or to his employer is excluded: the template components, registry, parser and geometry, the employer colour palette, the employer icon set, the PowerPoint import, the admin page for imported templates and the AI assistant that needed a private API key. The template layer is replaced by an adapter around `@mplate/core`: the gallery comes from the identity cards, the canvas shows the SVG rendered by the engine, colours go through overrides (ADR-015), text edits rewrite the DSL line, and move, resize, rotate, stroke and visibility are editor-side adjustments on the element groups (`data-mplate-id`). Icons come from Lucide.
+**Consequences.** The studio depends on React, Zustand, CodeMirror, dagre and lucide-react (all MIT or ISC). Templates still come only from `packages/core` (ADR-001). PPTX export stays out of the open-source studio (ADR-013). Adjustments of the canvas (position, size, rotation, stroke, hidden elements) are stored in drafts and share links next to the DSL; they are not part of the DSL.
+

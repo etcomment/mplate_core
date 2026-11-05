@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   base: './',
-  build: { target: 'es2022', outDir: 'dist', emptyOutDir: true },
+  plugins: [react()],
+  build: { target: 'es2022', outDir: 'dist', emptyOutDir: true, chunkSizeWarningLimit: 2500 },
   test: { environment: 'jsdom' },
 })
