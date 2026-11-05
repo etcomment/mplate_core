@@ -18,6 +18,11 @@ describe('template store', () => {
     expect(store().result?.elements.map(element => element.id)).toContain('level-4')
   })
 
+  it('renders templates without a background so they sit directly on the canvas', () => {
+    store().selectTemplate('process:chevrons')
+    expect(store().result?.svg).not.toMatch(/<rect width="\d+" height="[\d.]+" fill="#ffffff"\/>/)
+  })
+
   it('recolours an element through core overrides', () => {
     store().selectTemplate('process:chevrons')
     store().updateTemplateColor('step-1', '#123456')
