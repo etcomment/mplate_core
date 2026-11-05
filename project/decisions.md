@@ -79,3 +79,19 @@ Format: context → decision → consequences. Append new records at the end; ne
 
 **Decision.** Adjustments are a JSON object keyed by element id (`{ "step-1": { "color": "#7a1fa2", "dy": 20 } }`) passed to `render()`. Fields: `title`, `subtitle`, `value`, `label`, `icon`, `color`, `dx`, `dy`. Content fields are applied to the items before layout; `dx`/`dy` translate the element's group after layout. An adjustment whose id no longer exists is ignored, reported as a warning and returned in `unusedOverrides`.
 **Consequences.** The DSL stays clean and portable; editors store adjustments next to it (the studio keeps them in the draft and the share link). Ids are positional (ADR-009), so inserting a line shifts the ids of later elements; a stable explicit id attribute in the DSL may be added later if this proves painful. In the studio, text is edited in the DSL rather than through overrides, so the DSL remains the single source of truth for content.
+
+## ADR-016 — No explicit element ids: element order is line order (2026-11-05)
+
+**Context.** Positional ids (`step-2`) shift when a line is inserted before an element, which can move a manual adjustment to the wrong element. An explicit `id:` attribute in the DSL was considered.
+**Decision.** Rejected to keep the DSL simple. Elements are identified by their order, which is the order of their lines. ADR-009 and ADR-015 stand as they are.
+**Consequences.** Editors that store adjustments must re-map them when they insert, delete or reorder lines themselves (the studio can do this because it knows the edit). Adjustments of elements that no longer exist are dropped with a warning.
+
+## ADR-017 — Brand kit format v1 is open (2026-11-05)
+
+**Decision.** A brand kit is a JSON document (`kind: "mplate-brand-kit"`, `version: 1`) with `name`, `extends`, `palette`, `colors`, `fonts`, `shape`, `logo` and `styles`. The format, its JSON Schema, its validation (`parseBrandKit`) and its rendering are part of the open-source engine. Logos must be inline SVG or `data:` URIs; remote URLs are refused. Fonts are referenced by name, not embedded.
+**Consequences.** Anyone can write a kit by hand. Managing kits for a team (import from a PowerPoint master, locking, sharing, per-organisation storage) is outside this repository (ADR-013). The version number in the file allows later formats to stay readable.
+
+## ADR-018 — Pluggable templates and themes (2026-11-05)
+
+**Decision.** `createRenderer({ templates, themes, includeBuiltInTemplates, includeBuiltInThemes })` returns a renderer with its own registry and theme catalogue. The module-level `render()` keeps using the built-in set. Templates are validated at creation: `family:style` ids, unique ids and aliases, one default style per family.
+**Consequences.** Premium or company-specific templates can be shipped as separate packages that depend on `@mplate/core`. Internally, rendering goes through an `Engine` (`registry` + `themes`); new features must take it as a parameter rather than importing the built-in registry.

@@ -1,20 +1,25 @@
+import { brandKitTheme } from '../brand/parse.js'
+import type { BrandKit } from '../brand/types.js'
 import { parseDsl } from '../dsl/parse.js'
-import type { Diagnostic, DslDocument, DslNode } from '../dsl/types.js'
+import type { Diagnostic, DslDocument } from '../dsl/types.js'
 import { element, serialize } from '../svg/node.js'
-import { isHexColor } from '../theme/color.js'
-import { findTheme, resolveTheme, type ResolvedTheme, type ThemeInput } from '../theme/resolve.js'
-import type { ThemeOverride } from '../theme/types.js'
-import { registry } from '../templates/registry.js'
+import { registry as builtInRegistry } from '../templates/registry.js'
 import type { IdentityCard, TemplateDefinition } from '../templates/types.js'
+import { findTheme, resolveThemeIn, type ResolvedTheme, type ThemeInput } from '../theme/resolve.js'
+import { BUILT_IN_THEMES } from '../theme/themes.js'
 import { Canvas, type TextBox } from './canvas.js'
+import type { Engine } from './engine.js'
+import { drawHeading, drawLogo } from './frame.js'
 import { buildTemplateInput } from './items.js'
 import { applyContentOverrides, collectElements, offsetsFrom, reportUnusedOverrides, type ElementInfo, type Overrides } from './overrides.js'
+import { themeDirectives } from './themeDirectives.js'
 
 export interface RenderOptions {
   theme?: ThemeInput
   width?: number
   background?: boolean
   overrides?: Overrides
+  brandKit?: BrandKit
 }
 
 export interface RenderResult {
@@ -30,39 +35,7 @@ export interface RenderResult {
 
 const DEFAULT_WIDTH = 1200
 
-function themeOverrideFrom(nodes: DslNode[], diagnostics: Diagnostic[]): ThemeOverride[] {
-  return nodes
-    .filter((node) => node.keyword === 'theme')
-    .map((node) => {
-      const name = node.attributes.name ?? node.values[0]?.text
-      const named = name ? findTheme(name) : undefined
-      const override: ThemeOverride = named ? { ...named, colors: { ...named.colors }, fonts: { ...named.fonts }, shape: { ...named.shape } } : {}
-      if (name) {
-        if (!named) diagnostics.push({ severity: 'warning', line: node.line, message: `Unknown theme "${name}"`, hint: 'Built-in themes: default, ocean, mono, dark' })
-      }
-      const palette = node.attributes.palette?.split(/[\s,]+/).filter((color) => color.length > 0)
-      if (palette) {
-        const invalid = palette.filter((color) => !isHexColor(color))
-        if (invalid.length > 0) diagnostics.push({ severity: 'warning', line: node.line, message: `Invalid palette colors: ${invalid.join(', ')}` })
-        override.palette = palette.filter((color) => isHexColor(color))
-      }
-      const fonts: ThemeOverride['fonts'] = {}
-      if (node.attributes.font) {
-        fonts.heading = node.attributes.font
-        fonts.body = node.attributes.font
-      }
-      if (node.attributes.heading) fonts.heading = node.attributes.heading
-      if (node.attributes.body) fonts.body = node.attributes.body
-      if (Object.keys(fonts).length > 0) override.fonts = fonts
-      const colors: Record<string, string> = {}
-      for (const key of ['background', 'surface', 'text', 'muted', 'line']) {
-        const value = node.attributes[key]
-        if (value && isHexColor(value)) colors[key === 'muted' ? 'textMuted' : key] = value
-      }
-      if (Object.keys(colors).length > 0) override.colors = colors
-      return override
-    })
-}
+export const DEFAULT_ENGINE: Engine = { registry: builtInRegistry, themes: BUILT_IN_THEMES }
 
 function failure(diagnostics: Diagnostic[], template?: TemplateDefinition): RenderResult {
   const result: RenderResult = { ok: false, svg: '', width: 0, height: 0, diagnostics, layout: { textBoxes: [], elementIds: [], elements: [] }, unusedOverrides: [] }
@@ -70,36 +43,33 @@ function failure(diagnostics: Diagnostic[], template?: TemplateDefinition): Rend
   return result
 }
 
-function drawHeading(canvas: Canvas, title: string | undefined, subtitle: string | undefined): void {
-  if (!title && !subtitle) return
-  let bottom = canvas.top
-  if (title) {
-    const box = canvas.text({ text: title, x: canvas.left, y: bottom, width: canvas.contentWidth, size: 30, minSize: 22, maxLines: 2, weight: 700, font: 'heading', owner: 'heading' })
-    bottom = box.y + box.height + 6
-  }
-  if (subtitle) {
-    const box = canvas.text({ text: subtitle, x: canvas.left, y: bottom, width: canvas.contentWidth, size: 17, maxLines: 2, color: canvas.theme.colors.textMuted, owner: 'heading' })
-    bottom = box.y + box.height
-  }
-  canvas.top = bottom + 32
-}
-
-function resolveDocumentTheme(document: DslDocument, options: RenderOptions, diagnostics: Diagnostic[]): ResolvedTheme {
+function resolveDocumentTheme(engine: Engine, document: DslDocument, options: RenderOptions, diagnostics: Diagnostic[]): ResolvedTheme {
   const headerTheme = document.header.attributes.theme
-  const base = options.theme ?? (headerTheme && findTheme(headerTheme) ? headerTheme : undefined)
-  return resolveTheme(base, ...themeOverrideFrom(document.nodes, diagnostics))
+  const kit = options.brandKit
+  const base = options.theme ?? (headerTheme && findTheme(headerTheme, engine.themes) ? headerTheme : kit?.extends)
+  const layers = [...(kit ? [brandKitTheme(kit)] : []), ...themeDirectives(document.nodes, engine.themes, diagnostics)]
+  return resolveThemeIn(engine.themes, base, layers)
 }
 
-export function renderDocument(document: DslDocument, options: RenderOptions = {}, initialDiagnostics: Diagnostic[] = []): RenderResult {
+function lookupTemplate(engine: Engine, document: DslDocument, options: RenderOptions, diagnostics: Diagnostic[]): TemplateDefinition | undefined {
+  const { header } = document
+  const kitStyle = !header.style && !header.variant ? options.brandKit?.styles?.[header.family] : undefined
+  const lookup = engine.registry.find(header.family, header.variant, header.style ?? kitStyle)
+  if (lookup.template) return lookup.template
+  if (kitStyle) {
+    diagnostics.push({ severity: 'warning', line: header.line, message: `Brand kit default style "${kitStyle}" does not exist for @${header.family}; using the family default` })
+    return engine.registry.find(header.family).template
+  }
+  diagnostics.push({ severity: 'error', line: header.line, message: lookup.message ?? 'Unknown template', ...(lookup.hint ? { hint: lookup.hint } : {}) })
+  return undefined
+}
+
+export function renderDocumentWith(engine: Engine, document: DslDocument, options: RenderOptions = {}, initialDiagnostics: Diagnostic[] = []): RenderResult {
   const diagnostics = [...initialDiagnostics]
   const { header } = document
-  const lookup = registry.find(header.family, header.variant, header.style)
-  if (!lookup.template) {
-    diagnostics.push({ severity: 'error', line: header.line, message: lookup.message ?? 'Unknown template', ...(lookup.hint ? { hint: lookup.hint } : {}) })
-    return failure(diagnostics)
-  }
-  const template = lookup.template
-  const theme = resolveDocumentTheme(document, options, diagnostics)
+  const template = lookupTemplate(engine, document, options, diagnostics)
+  if (!template) return failure(diagnostics)
+  const theme = resolveDocumentTheme(engine, document, options, diagnostics)
   const input = buildTemplateInput(document.nodes, template.card, theme, diagnostics, header.title)
   const { min, max } = template.card.items
   if (input.items.length < min) {
@@ -116,17 +86,14 @@ export function renderDocument(document: DslDocument, options: RenderOptions = {
   const overrides = options.overrides ?? {}
   applyContentOverrides(input.items, overrides, theme, diagnostics)
   const canvas = new Canvas(theme, width, diagnostics, 48, offsetsFrom(overrides))
-  drawHeading(canvas, input.title, input.subtitle)
+  const logo = options.brandKit?.logo
+  drawHeading(canvas, input.title, input.subtitle, logo)
   template.render(canvas, input)
+  if (logo) drawLogo(canvas, logo, canvas.height - canvas.padding)
   const elements = collectElements(input.items)
   const unusedOverrides = reportUnusedOverrides(overrides, new Set(elements.map((entry) => entry.id)), diagnostics)
   const height = Math.ceil(canvas.height)
   const hasBackground = options.background ?? header.attributes.background !== 'none'
-  const children = [
-    element('title', {}, [input.title ?? template.card.name]),
-    ...(hasBackground ? [element('rect', { width, height, fill: theme.colors.background })] : []),
-    canvas.content,
-  ]
   const root = element(
     'svg',
     {
@@ -138,7 +105,11 @@ export function renderDocument(document: DslDocument, options: RenderOptions = {
       'data-mplate-template': template.card.id,
       'data-mplate-theme': theme.name,
     },
-    children,
+    [
+      element('title', {}, [input.title ?? template.card.name]),
+      ...(hasBackground ? [element('rect', { width, height, fill: theme.colors.background })] : []),
+      canvas.content,
+    ],
   )
   for (const box of canvas.textBoxes.filter((textBox) => textBox.isTruncated)) {
     diagnostics.push({ severity: 'warning', line: header.line, message: `Text truncated in ${box.owner}: "${box.text.slice(0, 40)}"`, hint: 'Shorten the text or reduce the number of elements' })
@@ -155,8 +126,16 @@ export function renderDocument(document: DslDocument, options: RenderOptions = {
   }
 }
 
-export function render(source: string, options: RenderOptions = {}): RenderResult {
+export function renderWith(engine: Engine, source: string, options: RenderOptions = {}): RenderResult {
   const parsed = parseDsl(source)
   if (!parsed.document) return failure(parsed.diagnostics)
-  return renderDocument(parsed.document, options, parsed.diagnostics)
+  return renderDocumentWith(engine, parsed.document, options, parsed.diagnostics)
+}
+
+export function renderDocument(document: DslDocument, options: RenderOptions = {}, initialDiagnostics: Diagnostic[] = []): RenderResult {
+  return renderDocumentWith(DEFAULT_ENGINE, document, options, initialDiagnostics)
+}
+
+export function render(source: string, options: RenderOptions = {}): RenderResult {
+  return renderWith(DEFAULT_ENGINE, source, options)
 }

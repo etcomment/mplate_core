@@ -1,5 +1,6 @@
 import type { Diagnostic } from './dsl/types.js'
-import { render, type RenderOptions } from './render/render.js'
+import type { Engine } from './render/engine.js'
+import { DEFAULT_ENGINE, renderWith, type RenderOptions } from './render/render.js'
 
 export interface ValidationResult {
   isValid: boolean
@@ -8,8 +9,8 @@ export interface ValidationResult {
   diagnostics: Diagnostic[]
 }
 
-export function validate(source: string, options: RenderOptions = {}): ValidationResult {
-  const result = render(source, options)
+export function validate(source: string, options: RenderOptions = {}, engine: Engine = DEFAULT_ENGINE): ValidationResult {
+  const result = renderWith(engine, source, options)
   const validation: ValidationResult = {
     isValid: result.ok && !result.diagnostics.some((diagnostic) => diagnostic.severity === 'error'),
     elementCount: result.layout.elementIds.filter((id) => /^[a-zA-Z]+-\d+$/.test(id)).length,
@@ -21,5 +22,6 @@ export function validate(source: string, options: RenderOptions = {}): Validatio
 
 export function formatDiagnostic(diagnostic: Diagnostic): string {
   const hint = diagnostic.hint ? `\n    hint: ${diagnostic.hint.replace(/\n/g, '\n          ')}` : ''
-  return `line ${diagnostic.line}: ${diagnostic.severity}: ${diagnostic.message}${hint}`
+  const location = diagnostic.line > 0 ? `line ${diagnostic.line}: ` : ''
+  return `${location}${diagnostic.severity}: ${diagnostic.message}${hint}`
 }

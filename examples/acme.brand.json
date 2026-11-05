@@ -1,0 +1,18 @@
+{
+  "$schema": "../docs/brand-kit.schema.json",
+  "kind": "mplate-brand-kit",
+  "version": 1,
+  "name": "Acme Consulting",
+  "extends": "default",
+  "palette": ["#0b5d4b", "#d9822b", "#2f4b7c", "#8c2f39", "#5a8f29"],
+  "colors": { "text": "#14213d", "textMuted": "#55607a", "surface": "#f3f5f2" },
+  "fonts": { "heading": "Georgia, 'Times New Roman', serif", "body": "Arial, Helvetica, sans-serif" },
+  "shape": { "radius": 3, "strokeWidth": 1.5 },
+  "logo": {
+    "src": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 36'><rect width='36' height='36' rx='4' fill='#0b5d4b'/><path d='M9 27 18 9l9 18z' fill='#ffffff'/><text x='46' y='25' font-family='Georgia, serif' font-size='20' fill='#14213d'>Acme</text></svg>",
+    "width": 150,
+    "height": 36,
+    "position": "top-right"
+  },
+  "styles": { "process": "steps", "timeline": "vertical" }
+}

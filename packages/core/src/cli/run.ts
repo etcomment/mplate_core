@@ -6,6 +6,8 @@ import type { ThemeInput } from '../theme/resolve.js'
 import { BUILT_IN_THEMES } from '../theme/themes.js'
 import type { ThemeOverride } from '../theme/types.js'
 import type { Overrides } from '../render/overrides.js'
+import { parseBrandKit } from '../brand/parse.js'
+import type { BrandKit } from '../brand/types.js'
 import { formatDiagnostic, validate } from '../validate.js'
 import { VERSION } from '../version.js'
 import { parseArguments } from './args.js'
@@ -21,7 +23,7 @@ export interface CliIo {
 const USAGE = `mplate ${VERSION} — parametric infographics from text
 
 Usage:
-  mplate render <file|-> [-o out.svg|out.png] [--theme name|theme.json] [--overrides adjustments.json] [--width 1200] [--scale 2] [--no-background]
+  mplate render <file|-> [-o out.svg|out.png] [--theme name|theme.json] [--brand kit.json] [--overrides adjustments.json] [--width 1200] [--scale 2] [--no-background]
   mplate validate <file|-> [--json]
   mplate list [--json]              List templates
   mplate describe <family[:style]>  Show a template identity card [--json]
@@ -52,6 +54,14 @@ async function loadOverrides(io: CliIo, value: string | boolean | undefined): Pr
   return parsed as Overrides
 }
 
+async function loadBrandKit(io: CliIo, value: string | boolean | undefined): Promise<BrandKit | undefined> {
+  if (typeof value !== 'string' || value === '') return undefined
+  const result = parseBrandKit(JSON.parse(await io.readText(value)))
+  for (const diagnostic of result.diagnostics) io.stderr(`${value}: ${diagnostic.severity}: ${diagnostic.message}\n`)
+  if (!result.kit) throw new Error(`${value} is not a valid brand kit`)
+  return result.kit
+}
+
 async function runRender(io: CliIo, positionals: string[], options: Record<string, string | boolean>): Promise<number> {
   const source = await readSource(io, positionals[0])
   const output = typeof options.output === 'string' ? options.output : undefined
@@ -59,7 +69,8 @@ async function runRender(io: CliIo, positionals: string[], options: Record<strin
   const width = typeof options.width === 'string' ? Number(options.width) : undefined
   const theme = await loadTheme(io, options.theme)
   const overrides = await loadOverrides(io, options.overrides)
-  const result = render(source, { ...(theme ? { theme } : {}), ...(width ? { width } : {}), ...(overrides ? { overrides } : {}), ...(options.background === false ? { background: false } : {}) })
+  const brandKit = await loadBrandKit(io, options.brand)
+  const result = render(source, { ...(theme ? { theme } : {}), ...(width ? { width } : {}), ...(overrides ? { overrides } : {}), ...(brandKit ? { brandKit } : {}), ...(options.background === false ? { background: false } : {}) })
   for (const diagnostic of result.diagnostics) io.stderr(formatDiagnostic(diagnostic) + '\n')
   if (!result.ok) return 1
   if (options.strict && result.diagnostics.length > 0) return 1

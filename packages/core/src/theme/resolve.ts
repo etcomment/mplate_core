@@ -35,14 +35,16 @@ export function mergeTheme(base: Theme, override: ThemeOverride): Theme {
   }
 }
 
-export function findTheme(name: string): Theme | undefined {
-  return BUILT_IN_THEMES[name.toLowerCase()]
+export type ThemeCatalog = Record<string, Theme>
+
+export function findTheme(name: string, catalog: ThemeCatalog = BUILT_IN_THEMES): Theme | undefined {
+  return catalog[name.toLowerCase()] ?? Object.values(catalog).find((theme) => theme.name.toLowerCase() === name.toLowerCase())
 }
 
-function toTheme(input: ThemeInput | undefined): Theme {
-  if (input === undefined) return DEFAULT_THEME
-  if (typeof input === 'string') return findTheme(input) ?? DEFAULT_THEME
-  const base = input.name ? findTheme(input.name) ?? DEFAULT_THEME : DEFAULT_THEME
+function toTheme(input: ThemeInput | undefined, catalog: ThemeCatalog): Theme {
+  if (input === undefined) return catalog.default ?? DEFAULT_THEME
+  if (typeof input === 'string') return findTheme(input, catalog) ?? catalog.default ?? DEFAULT_THEME
+  const base = input.name ? findTheme(input.name, catalog) ?? DEFAULT_THEME : catalog.default ?? DEFAULT_THEME
   return mergeTheme(base, input)
 }
 
@@ -51,7 +53,11 @@ function isColorToken(theme: Theme, reference: string): reference is ColorToken 
 }
 
 export function resolveTheme(input?: ThemeInput, ...overrides: ThemeOverride[]): ResolvedTheme {
-  const theme = overrides.reduce<Theme>((current, override) => mergeTheme(current, override), toTheme(input))
+  return resolveThemeIn(BUILT_IN_THEMES, input, overrides)
+}
+
+export function resolveThemeIn(catalog: ThemeCatalog, input: ThemeInput | undefined, overrides: ThemeOverride[] = []): ResolvedTheme {
+  const theme = overrides.reduce<Theme>((current, override) => mergeTheme(current, override), toTheme(input, catalog))
   const accent = (index: number): string => paletteColor(theme.palette, index)
   const textOn = (background: string): string =>
     isHexColor(background) ? pickReadable(background, [theme.colors.textInverse, theme.colors.text, '#ffffff', '#111111']) : theme.colors.text
