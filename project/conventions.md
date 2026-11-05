@@ -7,13 +7,13 @@
 - No abbreviations (`connection`, not `conn`; `index`, not `i` outside tiny lambdas is preferred).
 - Functions are verbs (`drawBadge`, `measureTextStack`); booleans start with `is`, `has`, `can`.
 - Pure functions outside the CLI and MCP I/O layers. No hidden side effects.
-- Files stay under ~300 lines. No catch-all `utils` or `helpers` modules; shared layout helpers live in `src/templates/shared.ts` and `radial.ts`.
+- Files stay under ~300 lines. No catch-all `utils` or `helpers` modules; shared layout helpers live in `packages/core/src/templates/shared.ts` and `radial.ts`.
 - Zero runtime dependencies.
 
 ## Tests
 
 - Vitest. Write the test that describes the behaviour, then the minimal implementation, then refactor.
-- Parser, theme, text, render pipeline, CLI and MCP have unit tests. Templates are covered by `tests/templates.test.ts` automatically.
+- Parser, theme, text, render pipeline, CLI and MCP have unit tests. Templates are covered by `packages/core/tests/templates.test.ts` automatically.
 - Never weaken the overlap or clipping checks to make a template pass; fix the layout or lower the template's `items.max`.
 
 ## Templates

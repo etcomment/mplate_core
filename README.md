@@ -19,6 +19,10 @@ Add a fifth `step` line and the chevrons narrow; add a twelfth and they wrap ont
 - **AI-native**: a tiny, forgiving grammar with precise diagnostics, and an [MCP server](docs/mcp.md) so Claude and other assistants can render visuals directly.
 - **Standalone SVG**: zero runtime dependencies, runs in Node and the browser. Optional PNG export.
 
+## Try it in the browser
+
+The **mplate studio** is a free, open-source editor: type on the left, see the visual on the right, export SVG or PNG, share a link. No account, nothing is sent to a server. Run it locally with `npm install && npm run studio:dev`; the public instance is deployed from `apps/studio` to GitHub Pages.
+
 ## Install
 
 ```bash
@@ -78,6 +82,13 @@ Then ask: *“Draw our Q3 roadmap as an mplate timeline.”* See [docs/mcp.md](d
 ```
 
 Full reference: [docs/dsl.md](docs/dsl.md) · Theming: [docs/theming.md](docs/theming.md) · Writing a template: [docs/authoring-templates.md](docs/authoring-templates.md).
+
+## Repository layout
+
+| Path | Package |
+| --- | --- |
+| [`packages/core`](packages/core) | `@mplate/core` — DSL, engine, templates, CLI, MCP server |
+| [`apps/studio`](apps/studio) | mplate studio — web editor without account |
 
 ## Project status
 

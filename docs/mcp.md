@@ -14,7 +14,7 @@ Claude Desktop (`claude_desktop_config.json`), Claude Code (`.mcp.json`) or any 
 }
 ```
 
-From a local clone: `"command": "node", "args": ["/path/to/mplate_core/dist/mcp/main.js"]` after `npm run build`.
+From a local clone: `"command": "node", "args": ["/path/to/mplate_core/packages/core/dist/mcp/main.js"]` after `npm run build`.
 
 Claude Code in one line: `claude mcp add mplate -- npx -y -p @mplate/core mplate-mcp`.
 

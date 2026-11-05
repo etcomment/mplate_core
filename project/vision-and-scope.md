@@ -34,16 +34,18 @@ In scope:
 - the rendering engine (layout, text, theming) producing standalone SVG, with optional PNG;
 - the template catalogue (original designs only) and their identity cards;
 - the CLI and the MCP server;
+- the studio: a free web editor that works without an account (write the DSL, see the visual, export SVG or PNG, share by link);
 - documentation, examples and the gallery.
 
 Out of scope (may exist as separate products):
 
-- user accounts, organisations, saving and versioning of designs;
-- a hosted editor with manual adjustments on a canvas;
-- brand-kit management, locked templates, shared libraries, PowerPoint master import;
+- user accounts, cloud saving and versioning of designs;
+- organisations, roles, sharing inside a team, shared libraries;
+- brand-kit management, locked templates, PowerPoint master import;
+- native PowerPoint (PPTX) export;
 - SSO, audit logs, dedicated hosting.
 
-The engine must stay usable without any account or network access. Features needed by downstream products (stable element ids, theme tokens, identity cards) are designed here in a generic way.
+The engine and the studio must stay usable without any account. The studio stores drafts only in the browser and in share links. Features needed by downstream products (stable element ids, theme tokens, identity cards) are designed here in a generic way.
 
 ## Constraints
 

@@ -18,9 +18,10 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
       - run: npm ci
+      - run: npm run build -w @mplate/core
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - run: node scripts/build-gallery.mjs
+      - run: node packages/core/scripts/build-gallery.mjs
       - name: Gallery is up to date
         run: git diff --exit-code -- docs/

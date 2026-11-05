@@ -1,6 +1,6 @@
 # Writing a template
 
-A template is a TypeScript object with an **identity card** (what it is and what it accepts) and a **render function** (how it draws). Look at `src/templates/funnel/stack.ts` for a compact example.
+A template is a TypeScript object with an **identity card** (what it is and what it accepts) and a **render function** (how it draws). Look at `packages/core/src/templates/funnel/stack.ts` for a compact example.
 
 ## 1. Originality first
 
@@ -45,6 +45,6 @@ Rules:
 
 ## 4. Register and test
 
-Add the template to `src/templates/registry.ts`. The test suite then automatically renders it with 1, 4, 10 and 30 elements (clipped to its range), with every theme and at a narrow width, and fails on overlapping text, text outside the canvas, `NaN`, or diagnostics on the example.
+Add the template to `packages/core/src/templates/registry.ts`. The test suite then automatically renders it with 1, 4, 10 and 30 elements (clipped to its range), with every theme and at a narrow width, and fails on overlapping text, text outside the canvas, `NaN`, or diagnostics on the example.
 
 Run `npm test`, then `npm run gallery` to refresh `docs/templates.md` and `docs/gallery/`.

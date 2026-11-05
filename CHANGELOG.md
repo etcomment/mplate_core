@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+
+- mplate studio (`apps/studio`): free, account-free web editor with line diagnostics, live preview, template gallery, themes, width presets, SVG and PNG export, copy SVG, and share links that carry the design in the URL.
+- GitHub Pages workflow that deploys the studio.
+
+### Changed
+
+- The repository is now an npm workspace: the engine moved to `packages/core` (published as `@mplate/core`).
+
 ## [0.1.0] - 2026-11-04
 
 ### Added

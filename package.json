@@ -1,72 +1,22 @@
 {
-  "name": "@mplate/core",
-  "version": "0.1.0",
-  "description": "Parametric infographics from one line of text per element. DSL, SVG rendering engine, CLI and MCP server.",
+  "name": "mplate-monorepo",
+  "private": true,
+  "description": "mplate: engine, CLI, MCP server and studio",
   "license": "Apache-2.0",
-  "author": "Stiven Guillaume",
   "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/etcomment/mplate_core.git"
-  },
-  "homepage": "https://github.com/etcomment/mplate_core#readme",
-  "keywords": [
-    "infographics",
-    "svg",
-    "dsl",
-    "diagram",
-    "smartart",
-    "mcp",
-    "presentation",
-    "templates"
+  "workspaces": [
+    "packages/*",
+    "apps/*"
   ],
   "engines": {
     "node": ">=20"
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "bin": {
-    "mplate": "./dist/cli/main.js",
-    "mplate-mcp": "./dist/mcp/main.js"
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE",
-    "NOTICE",
-    "THIRD_PARTY_NOTICES.md"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "icons:generate": "node scripts/generate-icons.mjs",
-    "gallery": "npm run build && node scripts/build-gallery.mjs",
-    "prepublishOnly": "npm run typecheck && npm test && npm run build"
-  },
-  "peerDependencies": {
-    "@resvg/resvg-js": "^2.6.0"
-  },
-  "peerDependenciesMeta": {
-    "@resvg/resvg-js": {
-      "optional": true
-    }
-  },
-  "devDependencies": {
-    "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^22.20.5",
-    "lucide-static": "^1.68.0",
-    "typescript": "5.9",
-    "vitest": "^3.2.7"
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run build -w @mplate/core && npm run typecheck --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "gallery": "npm run gallery -w @mplate/core",
+    "studio:dev": "npm run build -w @mplate/core && npm run dev -w @mplate/studio",
+    "studio:build": "npm run build -w @mplate/core && npm run build -w @mplate/studio"
   }
 }
