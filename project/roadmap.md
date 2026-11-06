@@ -43,7 +43,7 @@ Template backlog (one line = one template; tick when merged with gallery and tes
 Engine backlog:
 
 - [x] Manual adjustments API: `render(source, { overrides })` by element id, with `unusedOverrides` (ADR-015, 2026-11-05)
-- [ ] Publish `@mplate/core` 0.1.1 (when the maintainer decides)
+- [x] Publish `@mplate/core` 0.1.1 (2026-11-06)
 - [x] `createRenderer({ templates, themes })` for custom template sets (ADR-018, 2026-11-05)
 - [x] Brand kit format v1 with JSON Schema and validation (ADR-017, 2026-11-05)
 - [ ] Brand kit import in the studio
