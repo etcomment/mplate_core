@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
-Planned as 0.1.1.
+## [0.1.1] - 2026-11-06
 
 ### Added
 
@@ -20,7 +20,6 @@ Planned as 0.1.1.
 ### Changed
 
 - `@swot` now points to `matrix:swot` instead of `matrix:quadrant`.
-
 - The repository is now an npm workspace: the engine moved to `packages/core` (published as `@mplate/core`).
 
 ## [0.1.0] - 2026-11-04
