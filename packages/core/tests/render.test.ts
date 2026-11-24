@@ -69,6 +69,51 @@ describe('render', () => {
   it('can omit the background', () => {
     expect(render('@cards background:none\n  card "A"').svg).not.toMatch(/<rect width="1200"/)
   })
+
+  it('renders multi-line descriptions on kpi:tiles alongside a progress bar without truncating', () => {
+    const result = render('@kpi "Q3"\n  metric "Roadmap" "72%" pct:72 sub:"Line 1\\nLine 2\\nLine 3\\nLine 4\\nLine 5"')
+    expect(result.ok).toBe(true)
+    expect(result.diagnostics).toEqual([])
+    for (let index = 1; index <= 5; index++) expect(result.svg).toContain(`Line ${index}`)
+  })
+
+  it('renders multi-line descriptions on kpi:gauges without truncating', () => {
+    const result = render('@kpi style:gauges "Health"\n  gauge "Scope" "First\\nSecond\\nThird\\nFourth" pct:72')
+    expect(result.ok).toBe(true)
+    expect(result.diagnostics).toEqual([])
+    for (const word of ['First', 'Second', 'Third', 'Fourth']) expect(result.svg).toContain(word)
+  })
+
+  it('grows and shrinks dynamically for 8-line descriptions on kpi:tiles and cards:grid', () => {
+    const eightLines = Array.from({ length: 8 }, (_, index) => `Row ${index + 1}`).join('\\n')
+    const kpiLong = render(`@kpi\n  metric "Roadmap" "72%" pct:72 sub:"${eightLines}"`)
+    const kpiShort = render('@kpi\n  metric "Roadmap" "72%" pct:72 sub:"Row 1"')
+    expect(kpiLong.diagnostics).toEqual([])
+    for (let index = 1; index <= 8; index++) expect(kpiLong.svg).toContain(`Row ${index}`)
+    expect(kpiLong.height).toBeGreaterThan(kpiShort.height + 60)
+
+    const cardsLong = render(`@cards\n  card "Pillar" "${eightLines}"`)
+    const cardsShort = render('@cards\n  card "Pillar" "Row 1"')
+    expect(cardsLong.diagnostics).toEqual([])
+    for (let index = 1; index <= 8; index++) expect(cardsLong.svg).toContain(`Row ${index}`)
+    expect(cardsLong.height).toBeGreaterThan(cardsShort.height + 60)
+  })
+
+  it('emits elastic connector metadata on connected templates', () => {
+    for (const dsl of [
+      '@brain style:spokes\n  center "Core"\n  node "A"\n  node "B"',
+      '@brain style:arc\n  center "Core"\n  node "A"\n  node "B"',
+      '@org\n  unit "CEO"\n    unit "VP"\n      unit "Lead"',
+      '@process style:steps\n  step "A"\n  step "B"',
+      '@process style:vertical\n  step "A"\n  step "B"',
+      '@timeline style:vertical\n  milestone "A"\n  milestone "B"',
+    ]) {
+      const result = render(dsl)
+      expect(result.ok).toBe(true)
+      expect(result.svg).toContain('data-mplate-connector=')
+      expect(result.svg).toContain('data-mplate-to=')
+    }
+  })
 })
 
 describe('validate', () => {

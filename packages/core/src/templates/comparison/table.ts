@@ -7,6 +7,11 @@ const YES = ['yes', 'y', 'true', '✓', 'oui', 'included']
 const NO = ['no', 'n', 'false', '-', '—', 'non', 'none']
 const PARTIAL = ['partial', '~', 'some', 'limited', 'partiel']
 
+function isSymbolicCell(value: string): boolean {
+  const normalized = value.trim().toLowerCase()
+  return YES.includes(normalized) || NO.includes(normalized) || PARTIAL.includes(normalized)
+}
+
 function drawCell(canvas: Canvas, value: string, x: number, y: number, width: number, height: number, accent: string): void {
   const normalized = value.trim().toLowerCase()
   const centerX = x + width / 2
@@ -14,7 +19,7 @@ function drawCell(canvas: Canvas, value: string, x: number, y: number, width: nu
   if (YES.includes(normalized)) canvas.icon('circle-check', centerX, centerY, 22, canvas.theme.colors.positive)
   else if (NO.includes(normalized)) canvas.icon('x', centerX, centerY, 18, canvas.theme.colors.textMuted)
   else if (PARTIAL.includes(normalized)) canvas.circle(centerX, centerY, 6, { fill: 'none', stroke: accent, 'stroke-width': 2.5 })
-  else canvas.text({ text: value, x: x + 8, y, width: width - 16, height, size: 14, minSize: 10, weight: 600, align: 'middle', valign: 'middle', maxLines: 2 })
+  else canvas.text({ text: value, x: x + 8, y, width: width - 16, height, size: 14, minSize: 10, weight: 600, align: 'middle', valign: 'middle' })
 }
 
 export const comparisonTable: TemplateDefinition = {
@@ -49,9 +54,19 @@ export const comparisonTable: TemplateDefinition = {
     const labelWidth = Math.min(360, canvas.contentWidth * 0.34)
     const columnWidth = (canvas.contentWidth - labelWidth) / columns.length
     const headerHeight = 56
-    const rowHeight = rows.length > 15 ? 36 : 44
+    const minRowHeight = rows.length > 15 ? 36 : 44
+    const rowHeights = rows.map((row) => {
+      const titleHeight = canvas.measure({ text: row.title, x: 0, y: 0, width: labelWidth - 16, size: 15, minSize: 11, weight: 600 }).height + 16
+      const cellHeights = columns.map((_, column) => {
+        const value = row.values[column]
+        if (value === undefined || isSymbolicCell(value)) return 0
+        return canvas.measure({ text: value, x: 0, y: 0, width: columnWidth - 16, size: 14, minSize: 10, weight: 600 }).height + 16
+      })
+      return Math.max(minRowHeight, titleHeight, ...cellHeights)
+    })
     const top = canvas.top
-    const tableBottom = top + headerHeight + rows.length * rowHeight
+    const totalRowsHeight = rowHeights.reduce((sum, height) => sum + height, 0)
+    const tableBottom = top + headerHeight + totalRowsHeight
     const radius = canvas.theme.shape.radius
     columns.forEach((column, index) => {
       const x = canvas.left + labelWidth + index * columnWidth
@@ -61,17 +76,19 @@ export const comparisonTable: TemplateDefinition = {
       canvas.path(roundedTopPath({ x: x + 2, y: top, width: columnWidth - 4, height: headerHeight - 6 }, radius), { fill: isHighlighted ? accent : tint(canvas, accent, 0.75) })
       canvas.text({ text: column, x: x + 8, y: top, width: columnWidth - 16, height: headerHeight - 6, size: 17, minSize: 11, weight: 800, align: 'middle', valign: 'middle', maxLines: 2, color: canvas.theme.textOn(isHighlighted ? accent : tint(canvas, accent, 0.75)), font: 'heading', owner: 'columns' })
     })
+    let rowY = top + headerHeight
     rows.forEach((row, index) => {
+      const rowHeight = rowHeights[index]!
       canvas.group(row.id, () => {
-        const y = top + headerHeight + index * rowHeight
-        canvas.line(canvas.left, y, canvas.left + canvas.contentWidth, y, { stroke: canvas.theme.colors.line, 'stroke-width': 1 })
-        canvas.text({ text: row.title, x: canvas.left + 8, y, width: labelWidth - 16, height: rowHeight, size: 15, minSize: 11, weight: 600, valign: 'middle', maxLines: 2 })
+        canvas.line(canvas.left, rowY, canvas.left + canvas.contentWidth, rowY, { stroke: canvas.theme.colors.line, 'stroke-width': 1 })
+        canvas.text({ text: row.title, x: canvas.left + 8, y: rowY, width: labelWidth - 16, height: rowHeight, size: 15, minSize: 11, weight: 600, valign: 'middle' })
         if (row.values.length > columns.length) canvas.diagnostics.push({ severity: 'warning', line: row.line, message: `"${row.title}" has ${row.values.length} values for ${columns.length} columns; extra values ignored` })
         columns.forEach((_, column) => {
           const value = row.values[column]
-          if (value !== undefined) drawCell(canvas, value, canvas.left + labelWidth + column * columnWidth, y, columnWidth, rowHeight, canvas.theme.accent(column))
+          if (value !== undefined) drawCell(canvas, value, canvas.left + labelWidth + column * columnWidth, rowY, columnWidth, rowHeight, canvas.theme.accent(column))
         })
       })
+      rowY += rowHeight
     })
     canvas.extendHeight(tableBottom + 8)
   },

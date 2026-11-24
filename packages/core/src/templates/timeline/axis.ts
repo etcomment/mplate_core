@@ -35,7 +35,7 @@ export const timelineAxis: TemplateDefinition = {
     const count = items.length
     const slot = canvas.contentWidth / count
     const cardWidth = count === 1 ? Math.min(420, slot) : Math.min(300, slot * 2 - 24, slot + 48)
-    const textOptions = { width: cardWidth, titleSize: count > 7 ? 16 : 18, subtitleSize: 14, titleLines: 2, subtitleLines: 3, showValue: true }
+    const textOptions = { width: cardWidth, titleSize: count > 7 ? 16 : 18, subtitleSize: 14, titleLines: 2, subtitleLines: Infinity, showValue: true }
     const heights = items.map((item) => measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 }))
     const aboveHeight = Math.max(0, ...heights.filter((_, index) => index % 2 === 0))
     const belowHeight = Math.max(0, ...heights.filter((_, index) => index % 2 === 1))

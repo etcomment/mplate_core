@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 384" width="1200" height="384" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="kpi:tiles" data-mplate-theme="default">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 374" width="1200" height="374" font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" data-mplate-template="kpi:tiles" data-mplate-theme="default">
   <title>Q3 at a glance</title>
-  <rect width="1200" height="384" fill="#ffffff"/>
+  <rect width="1200" height="374" fill="#ffffff"/>
   <g data-mplate-layer="content">
     <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
       <tspan x="48" y="75.15">Q3 at a glance</tspan>
     </text>
     <g data-mplate-id="metric-0">
-      <rect x="48" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
-      <rect x="48" y="145.5" width="5" height="168" rx="2.5" fill="#4361d8"/>
+      <rect x="48" y="123.5" width="261" height="202.25" rx="10" fill="#f4f6fb"/>
+      <rect x="48" y="145.5" width="5" height="158.25" rx="2.5" fill="#4361d8"/>
       <circle cx="275" cy="157.5" r="20.4" fill="#dde3f8"/>
       <g transform="translate(263.00 145.50) scale(1.0000)" fill="none" stroke="#4361d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="euro">
         <path d="M4 10h12"/>
@@ -29,8 +29,8 @@
       </text>
     </g>
     <g data-mplate-id="metric-1">
-      <rect x="329" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
-      <rect x="329" y="145.5" width="5" height="168" rx="2.5" fill="#13a389"/>
+      <rect x="329" y="123.5" width="261" height="202.25" rx="10" fill="#f4f6fb"/>
+      <rect x="329" y="145.5" width="5" height="158.25" rx="2.5" fill="#13a389"/>
       <circle cx="556" cy="157.5" r="20.4" fill="#d5eeea"/>
       <g transform="translate(544.00 145.50) scale(1.0000)" fill="none" stroke="#108c76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="users">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
@@ -53,8 +53,8 @@
       </text>
     </g>
     <g data-mplate-id="metric-2">
-      <rect x="610" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
-      <rect x="610" y="145.5" width="5" height="168" rx="2.5" fill="#f0a202"/>
+      <rect x="610" y="123.5" width="261" height="202.25" rx="10" fill="#f4f6fb"/>
+      <rect x="610" y="145.5" width="5" height="158.25" rx="2.5" fill="#f0a202"/>
       <circle cx="837" cy="157.5" r="20.4" fill="#fceed1"/>
       <g transform="translate(825.00 145.50) scale(1.0000)" fill="none" stroke="#a56f02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="trending-down">
         <path d="M16 17h6v-6"/>
@@ -75,8 +75,8 @@
       </text>
     </g>
     <g data-mplate-id="metric-3">
-      <rect x="891" y="123.5" width="261" height="212" rx="10" fill="#f4f6fb"/>
-      <rect x="891" y="145.5" width="5" height="168" rx="2.5" fill="#e4572e"/>
+      <rect x="891" y="123.5" width="261" height="202.25" rx="10" fill="#f4f6fb"/>
+      <rect x="891" y="145.5" width="5" height="158.25" rx="2.5" fill="#e4572e"/>
       <circle cx="1118" cy="157.5" r="20.4" fill="#fae1d9"/>
       <g transform="translate(1106.00 145.50) scale(1.0000)" fill="none" stroke="#dc481c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="rocket">
         <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
@@ -93,8 +93,8 @@
       <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="13" fill="#5b6478">
         <tspan x="919" y="267.27">of planned items shipped</tspan>
       </text>
-      <rect x="919" y="299.5" width="211" height="8" rx="4" fill="#e6eaf4"/>
-      <rect x="919" y="299.5" width="151.92" height="8" rx="4" fill="#e4572e"/>
+      <rect x="919" y="291.75" width="211" height="8" rx="4" fill="#e6eaf4"/>
+      <rect x="919" y="291.75" width="151.92" height="8" rx="4" fill="#e4572e"/>
     </g>
   </g>
 </svg>

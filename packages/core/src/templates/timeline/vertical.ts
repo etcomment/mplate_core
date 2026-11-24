@@ -29,24 +29,41 @@ export const timelineVertical: TemplateDefinition = {
     const textLeft = lineX + 30
     const textWidth = canvas.left + canvas.contentWidth - textLeft
     const isCompact = items.length > 10
-    const textOptions = { width: textWidth, titleSize: isCompact ? 16 : 18, subtitleSize: isCompact ? 13 : 14, titleLines: 2, subtitleLines: isCompact ? 1 : 3, showValue: false }
+    const textOptions = { width: textWidth, titleSize: isCompact ? 16 : 18, subtitleSize: isCompact ? 13 : 14, titleLines: 2, subtitleLines: Infinity, showValue: false }
     const rowGap = isCompact ? 14 : 26
     const heights = items.map((item) => Math.max(28, measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 })))
+    const rowTops: number[] = []
+    let cursorY = canvas.top
+    for (const height of heights) {
+      rowTops.push(cursorY)
+      cursorY += height + rowGap
+    }
+    const dotYs = heights.map((height, index) => rowTops[index]! + Math.min(14, height / 2))
     const totalHeight = heights.reduce((sum, height) => sum + height, 0) + rowGap * (items.length - 1)
-    canvas.line(lineX, canvas.top + 8, lineX, canvas.top + totalHeight - 8, { stroke: canvas.theme.colors.line, 'stroke-width': 3 })
+    for (let index = 0; index < items.length - 1; index++) {
+      canvas.line(lineX, dotYs[index]!, lineX, dotYs[index + 1]!, {
+        stroke: canvas.theme.colors.line,
+        'stroke-width': 3,
+        'data-mplate-connector': 'line',
+        'data-mplate-from': items[index]!.id,
+        'data-mplate-to': items[index + 1]!.id,
+        'data-mplate-from-x': lineX,
+        'data-mplate-from-y': dotYs[index]!,
+        'data-mplate-to-x': lineX,
+        'data-mplate-to-y': dotYs[index + 1]!,
+      })
+    }
     const progressIndex = items.reduce((last, item, index) => (item.flags.includes('done') || item.flags.includes('current') ? index : last), -1)
-    let y = canvas.top
     items.forEach((item, index) => {
       canvas.group(item.id, () => {
-        const height = heights[index]!
+        const y = rowTops[index]!
         const isFuture = progressIndex >= 0 && index > progressIndex
         const color = isFuture && !item.hasExplicitColor ? canvas.theme.colors.textMuted : item.color
-        const dotY = y + Math.min(14, height / 2)
+        const dotY = dotYs[index]!
         canvas.circle(lineX, dotY, item.flags.includes('current') ? 10 : 8, { fill: color, stroke: canvas.theme.colors.background, 'stroke-width': 3 })
         const label = item.date ?? item.label ?? item.value
         if (label) canvas.text({ text: label, x: canvas.left, y: dotY - 12, width: dateWidth, height: 24, size: isCompact ? 14 : 16, minSize: 10, weight: 800, align: 'end', valign: 'middle', maxLines: 1, color: canvas.theme.ink(color, canvas.theme.colors.background), font: 'heading' })
         drawTextStack(canvas, item, { ...textOptions, x: textLeft, y })
-        y += height + rowGap
       })
     })
     canvas.extendHeight(canvas.top + totalHeight)

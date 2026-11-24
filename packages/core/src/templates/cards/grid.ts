@@ -30,7 +30,7 @@ export const cardsGrid: TemplateDefinition = {
     const cardWidth = (canvas.contentWidth - gap * (columns - 1)) / columns
     const padding = columns >= 5 ? 16 : 22
     const isDense = columns >= 5
-    const textOptions = { width: cardWidth - padding * 2, titleSize: isDense ? 15 : 19, subtitleSize: isDense ? 12 : 14, titleLines: 3, subtitleLines: isDense ? 4 : 5, showValue: true }
+    const textOptions = { width: cardWidth - padding * 2, titleSize: isDense ? 15 : 19, subtitleSize: isDense ? 12 : 14, titleLines: 3, subtitleLines: Infinity, showValue: true }
     const headerHeight = isDense ? 40 : 52
     const radius = canvas.theme.shape.radius
     let y = canvas.top

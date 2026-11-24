@@ -43,13 +43,26 @@ Rules:
 5. **Call `canvas.extendHeight(bottom)`** with the lowest point drawn; the canvas height follows the content.
 6. **Keep files under ~300 lines**, no `any`, no comments (see `project/conventions.md`).
 
-## 4. Register and test
+## 4. Template quality checklist
+
+Before marking a template ready, verify each point:
+
+1. **Transparency and framing**: never draw an opaque background inside a template (`render.ts` owns the optional document background), and never hard-code default slide titles, footers or logos.
+2. **DSL fidelity**: every declared attribute, positional field, flag or setting on the identity card must have a visible effect, and empty/optional values must fall back cleanly.
+3. **Parametric N-element layout**: compute geometry dynamically from `items.length` (with `Math.max(1, count)` guards) and avoid accidental overlaps across the full `items.min`–`items.max` range.
+4. **Multi-line text and auto-resize**:
+   - Never slice strings manually; let `canvas.text` / `canvas.measure` wrap words and preserve explicit `\n` line breaks.
+   - On templates with vertically extensible cards, rows or lists, do not impose an arbitrary `maxLines` cap on descriptions (`subtitleLines: Infinity`): containers must grow when lines are added and shrink immediately back to their nominal height when lines are removed.
+5. **Elastic connectors**: templates that connect elements (`brain:spokes`, `brain:arc`, `org:tree`, `process:steps`, `process:vertical`, `timeline:vertical`) emit `data-mplate-connector`, `data-mplate-from`, `data-mplate-to` and origin endpoint coordinates (`data-mplate-from-x/y`, `data-mplate-to-x/y`) so editors can stretch connectors when elements move.
+6. **Theme cascade and strict types**: all colours and fonts come from theme tokens (overridable by DSL `#hex` and engine `overrides`), zero `any`, zero `NaN` in SVG output.
+
+## 5. Register and test
 
 Add the template to `packages/core/src/templates/registry.ts`. The test suite then automatically renders it with 1, 4, 10 and 30 elements (clipped to its range), with every theme and at a narrow width, and fails on overlapping text, text outside the canvas, `NaN`, or diagnostics on the example.
 
 Run `npm test`, then `npm run gallery` to refresh `docs/templates.md` and `docs/gallery/`.
 
-## 5. Use your own templates
+## 6. Use your own templates
 
 Templates do not have to live in this repository. Build a renderer with your own templates and themes:
 

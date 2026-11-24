@@ -48,14 +48,24 @@ export const kpiTiles: TemplateDefinition = {
     const padding = isDense ? 16 : 22
     const innerWidth = tileWidth - padding * 2
     const valueSize = isDense ? 28 : 40
-    const tileHeight = padding * 2 + (isDense ? 22 : 26) + valueSize * 1.25 + 10 + 22 + (items.some((item) => item.subtitle) ? 38 : 0) + (items.some((item) => item.percent !== undefined) ? 22 : 0)
     let y = canvas.top
     for (const row of chunk(items, columns)) {
+      const rowHasDelta = row.some((item) => Boolean(item.delta))
+      const rowHasPercent = row.some((item) => item.percent !== undefined)
+      const rowSubtitleHeight = Math.max(
+        0,
+        ...row.map((item) =>
+          item.subtitle
+            ? canvas.measure({ text: item.subtitle, x: 0, y: 0, width: innerWidth - 6, size: 13, minSize: 10 }).height + 8
+            : 0,
+        ),
+      )
+      const rowTileHeight = padding * 2 + (isDense ? 22 : 26) + valueSize * 1.25 + 10 + (rowHasDelta ? 26 : 6) + rowSubtitleHeight + (rowHasPercent ? 22 : 0)
       row.forEach((item, column) => {
         canvas.group(item.id, () => {
           const x = canvas.left + column * (tileWidth + gap)
-          canvas.rect({ x, y, width: tileWidth, height: tileHeight }, { rx: canvas.theme.shape.radius, fill: canvas.theme.colors.surface })
-          canvas.rect({ x, y: y + padding, width: 5, height: tileHeight - padding * 2 }, { rx: 2.5, fill: item.color })
+          canvas.rect({ x, y, width: tileWidth, height: rowTileHeight }, { rx: canvas.theme.shape.radius, fill: canvas.theme.colors.surface })
+          canvas.rect({ x, y: y + padding, width: 5, height: rowTileHeight - padding * 2 }, { rx: 2.5, fill: item.color })
           let cursor = y + padding
           const iconSize = isDense ? 20 : 24
           const hasIcon = item.icon !== undefined
@@ -73,20 +83,20 @@ export const kpiTiles: TemplateDefinition = {
             if (icon) canvas.icon(icon, x + padding + 16, cursor + 10, 18, color)
             canvas.text({ text: item.delta, x: x + padding + (icon ? 30 : 6), y: cursor, width: innerWidth - 30, height: 20, size: 15, minSize: 10, weight: 700, valign: 'middle', maxLines: 1, color })
           }
-          cursor += 26
+          cursor += rowHasDelta ? 26 : 6
           if (item.subtitle) {
-            canvas.text({ text: item.subtitle, x: x + padding + 6, y: cursor, width: innerWidth - 6, size: 13, minSize: 10, maxLines: 2, color: canvas.theme.colors.textMuted })
-            cursor += 38
+            canvas.text({ text: item.subtitle, x: x + padding + 6, y: cursor, width: innerWidth - 6, size: 13, minSize: 10, color: canvas.theme.colors.textMuted })
           }
           if (item.percent !== undefined) {
             const barWidth = innerWidth - 6
             const ratio = Math.min(1, Math.max(0, item.percent / 100))
-            canvas.rect({ x: x + padding + 6, y: cursor + 6, width: barWidth, height: 8 }, { rx: 4, fill: canvas.theme.colors.surfaceAlt })
-            canvas.rect({ x: x + padding + 6, y: cursor + 6, width: barWidth * ratio, height: 8 }, { rx: 4, fill: item.color })
+            const barY = y + rowTileHeight - padding - 12
+            canvas.rect({ x: x + padding + 6, y: barY, width: barWidth, height: 8 }, { rx: 4, fill: canvas.theme.colors.surfaceAlt })
+            canvas.rect({ x: x + padding + 6, y: barY, width: barWidth * ratio, height: 8 }, { rx: 4, fill: item.color })
           }
         })
       })
-      y += tileHeight + gap
+      y += rowTileHeight + gap
     }
     canvas.extendHeight(y - gap)
   },

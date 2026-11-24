@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+
+- Declarative elastic connector metadata (`data-mplate-connector`, `data-mplate-from`, `data-mplate-to`, and origin coordinates) on connected templates (`brain:spokes`, `brain:arc`, `org:tree`, `process:steps`, `process:vertical`, `timeline:vertical`) so editors flex connectors live when elements are dragged (ADR-020).
+- Studio properties panel: edit `date:`, `pct:`, `from:`, `to:` and `label:` fields on elements, and edit or remove the diagram header title and subtitle in one click when no element is selected.
+- Template quality checklist in `docs/authoring-templates.md`.
+
+### Fixed
+
+- Remove arbitrary `maxLines` description caps across vertically extensible templates (`kpi:tiles`, `kpi:gauges`, `cards:grid`, `process:chevrons`, `process:steps`, `process:vertical`, `process:loop`, `timeline:vertical`, `timeline:axis`, `timeline:swimlanes`, `comparison:columns`, `comparison:table`, `matrix:swot`, `stack:layers`, `org:tree`) so containers grow and shrink dynamically with multi-line text.
+- Studio properties panel: read and rewrite `sub:`, `value:` and `delta:` attributes in place (including `kpi:tiles` lines with `sub:"..."` and omitted optional positional slots) instead of inserting an ignored positional string or showing an empty field.
+- Studio canvas: keep moved (unresized) template elements auto-resizing with updated text height instead of locking their initial height and squashing text via `scaleY`.
+
 ### Security
 
 - **Core (`@mplate/core`)**: validate and sanitize inline and `data:` SVG brand kit logos (blocking `<script>`, `<foreignObject>`, event handlers, `javascript:`/`vbscript:` URIs, `@import`, and external `href`/`url()` references) and enforce a 256 KB logo size cap; validate brand kit and DSL directive font names; enforce DSL bounds (256 KB source, 2,000 lines, 16-level nesting depth); validate SVG tag and attribute names in `serialize()`; bound `svgToPng` scale (`0.25–8`) and `overrides` offsets (`±10,000`); guard all dictionary lookups against `Object.prototype` keys (`__proto__`, `constructor`, `prototype`).

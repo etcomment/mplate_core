@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { describeTemplate } from '@mplate/core'
+import { describeTemplate, render } from '@mplate/core'
 import { currentAdjustments, useTemplateStore } from '../src/templates/store'
 import { readElementFields } from '../src/templates/elementFields'
+import { rewriteElementLine } from '../src/templates/dslLines'
 import { currentStudioState, restoreStudioState } from '../src/templates/session'
 
 const store = () => useTemplateStore.getState()
@@ -37,10 +38,22 @@ describe('template store', () => {
     store().moveTemplateElement('step-0', { x: 40, y: 10 })
     store().setDslText(store().dslText.replace('Discover', 'Explore'))
     store().setNaturalElementRects({ 'step-0': { x: 0, y: 0, width: 110, height: 50 } })
-    expect(store().templateElementPositions['step-0']).toEqual({ x: 40, y: 10, width: 100, height: 50 })
+    expect(store().templateElementPositions['step-0']).toEqual({ x: 40, y: 10, width: 110, height: 50 })
     store().setDslText(`${store().dslText}\n  step "Extra"`)
     expect(store().adjustedTemplateElementIds.size).toBe(0)
     expect(store().templateElementPositions).toEqual({})
+  })
+
+  it('preserves moved x/y while letting unresized elements auto-resize with new text height', () => {
+    store().selectTemplate('process:chevrons')
+    store().setNaturalElementRects({ 'step-0': { x: 0, y: 0, width: 100, height: 50 } })
+    store().moveTemplateElement('step-0', { x: 40, y: 10 })
+    store().setNaturalElementRects({ 'step-0': { x: 0, y: 0, width: 100, height: 140 } })
+    expect(store().templateElementPositions['step-0']).toEqual({ x: 40, y: 10, width: 100, height: 140 })
+
+    store().resizeTemplateElement('step-0', { width: 180, height: 140 })
+    store().setNaturalElementRects({ 'step-0': { x: 0, y: 0, width: 100, height: 200 } })
+    expect(store().templateElementPositions['step-0']).toEqual({ x: 40, y: 10, width: 180, height: 140 })
   })
 
   it('keeps the last valid visual while the source has errors', () => {
@@ -82,7 +95,26 @@ describe('element fields', () => {
   it('reads the positional and attribute values of an element line', () => {
     const card = describeTemplate('process:chevrons')
     const fields = readElementFields('@process\n  step "Discover" "Interviews" val:"3 weeks"', 2, card)
-    expect(fields).toMatchObject({ title: 'Discover', subtitle: 'Interviews', value: '3 weeks' })
+    expect(fields).toMatchObject({ title: 'Discover', subtitle: 'Interviews', value: '3 weeks', delta: '' })
     expect(fields.editable).toEqual(['title', 'subtitle', 'value'])
+  })
+
+  it('reads sub: and delta on kpi:tiles and updates the rendered SVG after rewriting', () => {
+    const card = describeTemplate('kpi:tiles')!
+    const fields = readElementFields(card.example, 5, card)
+    expect(fields).toMatchObject({ title: 'Roadmap', value: '72%', subtitle: 'of planned items shipped', delta: '', percent: '72' })
+    expect(fields.editable).toEqual(['title', 'subtitle', 'value', 'delta', 'percent'])
+
+    const updated = rewriteElementLine(card.example, {
+      line: 5,
+      field: 'subtitle',
+      value: 'Line 1\nLine 2\nLine 3',
+      positional: fields.spec!.positional,
+    })
+    const rendered = render(updated)
+    expect(rendered.ok).toBe(true)
+    expect(rendered.svg).not.toContain('of planned items shipped')
+    expect(rendered.svg).toContain('Line 1')
+    expect(rendered.svg).toContain('Line 3')
   })
 })

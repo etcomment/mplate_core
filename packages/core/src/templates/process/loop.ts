@@ -34,7 +34,7 @@ export const processLoop: TemplateDefinition = {
     const trackLeft = canvas.left + sideInset
     const trackRight = canvas.left + canvas.contentWidth - sideInset
     const slot = (trackRight - trackLeft) / Math.max(1, topCount)
-    const textOptions = { width: Math.min(260, slot - 16), titleSize: 17, subtitleSize: 14, titleLines: 2, subtitleLines: 2 }
+    const textOptions = { width: Math.min(260, slot - 16), titleSize: 17, subtitleSize: 14, titleLines: 2, subtitleLines: Infinity }
     const heights = items.map((item) => measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 }))
     const topLabel = Math.max(0, ...heights.slice(0, topCount))
     const topY = canvas.top + topLabel + 18 + radius

@@ -46,7 +46,7 @@ export const timelineSwimlanes: TemplateDefinition = {
     const cardWidth = columnWidth - 12
     const cardText = (item: Item): number =>
       canvas.measure({ text: item.title, x: 0, y: 0, width: cardWidth - 20, size: 14, minSize: 11, weight: 700, maxLines: 2 }).height +
-      (item.subtitle ? 2 + canvas.measure({ text: item.subtitle, x: 0, y: 0, width: cardWidth - 20, size: 12, maxLines: 2 }).height : 0)
+      (item.subtitle ? 2 + canvas.measure({ text: item.subtitle, x: 0, y: 0, width: cardWidth - 20, size: 12 }).height : 0)
     let y = drawPeriodHeader(canvas, periods, gridLeft, columnWidth, canvas.top) + 10
     lanes.forEach((lane, laneIndex) => {
       const cells: Item[][] = periods.map(() => [])
@@ -72,7 +72,7 @@ export const timelineSwimlanes: TemplateDefinition = {
               const height = cardText(milestone) + 16
               canvas.rect({ x, y: cardTop, width: cardWidth, height }, { rx: Math.min(8, canvas.theme.shape.radius), fill: tint(canvas, color, 0.82), stroke: color, 'stroke-width': 1.2 })
               const title = canvas.text({ text: milestone.title, x: x + 10, y: cardTop + 8, width: cardWidth - 20, size: 14, minSize: 11, weight: 700, maxLines: 2 })
-              if (milestone.subtitle) canvas.text({ text: milestone.subtitle, x: x + 10, y: title.y + title.height + 2, width: cardWidth - 20, size: 12, maxLines: 2, color: canvas.theme.colors.textMuted })
+              if (milestone.subtitle) canvas.text({ text: milestone.subtitle, x: x + 10, y: title.y + title.height + 2, width: cardWidth - 20, size: 12, color: canvas.theme.colors.textMuted })
               cardTop += height + CARD_GAP
             })
           }

@@ -40,7 +40,7 @@ export const kpiGauges: TemplateDefinition = {
     const cellWidth = (canvas.contentWidth - gap * (columns - 1)) / columns
     const radius = Math.min(84, cellWidth * 0.36)
     const thickness = Math.max(10, radius * 0.2)
-    const textOptions = { width: cellWidth - 16, titleSize: columns > 4 ? 15 : 17, subtitleSize: 13, titleLines: 2, subtitleLines: 2 }
+    const textOptions = { width: cellWidth - 16, titleSize: columns > 4 ? 15 : 17, subtitleSize: 13, titleLines: 2, subtitleLines: Infinity }
     let y = canvas.top
     for (const row of chunk(items, columns)) {
       const textHeight = Math.max(...row.map((item) => measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 })))

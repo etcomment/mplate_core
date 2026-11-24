@@ -30,15 +30,34 @@ export const processVertical: TemplateDefinition = {
     const valueWidth = hasValues ? Math.min(180, canvas.contentWidth * 0.18) : 0
     const textLeft = badgeX + radius + 22
     const textWidth = canvas.left + canvas.contentWidth - textLeft - (hasValues ? valueWidth + 20 : 0)
-    const textOptions = { width: textWidth, titleSize: isCompact ? 16 : 19, subtitleSize: isCompact ? 13 : 15, titleLines: 2, subtitleLines: isCompact ? 2 : 3 }
+    const textOptions = { width: textWidth, titleSize: isCompact ? 16 : 19, subtitleSize: isCompact ? 13 : 15, titleLines: 2, subtitleLines: Infinity }
     const gap = isCompact ? 14 : 24
     const heights = items.map((item) => Math.max(radius * 2, measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 })))
+    const rowTops: number[] = []
+    let cursorY = canvas.top
+    for (const height of heights) {
+      rowTops.push(cursorY)
+      cursorY += height + gap
+    }
     const total = heights.reduce((sum, height) => sum + height, 0) + gap * (items.length - 1)
-    if (items.length > 1) canvas.line(badgeX, canvas.top + radius, badgeX, canvas.top + total - (heights[heights.length - 1] ?? 0) + radius, { stroke: canvas.theme.colors.line, 'stroke-width': 3 })
-    let y = canvas.top
+    for (let index = 0; index < items.length - 1; index++) {
+      const fromY = rowTops[index]! + radius
+      const toY = rowTops[index + 1]! + radius
+      canvas.line(badgeX, fromY, badgeX, toY, {
+        stroke: canvas.theme.colors.line,
+        'stroke-width': 3,
+        'data-mplate-connector': 'line',
+        'data-mplate-from': items[index]!.id,
+        'data-mplate-to': items[index + 1]!.id,
+        'data-mplate-from-x': badgeX,
+        'data-mplate-from-y': fromY,
+        'data-mplate-to-x': badgeX,
+        'data-mplate-to-y': toY,
+      })
+    }
     items.forEach((item, index) => {
       canvas.group(item.id, () => {
-        const height = heights[index]!
+        const y = rowTops[index]!
         canvas.circle(badgeX, y + radius, radius + 5, { fill: canvas.theme.colors.background })
         drawBadge(canvas, item, badgeX, y + radius, radius)
         const stackHeight = measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 })
@@ -47,7 +66,6 @@ export const processVertical: TemplateDefinition = {
         if (item.value) {
           canvas.text({ text: item.value, x: canvas.left + canvas.contentWidth - valueWidth, y, width: valueWidth, height: radius * 2, size: isCompact ? 18 : 22, minSize: 12, weight: 800, align: 'end', valign: 'middle', maxLines: 1, color: canvas.theme.ink(item.color, canvas.theme.colors.background), font: 'heading' })
         }
-        y += height + gap
       })
     })
     canvas.extendHeight(canvas.top + total)

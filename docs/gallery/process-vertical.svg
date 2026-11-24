@@ -5,7 +5,9 @@
     <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
       <tspan x="48" y="75.15">Incident procedure</tspan>
     </text>
-    <line x1="76" y1="147.5" x2="76" y2="363.5" stroke="#c9cfdc" stroke-width="3"/>
+    <line x1="76" y1="147.5" x2="76" y2="219.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="step-0" data-mplate-to="step-1" data-mplate-from-x="76" data-mplate-from-y="147.5" data-mplate-to-x="76" data-mplate-to-y="219.5"/>
+    <line x1="76" y1="219.5" x2="76" y2="291.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="step-1" data-mplate-to="step-2" data-mplate-from-x="76" data-mplate-from-y="219.5" data-mplate-to-x="76" data-mplate-to-y="291.5"/>
+    <line x1="76" y1="291.5" x2="76" y2="363.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="step-2" data-mplate-to="step-3" data-mplate-from-x="76" data-mplate-from-y="291.5" data-mplate-to-x="76" data-mplate-to-y="363.5"/>
     <g data-mplate-id="step-0">
       <circle cx="76" cy="147.5" r="29" fill="#ffffff"/>
       <circle cx="76" cy="147.5" r="24" fill="#4361d8"/>

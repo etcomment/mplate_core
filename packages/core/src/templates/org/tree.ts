@@ -1,4 +1,5 @@
 import type { Canvas } from '../../render/canvas.js'
+import { formatNumber as n } from '../../svg/node.js'
 import { drawTextStack, measureTextStack, tint } from '../shared.js'
 import type { ElementSpec, Item, TemplateDefinition } from '../types.js'
 
@@ -8,10 +9,11 @@ UNIT.child = UNIT
 interface Entry {
   item: Item
   depth: number
+  parentId: string
 }
 
-function flatten(items: Item[], depth: number): Entry[] {
-  return items.flatMap((item) => [{ item, depth }, ...flatten(item.children, depth + 1)])
+function flattenWithParent(items: Item[], depth: number, parentId: string): Entry[] {
+  return items.flatMap((item) => [{ item, depth, parentId }, ...flattenWithParent(item.children, depth + 1, item.id)])
 }
 
 interface BoxOptions {
@@ -23,7 +25,7 @@ interface BoxOptions {
 }
 
 function boxHeight(canvas: Canvas, item: Item, width: number, isProminent: boolean): number {
-  return 28 + measureTextStack(canvas, item, { x: 0, y: 0, width: width - 34, titleSize: isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: 2 })
+  return 28 + measureTextStack(canvas, item, { x: 0, y: 0, width: width - 34, titleSize: isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: Infinity })
 }
 
 function drawBox(canvas: Canvas, item: Item, options: BoxOptions): number {
@@ -32,7 +34,7 @@ function drawBox(canvas: Canvas, item: Item, options: BoxOptions): number {
     const fill = options.isProminent ? tint(canvas, options.color, 0.86) : canvas.theme.colors.surface
     canvas.rect({ x: options.x, y: options.y, width: options.width, height }, { rx: canvas.theme.shape.radius * 0.8, fill })
     canvas.rect({ x: options.x, y: options.y, width: 6, height }, { rx: 3, fill: options.color })
-    drawTextStack(canvas, item, { x: options.x + 20, y: options.y + 14, width: options.width - 34, titleSize: options.isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: 2 })
+    drawTextStack(canvas, item, { x: options.x + 20, y: options.y + 14, width: options.width - 34, titleSize: options.isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: Infinity })
   })
   return height
 }
@@ -75,32 +77,58 @@ export const orgTree: TemplateDefinition = {
     const columnWidth = (canvas.contentWidth - gap * (count - 1)) / count
     const lineColor = canvas.theme.colors.line
     let y = canvas.top
-    let busY: number | undefined
+    let rootCenterX = 0
+    let rootBottom = 0
     if (root) {
       const width = Math.min(340, canvas.contentWidth)
       const x = canvas.left + (canvas.contentWidth - width) / 2
       const height = drawBox(canvas, root, { x, y, width, color: root.color, isProminent: true })
-      busY = y + height + 24
-      canvas.line(x + width / 2, y + height, x + width / 2, busY, { stroke: lineColor, 'stroke-width': 2 })
-      y = busY + 24
-    }
-    if (busY !== undefined && count > 1) {
-      canvas.line(canvas.left + columnWidth / 2, busY, canvas.left + columnWidth * (count - 0.5) + gap * (count - 1), busY, { stroke: lineColor, 'stroke-width': 2 })
+      rootCenterX = x + width / 2
+      rootBottom = y + height
+      y = rootBottom + 48
     }
     let bottom = y
     branches.forEach((branch, column) => {
       const color = branch.hasExplicitColor ? branch.color : canvas.theme.accent(column)
       const x = canvas.left + column * (columnWidth + gap)
-      if (busY !== undefined) canvas.line(x + columnWidth / 2, busY, x + columnWidth / 2, y, { stroke: lineColor, 'stroke-width': 2 })
+      const branchCenterX = x + columnWidth / 2
+      if (root) {
+        const busY = (rootBottom + y) / 2
+        canvas.path(`M${n(rootCenterX)} ${n(rootBottom)} L${n(rootCenterX)} ${n(busY)} L${n(branchCenterX)} ${n(busY)} L${n(branchCenterX)} ${n(y)}`, {
+          fill: 'none',
+          stroke: lineColor,
+          'stroke-width': 2,
+          'data-mplate-connector': 'elbow',
+          'data-mplate-from': root.id,
+          'data-mplate-to': branch.id,
+          'data-mplate-from-x': rootCenterX,
+          'data-mplate-from-y': rootBottom,
+          'data-mplate-to-x': branchCenterX,
+          'data-mplate-to-y': y,
+        })
+      }
       const height = drawBox(canvas, branch, { x, y, width: columnWidth, color, isProminent: true })
       let cursor = y + height + 14
       const indentStep = Math.min(18, columnWidth * 0.08)
-      for (const entry of flatten(branch.children, 1)) {
+      for (const entry of flattenWithParent(branch.children, 1, branch.id)) {
         const entryX = x + indentStep * entry.depth
         const entryWidth = columnWidth - indentStep * entry.depth
         const entryColor = entry.item.hasExplicitColor ? entry.item.color : color
-        canvas.line(entryX - indentStep / 2, cursor - 14, entryX - indentStep / 2, cursor + 18, { stroke: lineColor, 'stroke-width': 1.5 })
-        canvas.line(entryX - indentStep / 2, cursor + 18, entryX, cursor + 18, { stroke: lineColor, 'stroke-width': 1.5 })
+        const startX = entryX - indentStep / 2
+        const startY = cursor - 14
+        const targetY = cursor + 18
+        canvas.path(`M${n(startX)} ${n(startY)} L${n(startX)} ${n(targetY)} L${n(entryX)} ${n(targetY)}`, {
+          fill: 'none',
+          stroke: lineColor,
+          'stroke-width': 1.5,
+          'data-mplate-connector': 'elbow-left',
+          'data-mplate-from': entry.parentId,
+          'data-mplate-to': entry.item.id,
+          'data-mplate-from-x': startX,
+          'data-mplate-from-y': startY,
+          'data-mplate-to-x': entryX,
+          'data-mplate-to-y': targetY,
+        })
         cursor += drawBox(canvas, entry.item, { x: entryX, y: cursor, width: entryWidth, color: entryColor, isProminent: false }) + 10
       }
       bottom = Math.max(bottom, cursor - 10)

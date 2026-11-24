@@ -12,6 +12,22 @@ const FIELD_LABELS: Record<EditableField, string> = {
   title: 'Titre / Texte',
   subtitle: 'Sous-titre / Description',
   value: 'Valeur (val:)',
+  delta: 'Variation (delta)',
+  date: 'Date / Période',
+  percent: 'Pourcentage (pct:)',
+  from: 'Début (from:)',
+  to: 'Fin (to:)',
+  label: 'Badge / Étiquette',
+}
+
+const INPUT_PLACEHOLDERS: Partial<Record<EditableField, string>> = {
+  value: 'Ex : €4,2 M',
+  delta: 'Ex : +18%',
+  date: 'Ex : Q1 2027',
+  percent: 'Ex : 72',
+  from: 'Ex : Jan',
+  to: 'Ex : Mar',
+  label: 'Ex : 01',
 }
 
 export function TemplateElementProperties() {
@@ -91,21 +107,21 @@ export function TemplateElementProperties() {
       {!isMulti && fields && fields.editable.map(field => (
         <div key={field} style={fieldStyles.section}>
           <label style={fieldStyles.sectionLabel}>{FIELD_LABELS[field]}</label>
-          {field === 'value' ? (
-            <input
-              type="text"
-              value={fields.value}
-              onChange={(e) => handleFieldChange('value', e.target.value)}
-              placeholder="Ex : €4,2 M"
-              style={fieldStyles.textInput}
-            />
-          ) : (
+          {field === 'title' || field === 'subtitle' ? (
             <textarea
               value={fields[field]}
               onChange={(e) => handleFieldChange(field, e.target.value)}
               placeholder={field === 'title' ? 'Titre...' : 'Description...'}
               style={fieldStyles.textarea}
-              rows={field === 'title' ? 2 : 3}
+              rows={field === 'title' ? 2 : 4}
+            />
+          ) : (
+            <input
+              type="text"
+              value={fields[field]}
+              onChange={(e) => handleFieldChange(field, e.target.value)}
+              placeholder={INPUT_PLACEHOLDERS[field] ?? ''}
+              style={fieldStyles.textInput}
             />
           )}
         </div>

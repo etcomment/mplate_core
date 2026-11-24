@@ -43,7 +43,17 @@ export const brainSpokes: TemplateDefinition = {
       return { x: center.x + radiusX * Math.cos(angle), y: center.y + radiusY * Math.sin(angle) }
     })
     positions.forEach((position, index) => {
-      canvas.line(center.x, center.y, position.x, position.y, { stroke: items[index]!.color, 'stroke-width': 2.5, 'stroke-opacity': 0.55 })
+      canvas.line(center.x, center.y, position.x, position.y, {
+        stroke: items[index]!.color,
+        'stroke-width': 2.5,
+        'stroke-opacity': 0.55,
+        'data-mplate-connector': 'line',
+        'data-mplate-to': items[index]!.id,
+        'data-mplate-from-x': center.x,
+        'data-mplate-from-y': center.y,
+        'data-mplate-to-x': position.x,
+        'data-mplate-to-y': position.y,
+      })
     })
     canvas.circle(center.x, center.y, hubRadius, { fill: canvas.theme.colors.text })
     const centerText = input.settings.center?.join(' ')

@@ -39,7 +39,18 @@ export const brainArc: TemplateDefinition = {
     const positions = offsets.map((offset) => ({ x: hub.x + Math.sqrt(arcRadius * arcRadius - offset * offset) * 0.75, y: hub.y + offset }))
     positions.forEach((position, index) => {
       const controlX = hub.x + (position.x - hub.x) * 0.35
-      canvas.path(`M${n(hub.x)} ${n(hub.y)} Q${n(controlX)} ${n(position.y)} ${n(position.x)} ${n(position.y)}`, { fill: 'none', stroke: items[index]!.color, 'stroke-width': 2.5, 'stroke-opacity': 0.6 })
+      canvas.path(`M${n(hub.x)} ${n(hub.y)} Q${n(controlX)} ${n(position.y)} ${n(position.x)} ${n(position.y)}`, {
+        fill: 'none',
+        stroke: items[index]!.color,
+        'stroke-width': 2.5,
+        'stroke-opacity': 0.6,
+        'data-mplate-connector': 'quad',
+        'data-mplate-to': items[index]!.id,
+        'data-mplate-from-x': hub.x,
+        'data-mplate-from-y': hub.y,
+        'data-mplate-to-x': position.x,
+        'data-mplate-to-y': position.y,
+      })
     })
     canvas.circle(hub.x, hub.y, hubRadius, { fill: canvas.theme.colors.text })
     const centerText = input.settings.center?.join(' ')

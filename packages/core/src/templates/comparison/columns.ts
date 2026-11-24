@@ -51,11 +51,11 @@ export const comparisonColumns: TemplateDefinition = {
     const textWidth = columnWidth - padding * 2
     const headerHeights = items.map((item) => {
       const title = canvas.measure({ text: item.title, x: 0, y: 0, width: textWidth, size: 22, minSize: 16, weight: 800, maxLines: 2 }).height
-      const subtitle = item.subtitle ? canvas.measure({ text: item.subtitle, x: 0, y: 0, width: textWidth, size: 15, maxLines: 2 }).height + 4 : 0
+      const subtitle = item.subtitle ? canvas.measure({ text: item.subtitle, x: 0, y: 0, width: textWidth, size: 15 }).height + 4 : 0
       return title + subtitle
     })
     const headerHeight = Math.max(...headerHeights) + padding * 2
-    const pointHeights = items.map((item) => item.children.reduce((sum, point) => sum + canvas.measure({ text: point.title, x: 0, y: 0, width: textWidth - 34, size: 16, minSize: 13, maxLines: 3 }).height + 16, 0))
+    const pointHeights = items.map((item) => item.children.reduce((sum, point) => sum + canvas.measure({ text: point.title, x: 0, y: 0, width: textWidth - 34, size: 16, minSize: 13 }).height + 16, 0))
     const bodyHeight = Math.max(60, ...pointHeights) + padding * 2
     items.forEach((item, index) => {
       canvas.group(item.id, () => {
@@ -66,14 +66,14 @@ export const comparisonColumns: TemplateDefinition = {
         canvas.path(roundedTopPath({ x, y, width: columnWidth, height: headerHeight }, radius), { fill: item.color })
         const foreground = canvas.theme.textOn(item.color)
         const title = canvas.text({ text: item.title, x: x + padding, y: y + padding, width: textWidth, size: 22, minSize: 16, weight: 800, maxLines: 2, color: foreground, font: 'heading' })
-        if (item.subtitle) canvas.text({ text: item.subtitle, x: x + padding, y: title.y + title.height + 4, width: textWidth, size: 15, maxLines: 2, color: foreground })
+        if (item.subtitle) canvas.text({ text: item.subtitle, x: x + padding, y: title.y + title.height + 4, width: textWidth, size: 15, color: foreground })
         let cursor = y + headerHeight + padding
         item.children.forEach((point) => {
           canvas.group(point.id, () => {
             const marker = pointMarker(canvas, point, item)
             if (marker) canvas.icon(marker.icon, x + padding + 10, cursor + 11, 20, marker.color)
             else canvas.circle(x + padding + 10, cursor + 11, 5, { fill: item.color })
-            const box = canvas.text({ text: point.title, x: x + padding + 34, y: cursor, width: textWidth - 34, size: 16, minSize: 13, maxLines: 3 })
+            const box = canvas.text({ text: point.title, x: x + padding + 34, y: cursor, width: textWidth - 34, size: 16, minSize: 13 })
             cursor = box.y + box.height + 16
           })
         })

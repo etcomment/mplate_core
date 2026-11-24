@@ -15,9 +15,7 @@
         <tspan x="450" y="174.52">Monthly decisions</tspan>
       </text>
     </g>
-    <line x1="600" y1="193" x2="600" y2="217" stroke="#c9cfdc" stroke-width="2"/>
-    <line x1="224" y1="217" x2="976" y2="217" stroke="#c9cfdc" stroke-width="2"/>
-    <line x1="224" y1="217" x2="224" y2="241" stroke="#c9cfdc" stroke-width="2"/>
+    <path d="M600 193 L600 217 L224 217 L224 241" fill="none" stroke="#c9cfdc" stroke-width="2" data-mplate-connector="elbow" data-mplate-from="unit-0" data-mplate-to="unit-0-unit-0" data-mplate-from-x="600" data-mplate-from-y="193" data-mplate-to-x="224" data-mplate-to-y="241"/>
     <g data-mplate-id="unit-0-unit-0">
       <rect x="48" y="241" width="352" height="69.5" rx="8" fill="#e5e9fa"/>
       <rect x="48" y="241" width="6" height="69.5" rx="3" fill="#4361d8"/>
@@ -28,8 +26,7 @@
         <tspan x="68" y="292.02">Owns the plan</tspan>
       </text>
     </g>
-    <line x1="57" y1="310.5" x2="57" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
-    <line x1="57" y1="342.5" x2="66" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <path d="M57 310.5 L57 342.5 L66 342.5" fill="none" stroke="#c9cfdc" stroke-width="1.5" data-mplate-connector="elbow-left" data-mplate-from="unit-0-unit-0" data-mplate-to="unit-0-unit-0-unit-0" data-mplate-from-x="57" data-mplate-from-y="310.5" data-mplate-to-x="66" data-mplate-to-y="342.5"/>
     <g data-mplate-id="unit-0-unit-0-unit-0">
       <rect x="66" y="324.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
       <rect x="66" y="324.5" width="6" height="67" rx="3" fill="#4361d8"/>
@@ -40,7 +37,7 @@
         <tspan x="86" y="373.02">Planning and reporting</tspan>
       </text>
     </g>
-    <line x1="600" y1="217" x2="600" y2="241" stroke="#c9cfdc" stroke-width="2"/>
+    <path d="M600 193 L600 217 L600 217 L600 241" fill="none" stroke="#c9cfdc" stroke-width="2" data-mplate-connector="elbow" data-mplate-from="unit-0" data-mplate-to="unit-0-unit-1" data-mplate-from-x="600" data-mplate-from-y="193" data-mplate-to-x="600" data-mplate-to-y="241"/>
     <g data-mplate-id="unit-0-unit-1">
       <rect x="424" y="241" width="352" height="69.5" rx="8" fill="#def2ee"/>
       <rect x="424" y="241" width="6" height="69.5" rx="3" fill="#13a389"/>
@@ -51,8 +48,7 @@
         <tspan x="444" y="292.02">Requirements and change</tspan>
       </text>
     </g>
-    <line x1="433" y1="310.5" x2="433" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
-    <line x1="433" y1="342.5" x2="442" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <path d="M433 310.5 L433 342.5 L442 342.5" fill="none" stroke="#c9cfdc" stroke-width="1.5" data-mplate-connector="elbow-left" data-mplate-from="unit-0-unit-1" data-mplate-to="unit-0-unit-1-unit-0" data-mplate-from-x="433" data-mplate-from-y="310.5" data-mplate-to-x="442" data-mplate-to-y="342.5"/>
     <g data-mplate-id="unit-0-unit-1-unit-0">
       <rect x="442" y="324.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
       <rect x="442" y="324.5" width="6" height="67" rx="3" fill="#13a389"/>
@@ -63,8 +59,7 @@
         <tspan x="462" y="373.02">One per site</tspan>
       </text>
     </g>
-    <line x1="433" y1="387.5" x2="433" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
-    <line x1="433" y1="419.5" x2="442" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <path d="M433 387.5 L433 419.5 L442 419.5" fill="none" stroke="#c9cfdc" stroke-width="1.5" data-mplate-connector="elbow-left" data-mplate-from="unit-0-unit-1" data-mplate-to="unit-0-unit-1-unit-1" data-mplate-from-x="433" data-mplate-from-y="387.5" data-mplate-to-x="442" data-mplate-to-y="419.5"/>
     <g data-mplate-id="unit-0-unit-1-unit-1">
       <rect x="442" y="401.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
       <rect x="442" y="401.5" width="6" height="67" rx="3" fill="#13a389"/>
@@ -75,7 +70,7 @@
         <tspan x="462" y="450.02">Rollout of new ways of working</tspan>
       </text>
     </g>
-    <line x1="976" y1="217" x2="976" y2="241" stroke="#c9cfdc" stroke-width="2"/>
+    <path d="M600 193 L600 217 L976 217 L976 241" fill="none" stroke="#c9cfdc" stroke-width="2" data-mplate-connector="elbow" data-mplate-from="unit-0" data-mplate-to="unit-0-unit-2" data-mplate-from-x="600" data-mplate-from-y="193" data-mplate-to-x="976" data-mplate-to-y="241"/>
     <g data-mplate-id="unit-0-unit-2">
       <rect x="800" y="241" width="352" height="69.5" rx="8" fill="#fdf2dc"/>
       <rect x="800" y="241" width="6" height="69.5" rx="3" fill="#f0a202"/>
@@ -86,8 +81,7 @@
         <tspan x="820" y="292.02">Architecture and delivery</tspan>
       </text>
     </g>
-    <line x1="809" y1="310.5" x2="809" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
-    <line x1="809" y1="342.5" x2="818" y2="342.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <path d="M809 310.5 L809 342.5 L818 342.5" fill="none" stroke="#c9cfdc" stroke-width="1.5" data-mplate-connector="elbow-left" data-mplate-from="unit-0-unit-2" data-mplate-to="unit-0-unit-2-unit-0" data-mplate-from-x="809" data-mplate-from-y="310.5" data-mplate-to-x="818" data-mplate-to-y="342.5"/>
     <g data-mplate-id="unit-0-unit-2-unit-0">
       <rect x="818" y="324.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
       <rect x="818" y="324.5" width="6" height="67" rx="3" fill="#f0a202"/>
@@ -98,8 +92,7 @@
         <tspan x="838" y="373.02">Core platform</tspan>
       </text>
     </g>
-    <line x1="809" y1="387.5" x2="809" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
-    <line x1="809" y1="419.5" x2="818" y2="419.5" stroke="#c9cfdc" stroke-width="1.5"/>
+    <path d="M809 387.5 L809 419.5 L818 419.5" fill="none" stroke="#c9cfdc" stroke-width="1.5" data-mplate-connector="elbow-left" data-mplate-from="unit-0-unit-2" data-mplate-to="unit-0-unit-2-unit-1" data-mplate-from-x="809" data-mplate-from-y="387.5" data-mplate-to-x="818" data-mplate-to-y="419.5"/>
     <g data-mplate-id="unit-0-unit-2-unit-1">
       <rect x="818" y="401.5" width="334" height="67" rx="8" fill="#f4f6fb"/>
       <rect x="818" y="401.5" width="6" height="67" rx="3" fill="#f0a202"/>

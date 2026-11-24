@@ -49,7 +49,7 @@ export const matrixSwot: TemplateDefinition = {
     const headerHeight = 54
     const entryWidth = boxWidth - padding * 2 - 18
     const groups = QUADRANTS.map((quadrant) => input.items.filter((item) => item.keyword === quadrant.keyword))
-    const entryHeight = (item: Item): number => canvas.measure({ text: item.title, x: 0, y: 0, width: entryWidth, size: ENTRY_SIZE, minSize: 12, maxLines: 3 }).height
+    const entryHeight = (item: Item): number => canvas.measure({ text: item.title, x: 0, y: 0, width: entryWidth, size: ENTRY_SIZE, minSize: 12 }).height
     const listHeight = (entries: Item[]): number => entries.reduce((sum, item) => sum + entryHeight(item) + 8, 0)
     const rowHeights = [0, 1].map((row) => Math.max(110, padding * 2 + headerHeight + Math.max(listHeight(groups[row * 2]!), listHeight(groups[row * 2 + 1]!))))
     QUADRANTS.forEach((quadrant, index) => {
@@ -67,7 +67,7 @@ export const matrixSwot: TemplateDefinition = {
       for (const item of groups[index]!) {
         canvas.group(item.id, () => {
           canvas.circle(x + padding + 5, cursor + 10, 4, { fill: color })
-          const box = canvas.text({ text: item.title, x: x + padding + 18, y: cursor, width: entryWidth, size: ENTRY_SIZE, minSize: 12, maxLines: 3 })
+          const box = canvas.text({ text: item.title, x: x + padding + 18, y: cursor, width: entryWidth, size: ENTRY_SIZE, minSize: 12 })
           cursor = box.y + box.height + 8
         })
       }

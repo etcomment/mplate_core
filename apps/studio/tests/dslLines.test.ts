@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { readHeaderTitle, rewriteElementLine, rewriteHeaderTitle } from '../src/templates/dslLines'
+import { readDocumentSubtitle, readHeaderTitle, rewriteDocumentSubtitle, rewriteElementLine, rewriteHeaderTitle } from '../src/templates/dslLines'
 
 const SOURCE = `@process style:chevrons "Delivery"
   step "Discover" "Interviews" icon:search
@@ -46,15 +46,65 @@ describe('rewriteElementLine', () => {
   it('leaves the source untouched for an unknown line', () => {
     expect(rewriteElementLine(SOURCE, { line: 40, field: 'title', value: 'x', positional: ['title'] })).toBe(SOURCE)
   })
+
+  it('rewrites and removes sub: attributes in place including multi-line descriptions', () => {
+    const kpi = '@kpi "Q3"\n  metric "Roadmap" "72%" pct:72 sub:"of planned items shipped" icon:rocket'
+    const positional = ['title', 'value', 'delta', 'subtitle']
+    const updated = rewriteElementLine(kpi, { line: 2, field: 'subtitle', value: 'Line 1\nLine 2\nLine 3', positional })
+    expect(updated.split('\n')[1]).toBe('  metric "Roadmap" "72%" pct:72 sub:"Line 1\\nLine 2\\nLine 3" icon:rocket')
+    const cleared = rewriteElementLine(updated, { line: 2, field: 'subtitle', value: '', positional })
+    expect(cleared.split('\n')[1]).toBe('  metric "Roadmap" "72%" pct:72 icon:rocket')
+  })
+
+  it('writes sub: attribute when earlier optional positional slots are omitted', () => {
+    const kpi = '@kpi "Q3"\n  metric "Revenue" "€4.2M"'
+    const updated = rewriteElementLine(kpi, { line: 2, field: 'subtitle', value: 'Recurring ARR', positional: ['title', 'value', 'delta', 'subtitle'] })
+    expect(updated.split('\n')[1]).toBe('  metric "Revenue" "€4.2M" sub:"Recurring ARR"')
+  })
+
+  it('rewrites value: attributes in place and supports delta editing', () => {
+    const gauge = '@kpi style:gauges\n  gauge "Scope" "Features" pct:72 value:"72%"'
+    const updatedVal = rewriteElementLine(gauge, { line: 2, field: 'value', value: '80%', positional: ['title', 'subtitle', 'value'] })
+    expect(updatedVal.split('\n')[1]).toBe('  gauge "Scope" "Features" pct:72 value:"80%"')
+
+    const kpi = '@kpi\n  metric "Revenue" "€4.2M" "+18%"'
+    const updatedDelta = rewriteElementLine(kpi, { line: 2, field: 'delta', value: '+24%', positional: ['title', 'value', 'delta', 'subtitle'] })
+    expect(updatedDelta.split('\n')[1]).toBe('  metric "Revenue" "€4.2M" "+24%"')
+  })
+
+  it('rewrites date, percent, from, to and label attributes', () => {
+    const milestone = '@timeline\n  milestone "Discovery" "Research" date:Q1'
+    expect(rewriteElementLine(milestone, { line: 2, field: 'date', value: 'Q2 2027', positional: ['title', 'subtitle'] }).split('\n')[1])
+      .toBe('  milestone "Discovery" "Research" date:"Q2 2027"')
+
+    const gantt = '@timeline style:gantt\n  task "Build" from:Mar to:May pct:10'
+    const afterPct = rewriteElementLine(gantt, { line: 2, field: 'percent', value: '65', positional: ['title'] })
+    expect(afterPct.split('\n')[1]).toBe('  task "Build" from:Mar to:May pct:65')
+    const afterFrom = rewriteElementLine(afterPct, { line: 2, field: 'from', value: 'Feb', positional: ['title'] })
+    const afterTo = rewriteElementLine(afterFrom, { line: 2, field: 'to', value: 'Jun', positional: ['title'] })
+    expect(afterTo.split('\n')[1]).toBe('  task "Build" from:Feb to:Jun pct:65')
+
+    const card = '@cards\n  card "Pillar" "Desc"'
+    expect(rewriteElementLine(card, { line: 2, field: 'label', value: 'P1', positional: ['title', 'subtitle'] }).split('\n')[1])
+      .toBe('  card "Pillar" "Desc" label:"P1"')
+  })
 })
 
 describe('header title', () => {
-  it('reads and rewrites the title', () => {
+  it('reads, rewrites and removes the header title', () => {
     expect(readHeaderTitle(SOURCE)).toEqual({ line: 1, title: 'Delivery' })
     expect(rewriteHeaderTitle(SOURCE, 'Approach').split('\n')[0]).toBe('@process style:chevrons "Approach"')
+    expect(rewriteHeaderTitle(SOURCE, '').split('\n')[0]).toBe('@process style:chevrons')
   })
 
   it('inserts a title after the style when there is none', () => {
     expect(rewriteHeaderTitle('@process style:steps theme:dark\n  step "A"', 'New').split('\n')[0]).toBe('@process style:steps "New" theme:dark')
+  })
+
+  it('reads, updates, inserts and removes document subtitle', () => {
+    const withSub = rewriteDocumentSubtitle(SOURCE, 'Overview')
+    expect(readDocumentSubtitle(withSub)).toEqual({ line: 2, subtitle: 'Overview' })
+    expect(rewriteDocumentSubtitle(withSub, 'Updated').split('\n')[1]).toBe('  subtitle "Updated"')
+    expect(rewriteDocumentSubtitle(withSub, '').split('\n')[1]).toBe('  step "Discover" "Interviews" icon:search')
   })
 })

@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, type ReactElement } from 'react'
 import { useTemplateStore, type Rect } from './store'
 import { useTemplateDragResize } from './useTemplateDragResize'
-import { elementTransform, isTopLevelId, parentIdOf, projectRect } from './geometry'
+import { connectorGeometry, elementTransform, isTopLevelId, parentIdOf, projectRect } from './geometry'
 
 const ID_ATTRIBUTE = 'data-mplate-id'
 const SHAPE_SELECTOR = ':is(rect, path, circle, ellipse, polygon, polyline, line)'
@@ -91,12 +91,40 @@ export function TemplateRenderer(): ReactElement | null {
   useLayoutEffect(() => {
     const root = contentRef.current
     if (!root) return
+    const deltas: Record<string, { dx: number; dy: number }> = {}
     root.querySelectorAll<SVGGElement>(`[${ID_ATTRIBUTE}]`).forEach(element => {
       const id = element.getAttribute(ID_ATTRIBUTE)
       if (!id || !isTopLevelId(id, naturalRects)) return
-      const transform = elementTransform(naturalRects[id], positions[id], adjustedIds.has(id), rotations[id])
+      const natural = naturalRects[id]
+      const position = positions[id]
+      if (natural && position && adjustedIds.has(id)) {
+        deltas[id] = {
+          dx: position.x + position.width / 2 - (natural.x + natural.width / 2),
+          dy: position.y + position.height / 2 - (natural.y + natural.height / 2),
+        }
+      }
+      const transform = elementTransform(natural, position, adjustedIds.has(id), rotations[id])
       if (transform) element.setAttribute('transform', transform)
       else element.removeAttribute('transform')
+    })
+    root.querySelectorAll<SVGElement>('[data-mplate-connector]').forEach(connector => {
+      const kind = connector.getAttribute('data-mplate-connector')
+      const fromX = Number(connector.getAttribute('data-mplate-from-x'))
+      const fromY = Number(connector.getAttribute('data-mplate-from-y'))
+      const toX = Number(connector.getAttribute('data-mplate-to-x'))
+      const toY = Number(connector.getAttribute('data-mplate-to-y'))
+      if (!kind || !Number.isFinite(fromX) || !Number.isFinite(fromY) || !Number.isFinite(toX) || !Number.isFinite(toY)) return
+      const fromId = connector.getAttribute('data-mplate-from')
+      const toId = connector.getAttribute('data-mplate-to')
+      const fromDelta = (fromId ? deltas[fromId] : undefined) ?? { dx: 0, dy: 0 }
+      const toDelta = (toId ? deltas[toId] : undefined) ?? { dx: 0, dy: 0 }
+      const updated = connectorGeometry(kind, fromX, fromY, toX, toY, fromDelta, toDelta)
+      if (!updated) return
+      if (updated.d !== undefined) connector.setAttribute('d', updated.d)
+      if (updated.x1 !== undefined) connector.setAttribute('x1', String(updated.x1))
+      if (updated.y1 !== undefined) connector.setAttribute('y1', String(updated.y1))
+      if (updated.x2 !== undefined) connector.setAttribute('x2', String(updated.x2))
+      if (updated.y2 !== undefined) connector.setAttribute('y2', String(updated.y2))
     })
   }, [content, naturalRects, positions, adjustedIds, rotations])
 

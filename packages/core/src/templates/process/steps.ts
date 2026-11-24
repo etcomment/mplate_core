@@ -28,10 +28,20 @@ export const processSteps: TemplateDefinition = {
     let y = canvas.top
     for (const row of chunk(input.items, columns)) {
       const centerY = y + radius
-      if (row.length > 1) {
-        const first = canvas.left + cellWidth / 2
-        const last = canvas.left + cellWidth * (row.length - 0.5)
-        canvas.line(first, centerY, last, centerY, { stroke: canvas.theme.colors.line, 'stroke-width': 3 })
+      for (let column = 0; column < row.length - 1; column++) {
+        const startX = canvas.left + cellWidth * (column + 0.5)
+        const endX = canvas.left + cellWidth * (column + 1.5)
+        canvas.line(startX, centerY, endX, centerY, {
+          stroke: canvas.theme.colors.line,
+          'stroke-width': 3,
+          'data-mplate-connector': 'line',
+          'data-mplate-from': row[column]!.id,
+          'data-mplate-to': row[column + 1]!.id,
+          'data-mplate-from-x': startX,
+          'data-mplate-from-y': centerY,
+          'data-mplate-to-x': endX,
+          'data-mplate-to-y': centerY,
+        })
       }
       let rowBottom = centerY + radius
       row.forEach((item, column) => {
@@ -46,7 +56,7 @@ export const processSteps: TemplateDefinition = {
             align: 'middle',
             titleSize: columns <= 4 ? 19 : 16,
             subtitleSize: columns <= 4 ? 15 : 13,
-            subtitleLines: 4,
+            subtitleLines: Infinity,
             showValue: true,
           })
           rowBottom = Math.max(rowBottom, bottom)

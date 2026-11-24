@@ -61,7 +61,7 @@ export const processChevrons: TemplateDefinition = {
             y: top + chevronHeight + 16,
             width: column === 0 ? chevronWidth - notch - 4 : chevronWidth - notch * 2,
             subtitleSize: columns <= 4 ? 15 : 13,
-            subtitleLines: 5,
+            subtitleLines: Infinity,
             showValue: true,
           })
           rowBottom = Math.max(rowBottom, stackBottom, top + chevronHeight)

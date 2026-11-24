@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { boundingRect, elementTransform, isTopLevelId, parentIdOf, projectRect } from '../src/templates/geometry'
+import { boundingRect, connectorGeometry, elementTransform, isTopLevelId, parentIdOf, projectRect } from '../src/templates/geometry'
 
 const natural = { x: 100, y: 50, width: 200, height: 100 }
 
@@ -40,5 +40,25 @@ describe('element hierarchy', () => {
   it('computes the bounding box of a selection', () => {
     expect(boundingRect([natural, { x: 0, y: 0, width: 10, height: 10 }])).toEqual({ x: 0, y: 0, width: 300, height: 150 })
     expect(boundingRect([])).toBeUndefined()
+  })
+})
+
+describe('elastic connectors', () => {
+  it('updates line, quad, elbow and elbow-left connectors from endpoint deltas', () => {
+    expect(connectorGeometry('line', 0, 0, 100, 50, { dx: 10, dy: 5 }, { dx: -20, dy: 15 })).toEqual({
+      x1: 10,
+      y1: 5,
+      x2: 80,
+      y2: 65,
+    })
+    expect(connectorGeometry('quad', 0, 0, 100, 100, { dx: 0, dy: 0 }, { dx: 100, dy: 0 })).toEqual({
+      d: 'M0 0 Q70 100 200 100',
+    })
+    expect(connectorGeometry('elbow', 50, 20, 150, 80, { dx: 0, dy: 0 }, { dx: 50, dy: 20 })).toEqual({
+      d: 'M50 20 L50 60 L200 60 L200 100',
+    })
+    expect(connectorGeometry('elbow-left', 10, 20, 30, 50, { dx: 5, dy: 5 }, { dx: 10, dy: 20 })).toEqual({
+      d: 'M15 25 L15 70 L40 70',
+    })
   })
 })

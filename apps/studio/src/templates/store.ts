@@ -43,6 +43,7 @@ interface TemplateStore {
   readonly naturalElementRects: Record<string, Rect>
   readonly templateElementPositions: Record<string, Rect>
   readonly adjustedTemplateElementIds: ReadonlySet<string>
+  readonly resizedTemplateElementIds: ReadonlySet<string>
   readonly hiddenTemplateElementIds: ReadonlySet<string>
   readonly templateElementRotations: Record<string, number>
   readonly templateGroups: Record<string, string[]>
@@ -80,6 +81,7 @@ const EMPTY_ADJUSTMENTS = {
   naturalElementRects: {},
   templateElementPositions: {},
   adjustedTemplateElementIds: new Set<string>(),
+  resizedTemplateElementIds: new Set<string>(),
   hiddenTemplateElementIds: new Set<string>(),
   templateElementRotations: {},
   templateGroups: {},
@@ -138,7 +140,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => {
       templateElementColors: colors,
       result: lastGoodResult,
       activeTemplate: lastGoodResult?.card?.id ?? (source.trim() ? state.activeTemplate : null),
-      ...(keepsLayout || !result?.ok ? {} : { templateElementPositions: {}, adjustedTemplateElementIds: new Set<string>(), templateElementRotations: {}, selectedTemplateElementIds: new Set<string>(), templateGroups: {}, templateElementGroupIds: {} }),
+      ...(keepsLayout || !result?.ok ? {} : { templateElementPositions: {}, adjustedTemplateElementIds: new Set<string>(), resizedTemplateElementIds: new Set<string>(), templateElementRotations: {}, selectedTemplateElementIds: new Set<string>(), templateGroups: {}, templateElementGroupIds: {} }),
     })
   }
 
@@ -181,9 +183,11 @@ export const useTemplateStore = create<TemplateStore>((set, get) => {
         ...(options.width ? { templateWidth: options.width } : {}),
       })
       const positions = adjustments.positions ?? {}
+      const positionIds = new Set(Object.keys(positions))
       set({
         templateElementPositions: { ...positions },
-        adjustedTemplateElementIds: new Set(Object.keys(positions)),
+        adjustedTemplateElementIds: positionIds,
+        resizedTemplateElementIds: positionIds,
         templateElementRotations: adjustments.rotations ?? {},
       })
     },
@@ -259,11 +263,13 @@ export const useTemplateStore = create<TemplateStore>((set, get) => {
     },
 
     resizeTemplateElement: (id, size) => {
-      const { templateElementPositions, naturalElementRects } = get()
+      const { templateElementPositions, naturalElementRects, resizedTemplateElementIds } = get()
       const current = templateElementPositions[id] ?? naturalElementRects[id] ?? { x: 0, y: 0, width: 0, height: 0 }
+      const resized = resizedTemplateElementIds.has(id) ? resizedTemplateElementIds : new Set([...resizedTemplateElementIds, id])
       set({
         templateElementPositions: { ...templateElementPositions, [id]: { ...current, width: size.width, height: size.height } },
         adjustedTemplateElementIds: markAdjusted(id),
+        resizedTemplateElementIds: resized,
       })
     },
 
@@ -278,17 +284,23 @@ export const useTemplateStore = create<TemplateStore>((set, get) => {
     },
 
     setNaturalElementRects: (rects) => {
-      const { templateElementPositions, adjustedTemplateElementIds } = get()
+      const { templateElementPositions, adjustedTemplateElementIds, resizedTemplateElementIds } = get()
       const positions: Record<string, Rect> = {}
       for (const [id, rect] of Object.entries(rects)) {
         const adjusted = templateElementPositions[id]
-        positions[id] = adjustedTemplateElementIds.has(id) && adjusted ? adjusted : { ...rect }
+        if (adjustedTemplateElementIds.has(id) && adjusted) {
+          positions[id] = resizedTemplateElementIds.has(id)
+            ? { ...adjusted }
+            : { x: adjusted.x, y: adjusted.y, width: rect.width, height: rect.height }
+        } else {
+          positions[id] = { ...rect }
+        }
       }
       set({ naturalElementRects: rects, templateElementPositions: positions })
     },
 
     resetTemplateElements: (ids) => {
-      const { naturalElementRects, templateElementPositions, adjustedTemplateElementIds, templateElementRotations, templateStrokeColors, templateStrokeWidths, templateElementColors } = get()
+      const { naturalElementRects, templateElementPositions, adjustedTemplateElementIds, resizedTemplateElementIds, templateElementRotations, templateStrokeColors, templateStrokeWidths, templateElementColors } = get()
       const targets = new Set(ids)
       const positions = { ...templateElementPositions }
       for (const id of ids) {
@@ -298,6 +310,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => {
       set({
         templateElementPositions: positions,
         adjustedTemplateElementIds: new Set([...adjustedTemplateElementIds].filter(id => !targets.has(id))),
+        resizedTemplateElementIds: new Set([...resizedTemplateElementIds].filter(id => !targets.has(id))),
         templateElementRotations: removeKeys(templateElementRotations, targets),
         templateStrokeColors: removeKeys(templateStrokeColors, targets),
         templateStrokeWidths: removeKeys(templateStrokeWidths, targets),

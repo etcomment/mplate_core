@@ -5,7 +5,9 @@
     <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
       <tspan x="48" y="75.15">How it works</tspan>
     </text>
-    <line x1="186" y1="155.5" x2="1014" y2="155.5" stroke="#c9cfdc" stroke-width="3"/>
+    <line x1="186" y1="155.5" x2="462" y2="155.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="step-0" data-mplate-to="step-1" data-mplate-from-x="186" data-mplate-from-y="155.5" data-mplate-to-x="462" data-mplate-to-y="155.5"/>
+    <line x1="462" y1="155.5" x2="738" y2="155.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="step-1" data-mplate-to="step-2" data-mplate-from-x="462" data-mplate-from-y="155.5" data-mplate-to-x="738" data-mplate-to-y="155.5"/>
+    <line x1="738" y1="155.5" x2="1014" y2="155.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="step-2" data-mplate-to="step-3" data-mplate-from-x="738" data-mplate-from-y="155.5" data-mplate-to-x="1014" data-mplate-to-y="155.5"/>
     <g data-mplate-id="step-0">
       <circle cx="186" cy="155.5" r="38" fill="#ffffff"/>
       <circle cx="186" cy="155.5" r="32" fill="#4361d8"/>

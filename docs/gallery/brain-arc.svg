@@ -5,10 +5,10 @@
     <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
       <tspan x="48" y="75.15">Why customers choose us</tspan>
     </text>
-    <path d="M152 299.5 Q203.54 161.5 299.27 161.5" fill="none" stroke="#4361d8" stroke-width="2.5" stroke-opacity="0.6"/>
-    <path d="M152 299.5 Q213.83 253.5 328.66 253.5" fill="none" stroke="#13a389" stroke-width="2.5" stroke-opacity="0.6"/>
-    <path d="M152 299.5 Q213.83 345.5 328.66 345.5" fill="none" stroke="#f0a202" stroke-width="2.5" stroke-opacity="0.6"/>
-    <path d="M152 299.5 Q203.54 437.5 299.27 437.5" fill="none" stroke="#e4572e" stroke-width="2.5" stroke-opacity="0.6"/>
+    <path d="M152 299.5 Q203.54 161.5 299.27 161.5" fill="none" stroke="#4361d8" stroke-width="2.5" stroke-opacity="0.6" data-mplate-connector="quad" data-mplate-to="node-0" data-mplate-from-x="152" data-mplate-from-y="299.5" data-mplate-to-x="299.27" data-mplate-to-y="161.5"/>
+    <path d="M152 299.5 Q213.83 253.5 328.66 253.5" fill="none" stroke="#13a389" stroke-width="2.5" stroke-opacity="0.6" data-mplate-connector="quad" data-mplate-to="node-1" data-mplate-from-x="152" data-mplate-from-y="299.5" data-mplate-to-x="328.66" data-mplate-to-y="253.5"/>
+    <path d="M152 299.5 Q213.83 345.5 328.66 345.5" fill="none" stroke="#f0a202" stroke-width="2.5" stroke-opacity="0.6" data-mplate-connector="quad" data-mplate-to="node-2" data-mplate-from-x="152" data-mplate-from-y="299.5" data-mplate-to-x="328.66" data-mplate-to-y="345.5"/>
+    <path d="M152 299.5 Q203.54 437.5 299.27 437.5" fill="none" stroke="#e4572e" stroke-width="2.5" stroke-opacity="0.6" data-mplate-connector="quad" data-mplate-to="node-3" data-mplate-from-x="152" data-mplate-from-y="299.5" data-mplate-to-x="299.27" data-mplate-to-y="437.5"/>
     <circle cx="152" cy="299.5" r="96" fill="#1b2133"/>
     <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="21" font-weight="800" fill="#ffffff" text-anchor="middle">
       <tspan x="152" y="305.38">Our offer</tspan>

@@ -5,7 +5,9 @@
     <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="30" font-weight="700" fill="#1b2133">
       <tspan x="48" y="75.15">Workshop agenda</tspan>
     </text>
-    <line x1="246" y1="131.5" x2="246" y2="369.5" stroke="#c9cfdc" stroke-width="3"/>
+    <line x1="246" y1="137.5" x2="246" y2="207.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="milestone-0" data-mplate-to="milestone-1" data-mplate-from-x="246" data-mplate-from-y="137.5" data-mplate-to-x="246" data-mplate-to-y="207.5"/>
+    <line x1="246" y1="207.5" x2="246" y2="277.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="milestone-1" data-mplate-to="milestone-2" data-mplate-from-x="246" data-mplate-from-y="207.5" data-mplate-to-x="246" data-mplate-to-y="277.5"/>
+    <line x1="246" y1="277.5" x2="246" y2="347.5" stroke="#c9cfdc" stroke-width="3" data-mplate-connector="line" data-mplate-from="milestone-2" data-mplate-to="milestone-3" data-mplate-from-x="246" data-mplate-from-y="277.5" data-mplate-to-x="246" data-mplate-to-y="347.5"/>
     <g data-mplate-id="milestone-0">
       <circle cx="246" cy="137.5" r="8" fill="#4361d8" stroke="#ffffff" stroke-width="3"/>
       <text font-family="Inter, &apos;Segoe UI&apos;, &apos;Helvetica Neue&apos;, Arial, sans-serif" font-size="16" font-weight="800" fill="#4361d8" text-anchor="end">

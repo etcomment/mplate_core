@@ -48,3 +48,42 @@ export function boundingRect(rects: Rect[]): Rect | undefined {
   const maxY = Math.max(...rects.map(rect => rect.y + rect.height))
   return { x: minX, y: minY, width: maxX - minX, height: maxY - minY }
 }
+
+export interface ConnectorUpdate {
+  x1?: number
+  y1?: number
+  x2?: number
+  y2?: number
+  d?: string
+}
+
+export function connectorGeometry(
+  kind: string,
+  fromX: number,
+  fromY: number,
+  toX: number,
+  toY: number,
+  fromDelta: { dx: number; dy: number },
+  toDelta: { dx: number; dy: number },
+): ConnectorUpdate | undefined {
+  const sx = fromX + fromDelta.dx
+  const sy = fromY + fromDelta.dy
+  const tx = toX + toDelta.dx
+  const ty = toY + toDelta.dy
+  switch (kind) {
+    case 'line':
+      return { x1: round(sx), y1: round(sy), x2: round(tx), y2: round(ty) }
+    case 'quad': {
+      const controlX = sx + (tx - sx) * 0.35
+      return { d: `M${round(sx)} ${round(sy)} Q${round(controlX)} ${round(ty)} ${round(tx)} ${round(ty)}` }
+    }
+    case 'elbow': {
+      const midY = (sy + ty) / 2
+      return { d: `M${round(sx)} ${round(sy)} L${round(sx)} ${round(midY)} L${round(tx)} ${round(midY)} L${round(tx)} ${round(ty)}` }
+    }
+    case 'elbow-left':
+      return { d: `M${round(sx)} ${round(sy)} L${round(sx)} ${round(ty)} L${round(tx)} ${round(ty)}` }
+    default:
+      return undefined
+  }
+}
