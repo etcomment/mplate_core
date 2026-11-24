@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-24
+
 ### Added
 
 - Declarative elastic connector metadata (`data-mplate-connector`, `data-mplate-from`, `data-mplate-to`, and origin coordinates) on connected templates (`brain:spokes`, `brain:arc`, `org:tree`, `process:steps`, `process:vertical`, `timeline:vertical`) so editors flex connectors live when elements are dragged (ADR-020).
