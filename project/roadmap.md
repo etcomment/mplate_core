@@ -15,8 +15,8 @@ Phases follow the project plan. Dates are targets; when a milestone slips, scope
 - [ ] Ask the owner of the unscoped `mplate` npm package whether he would transfer the name
 - [x] Monorepo: `packages/core` and `apps/studio` (ADR-012)
 - [x] Studio MVP without account: DSL editor with line diagnostics, live preview, template gallery, themes, SVG/PNG export, share link (ADR-013)
-- [ ] Enable GitHub Pages (Settings → Pages → Source: GitHub Actions) so `studio.yml` publishes the studio
-- [ ] Pick the five showcase visuals for the README; record the "15 lines → a roadmap" animation
+- [x] Enable GitHub Pages (Settings → Pages → Source: GitHub Actions) so `studio.yml` publishes the studio (live at https://etcomment.github.io/mplate_core/)
+- [x] Pick the five showcase visuals for the README; record the "15 lines → a roadmap" animation (2026-11-24)
 
 ## Phase 2 — Open engine (Dec 2026 – Feb 2027)
 

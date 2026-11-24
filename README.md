@@ -1,5 +1,7 @@
 # mplate
 
+English · [Français](README.fr.md)
+
 **Designer-grade infographics from a few lines of text.** Write one line per element; mplate draws a clean, on-brand visual that re-flows by itself from 1 to N elements. Built to be the format AI assistants write.
 
 ```mplate
@@ -21,7 +23,9 @@ Add a fifth `step` line and the chevrons narrow; add a twelfth and they wrap ont
 
 ## Try it in the browser
 
-The **mplate studio** is a free, open-source editor: pick a template, type the DSL in the code drawer, then fine-tune on the canvas (move, resize, recolour, edit text), add shapes, icons or a Mermaid diagram, export SVG, PNG or JPG, share a link. No account, and the design is never sent to a server. Run it locally with `npm install && npm run studio:dev`; the public instance is deployed from `apps/studio` to GitHub Pages.
+The **[mplate studio](https://etcomment.github.io/mplate_core/)** is a free, open-source editor: pick a template, type the DSL in the code drawer, then fine-tune on the canvas (move, resize, recolour, edit text), add shapes, icons or a Mermaid diagram, export SVG, PNG or JPG, share a link. No account, and the design is never sent to a server. Run it locally with `npm install && npm run studio:dev`, or open the [hosted studio on GitHub Pages](https://etcomment.github.io/mplate_core/).
+
+![15 lines of mplate DSL turning into a roadmap in the studio](docs/demo-roadmap.gif)
 
 ## Install
 
@@ -65,13 +69,13 @@ Then ask: *“Draw our Q3 roadmap as an mplate timeline.”* See [docs/mcp.md](d
 
 25 templates in 13 families — process, timeline (axis, vertical, swimlanes, Gantt), funnel, pyramid, cycle, brain (mind map), cards, KPI (tiles, gauges), comparison (columns, table), matrix (2×2, SWOT), org chart, architecture stack and Venn. Full catalogue with examples: [docs/templates.md](docs/templates.md).
 
+| | |
+| --- | --- |
+| ![](docs/gallery/timeline-gantt.svg) | ![](docs/gallery/funnel-stack.svg) |
+
 | | | |
 | --- | --- | --- |
-| ![](docs/gallery/timeline-axis.svg) | ![](docs/gallery/funnel-stack.svg) | ![](docs/gallery/cycle-ring.svg) |
-| ![](docs/gallery/brain-spokes.svg) | ![](docs/gallery/kpi-tiles.svg) | ![](docs/gallery/comparison-columns.svg) |
-| ![](docs/gallery/pyramid-layers.svg) | ![](docs/gallery/cards-grid.svg) | ![](docs/gallery/org-tree.svg) |
-| ![](docs/gallery/timeline-swimlanes.svg) | ![](docs/gallery/timeline-gantt.svg) | ![](docs/gallery/kpi-gauges.svg) |
-| ![](docs/gallery/comparison-table.svg) | ![](docs/gallery/matrix-swot.svg) | ![](docs/gallery/stack-layers.svg) |
+| ![](docs/gallery/kpi-gauges.svg) | ![](docs/gallery/matrix-swot.svg) | ![](docs/gallery/brain-spokes-dark.svg) |
 
 ## The language in 30 seconds
 
