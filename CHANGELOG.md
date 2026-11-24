@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Security
+
+- **Core (`@mplate/core`)**: validate and sanitize inline and `data:` SVG brand kit logos (blocking `<script>`, `<foreignObject>`, event handlers, `javascript:`/`vbscript:` URIs, `@import`, and external `href`/`url()` references) and enforce a 256 KB logo size cap; validate brand kit and DSL directive font names; enforce DSL bounds (256 KB source, 2,000 lines, 16-level nesting depth); validate SVG tag and attribute names in `serialize()`; bound `svgToPng` scale (`0.25–8`) and `overrides` offsets (`±10,000`); guard all dictionary lookups against `Object.prototype` keys (`__proto__`, `constructor`, `prototype`).
+- **MCP server (`mplate-mcp`)**: cap stdio line size (1 MB) and JSON-RPC batch size (20); validate `format`, `width`, `overrides`, and `output_path` (rejecting null bytes, mismatched extensions, and escapes outside `MPLATE_MCP_OUT_DIR` when set).
+- **Studio (`@mplate/studio`)**: sanitize `#dsl=` share links and `localStorage` drafts; validate element IDs, stroke colours and stroke widths before generating scoped `<style>` CSS; restrict font-embedding fetches to `fonts.googleapis.com` / `fonts.gstatic.com` with 5 s timeouts and `<`/`>` stripping; cap raster canvas export dimensions at 8192 px; validate clipboard paste payloads; inject a strict production Content-Security-Policy meta tag via Vite build.
+- **CI**: add explicit `permissions: contents: read` to `.github/workflows/ci.yml`.
+
 ## [0.1.1] - 2026-11-06
 
 ### Added

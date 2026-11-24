@@ -30,22 +30,30 @@ function formatAttribute(value: AttributeValue): string | undefined {
   return escapeXml(value)
 }
 
+const XML_NAME_PATTERN = /^[a-zA-Z_:][\w:.-]*$/
+
+function assertXmlName(name: string, kind: 'tag' | 'attribute'): string {
+  if (!XML_NAME_PATTERN.test(name)) throw new Error(`Invalid SVG ${kind} name: ${name}`)
+  return name
+}
+
 function serializeAttributes(attributes: Attributes): string {
   return Object.entries(attributes)
     .map(([name, value]) => {
       const formatted = formatAttribute(value)
-      return formatted === undefined ? '' : ` ${name}="${formatted}"`
+      return formatted === undefined ? '' : ` ${assertXmlName(name, 'attribute')}="${formatted}"`
     })
     .join('')
 }
 
 export function serialize(node: SvgChild, depth: number = 0): string {
   if (typeof node === 'string') return escapeXml(node)
+  const tag = assertXmlName(node.tag, 'tag')
   const indent = '  '.repeat(depth)
   const attributes = serializeAttributes(node.attributes)
-  if (node.children.length === 0) return `${indent}<${node.tag}${attributes}/>`
+  if (node.children.length === 0) return `${indent}<${tag}${attributes}/>`
   const hasOnlyText = node.children.every((child) => typeof child === 'string')
-  if (hasOnlyText) return `${indent}<${node.tag}${attributes}>${node.children.map((child) => serialize(child)).join('')}</${node.tag}>`
+  if (hasOnlyText) return `${indent}<${tag}${attributes}>${node.children.map((child) => serialize(child)).join('')}</${tag}>`
   const inner = node.children.map((child) => serialize(child, depth + 1)).join('\n')
-  return `${indent}<${node.tag}${attributes}>\n${inner}\n${indent}</${node.tag}>`
+  return `${indent}<${tag}${attributes}>\n${inner}\n${indent}</${tag}>`
 }

@@ -126,26 +126,39 @@ export function downloadCanvasSvg(filename: string = 'diagram.svg'): void {
   URL.revokeObjectURL(url)
 }
 
+const SAFE_FONT_NAME = /^[a-zA-Z0-9 -]{1,80}$/
+const FONT_FETCH_TIMEOUT_MS = 5000
+
+function isTrustedFontAssetUrl(rawUrl: string): boolean {
+  try {
+    const parsed = new URL(rawUrl)
+    return parsed.protocol === 'https:' && parsed.hostname === 'fonts.gstatic.com'
+  } catch {
+    return false
+  }
+}
+
 async function inlineFonts(svgStr: string): Promise<string> {
   const fonts = new Set<string>()
   const match = svgStr.matchAll(/font-family="([^"]+)"/g)
   for (const m of match) {
-    fonts.add(m[1]!.split(',')[0]!.trim().replace(/['"]/g, ''))
+    const candidate = m[1]!.split(',')[0]!.trim().replace(/['"]/g, '')
+    if (SAFE_FONT_NAME.test(candidate)) fonts.add(candidate)
   }
-  
+
   let styleContent = ''
   for (const font of fonts) {
     if (['Arial', 'sans-serif', 'serif', 'Times New Roman', 'Courier New', 'system-ui'].includes(font)) continue
     try {
-      const url = `https://fonts.googleapis.com/css2?family=${font.replace(/ /g, '+')}:wght@400;500;600;700&display=swap`
-      const response = await fetch(url)
+      const url = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(font).replace(/%20/g, '+')}:wght@400;500;600;700&display=swap`
+      const response = await fetch(url, { signal: AbortSignal.timeout(FONT_FETCH_TIMEOUT_MS) })
       if (!response.ok) continue
       let css = await response.text()
       const urls = css.match(/url\(([^)]+)\)/g) || []
       for (const u of urls) {
         const fontUrl = u.match(/url\((['"]?)([^'"]+)\1\)/)?.[2]
-        if (fontUrl) {
-          const fontRes = await fetch(fontUrl)
+        if (fontUrl && isTrustedFontAssetUrl(fontUrl)) {
+          const fontRes = await fetch(fontUrl, { signal: AbortSignal.timeout(FONT_FETCH_TIMEOUT_MS) })
           if (fontRes.ok) {
             const blob = await fontRes.blob()
             const base64 = await new Promise<string>((resolve) => {
@@ -158,11 +171,14 @@ async function inlineFonts(svgStr: string): Promise<string> {
         }
       }
       styleContent += css + '\n'
-    } catch (e) {}
+    } catch {
+      // Optional font embedding failed or timed out
+    }
   }
 
   if (styleContent) {
-    return svgStr.replace(/(<svg[^>]*>)/, `$1<style>${styleContent}</style>`)
+    const safeStyle = styleContent.replace(/[<>]/g, '')
+    return svgStr.replace(/(<svg[^>]*>)/, (_match, open: string) => `${open}<style>${safeStyle}</style>`)
   }
   return svgStr
 }
@@ -215,10 +231,15 @@ export async function getContentSvg(): Promise<string> {
   const vb = svgElement.viewBox.baseVal
   const padding = 40
 
-  const vx = bbox ? bbox.x - padding : vb.x
-  const vy = bbox ? bbox.y - padding : vb.y
-  const vw = bbox ? bbox.width + padding * 2 : vb.width
-  const vh = bbox ? bbox.height + padding * 2 : vb.height
+  const rawVx = bbox ? bbox.x - padding : vb.x
+  const rawVy = bbox ? bbox.y - padding : vb.y
+  const rawVw = bbox ? bbox.width + padding * 2 : vb.width
+  const rawVh = bbox ? bbox.height + padding * 2 : vb.height
+
+  const vx = Number.isFinite(rawVx) ? rawVx : 0
+  const vy = Number.isFinite(rawVy) ? rawVy : 0
+  const vw = Number.isFinite(rawVw) && rawVw > 0 ? rawVw : 800
+  const vh = Number.isFinite(rawVh) && rawVh > 0 ? rawVh : 600
 
   // Remove any remaining root transform from cloned group so elements align with computed viewbox
   clonedGroup.removeAttribute('transform')

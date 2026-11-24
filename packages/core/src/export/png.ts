@@ -16,9 +16,15 @@ async function loadResvg(): Promise<ResvgModule> {
   }
 }
 
+const MIN_SCALE = 0.25
+const MAX_SCALE = 8
+
 export async function svgToPng(svg: string, options: PngOptions = {}): Promise<Uint8Array> {
-  const { Resvg } = await loadResvg()
   const scale = options.scale ?? 2
+  if (!Number.isFinite(scale) || scale < MIN_SCALE || scale > MAX_SCALE) {
+    throw new Error(`PNG export scale must be a finite number between ${MIN_SCALE} and ${MAX_SCALE}`)
+  }
+  const { Resvg } = await loadResvg()
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'zoom', value: scale },
     font: { loadSystemFonts: true, fontFiles: options.fontFiles ?? [], defaultFontFamily: 'Arial' },

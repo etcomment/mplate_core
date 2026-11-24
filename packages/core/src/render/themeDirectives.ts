@@ -4,6 +4,14 @@ import { findTheme, type ThemeCatalog } from '../theme/resolve.js'
 import type { ThemeOverride } from '../theme/types.js'
 
 const COLOR_ATTRIBUTES: Record<string, string> = { background: 'background', surface: 'surface', text: 'text', muted: 'textMuted', line: 'line' }
+const SAFE_FONT_PATTERN = /^[^\x00-\x1f<>{};]{1,200}$/
+
+function readSafeFont(value: string | undefined, line: number, diagnostics: Diagnostic[]): string | undefined {
+  if (value === undefined) return undefined
+  if (SAFE_FONT_PATTERN.test(value)) return value
+  diagnostics.push({ severity: 'warning', line, message: `Invalid font "${value}" ignored` })
+  return undefined
+}
 
 function directiveOverride(node: DslNode, catalog: ThemeCatalog, diagnostics: Diagnostic[]): ThemeOverride {
   const name = node.attributes.name ?? node.values[0]?.text
@@ -17,12 +25,15 @@ function directiveOverride(node: DslNode, catalog: ThemeCatalog, diagnostics: Di
     override.palette = palette.filter((color) => isHexColor(color))
   }
   const fonts: ThemeOverride['fonts'] = {}
-  if (node.attributes.font) {
-    fonts.heading = node.attributes.font
-    fonts.body = node.attributes.font
+  const sharedFont = readSafeFont(node.attributes.font, node.line, diagnostics)
+  if (sharedFont) {
+    fonts.heading = sharedFont
+    fonts.body = sharedFont
   }
-  if (node.attributes.heading) fonts.heading = node.attributes.heading
-  if (node.attributes.body) fonts.body = node.attributes.body
+  const headingFont = readSafeFont(node.attributes.heading, node.line, diagnostics)
+  if (headingFont) fonts.heading = headingFont
+  const bodyFont = readSafeFont(node.attributes.body, node.line, diagnostics)
+  if (bodyFont) fonts.body = bodyFont
   if (Object.keys(fonts).length > 0) override.fonts = fonts
   const colors: Record<string, string> = {}
   for (const [attribute, token] of Object.entries(COLOR_ATTRIBUTES)) {

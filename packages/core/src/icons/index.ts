@@ -53,9 +53,13 @@ export function normalizeIconName(name: string): string {
 
 export function resolveIconName(name: string): string | undefined {
   const normalized = normalizeIconName(name)
-  if (LUCIDE_ICONS[normalized]) return normalized
-  const alias = ICON_ALIASES[normalized] ?? ICON_ALIASES[name]
-  if (alias && LUCIDE_ICONS[alias]) return alias
+  if (Object.hasOwn(LUCIDE_ICONS, normalized)) return normalized
+  const alias = Object.hasOwn(ICON_ALIASES, normalized)
+    ? ICON_ALIASES[normalized]
+    : Object.hasOwn(ICON_ALIASES, name)
+      ? ICON_ALIASES[name]
+      : undefined
+  if (alias && Object.hasOwn(LUCIDE_ICONS, alias)) return alias
   return undefined
 }
 

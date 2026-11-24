@@ -6,6 +6,7 @@ export interface ParsedArguments {
 
 const SHORT_OPTIONS: Record<string, string> = { o: 'output', t: 'theme', w: 'width', f: 'format', h: 'help', v: 'version' }
 const VALUE_OPTIONS = new Set(['output', 'theme', 'width', 'format', 'scale', 'overrides', 'brand'])
+const DANGEROUS_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
 
 export function parseArguments(argv: string[]): ParsedArguments {
   const positionals: string[] = []
@@ -18,9 +19,12 @@ export function parseArguments(argv: string[]): ParsedArguments {
     }
     const isLong = argument.startsWith('--')
     const [rawName, inlineValue] = argument.slice(isLong ? 2 : 1).split(/=(.*)/s, 2)
-    const name = isLong ? rawName! : SHORT_OPTIONS[rawName!] ?? rawName!
+    const key = rawName ?? ''
+    const name = isLong ? key : Object.hasOwn(SHORT_OPTIONS, key) ? SHORT_OPTIONS[key]! : key
+    if (DANGEROUS_KEYS.has(name)) continue
     if (name.startsWith('no-')) {
-      options[name.slice(3)] = false
+      const target = name.slice(3)
+      if (!DANGEROUS_KEYS.has(target)) options[target] = false
       continue
     }
     if (VALUE_OPTIONS.has(name)) {

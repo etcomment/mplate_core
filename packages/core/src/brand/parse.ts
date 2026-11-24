@@ -12,12 +12,45 @@ export interface BrandKitResult {
 
 const COLOR_KEYS: (keyof ThemeColors)[] = ['background', 'surface', 'surfaceAlt', 'text', 'textMuted', 'textInverse', 'line', 'positive', 'negative', 'warning']
 const LOGO_POSITIONS: LogoPosition[] = ['top-left', 'top-right', 'bottom-left', 'bottom-right']
-const DATA_URI_PATTERN = /^data:image\/(?:png|jpeg|webp|svg\+xml)(?:;base64|;utf8|;charset=utf-8)?,/i
+const MAX_LOGO_SRC_LENGTH = 262_144
+const DANGEROUS_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
+const SAFE_FONT_PATTERN = /^[^\x00-\x1f<>{};]{1,200}$/
+const RASTER_DATA_URI_PATTERN = /^data:image\/(?:png|jpeg|webp);base64,([A-Za-z0-9+/=\s]+)$/i
+const SVG_DATA_URI_PATTERN = /^data:image\/svg\+xml(;base64|;utf8|;charset=utf-8)?,(.*)$/i
+const DISALLOWED_SVG_PATTERNS = [
+  /<\s*(?:script|foreignobject|iframe|object|embed|applet|meta|link|base)\b/i,
+  /\bon[a-z]+\s*=/i,
+  /(?:javascript|vbscript)\s*:/i,
+  /data\s*:\s*text\/html/i,
+  /@import\b/i,
+  /url\(\s*['"]?\s*(?:https?:|\/\/|data:|javascript:)/i,
+  /(?:xlink:)?(?:href|src)\s*=\s*['"]?\s*(?:https?:|\/\/|javascript:|vbscript:|data:)/i,
+]
 
 type JsonObject = Record<string, unknown>
 
 function isRecord(value: unknown): value is JsonObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function decodeSvgPayload(encoding: string | undefined, payload: string): string | undefined {
+  try {
+    if (encoding?.toLowerCase() === ';base64') {
+      const cleaned = payload.replace(/\s+/g, '')
+      if (!cleaned || !/^[A-Za-z0-9+/=]+$/.test(cleaned)) return undefined
+      const binary = atob(cleaned)
+      const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0))
+      return new TextDecoder().decode(bytes)
+    }
+    return decodeURIComponent(payload)
+  } catch {
+    return undefined
+  }
+}
+
+function isSafeSvgMarkup(markup: string): boolean {
+  if (!/^(?:\s*<\?xml[^>]*\?>)*\s*<svg\b/i.test(markup)) return false
+  return !DISALLOWED_SVG_PATTERNS.some((pattern) => pattern.test(markup))
 }
 
 function problem(diagnostics: Diagnostic[], severity: Diagnostic['severity'], message: string, hint?: string): void {
@@ -32,6 +65,7 @@ function readColors(value: unknown, diagnostics: Diagnostic[]): Partial<ThemeCol
   }
   const colors: Partial<ThemeColors> = {}
   for (const [key, color] of Object.entries(value)) {
+    if (DANGEROUS_KEYS.has(key)) continue
     if (!COLOR_KEYS.includes(key as keyof ThemeColors)) problem(diagnostics, 'warning', `Brand kit: unknown colour token "${key}"`, `Known tokens: ${COLOR_KEYS.join(', ')}`)
     else if (typeof color !== 'string' || !isHexColor(color)) problem(diagnostics, 'error', `Brand kit: colour "${key}" must be a hex colour`)
     else colors[key as keyof ThemeColors] = color
@@ -46,13 +80,31 @@ function readLogo(value: unknown, diagnostics: Diagnostic[]): BrandLogo | undefi
     return undefined
   }
   const raw = typeof value.src === 'string' ? value.src.trim() : ''
-  const src = raw.startsWith('<svg') ? `data:image/svg+xml;utf8,${encodeURIComponent(raw)}` : raw
-  const width = Number(value.width)
-  const height = Number(value.height)
-  if (!DATA_URI_PATTERN.test(src)) {
-    problem(diagnostics, 'error', 'Brand kit: logo "src" must be inline SVG markup or a data: URI (PNG, JPEG, WebP or SVG)', 'Remote URLs are not allowed so that rendering never depends on the network')
+  if (raw.length > MAX_LOGO_SRC_LENGTH) {
+    problem(diagnostics, 'error', `Brand kit: logo "src" exceeds maximum size (${MAX_LOGO_SRC_LENGTH} bytes)`)
     return undefined
   }
+  const src = raw.startsWith('<svg') ? `data:image/svg+xml;utf8,${encodeURIComponent(raw)}` : raw
+  if (src.length > MAX_LOGO_SRC_LENGTH) {
+    problem(diagnostics, 'error', `Brand kit: logo "src" exceeds maximum size (${MAX_LOGO_SRC_LENGTH} bytes)`)
+    return undefined
+  }
+  const svgMatch = SVG_DATA_URI_PATTERN.exec(src)
+  if (svgMatch) {
+    const decoded = decodeSvgPayload(svgMatch[1], svgMatch[2] ?? '')
+    if (!decoded || !isSafeSvgMarkup(decoded)) {
+      problem(diagnostics, 'error', 'Brand kit: SVG logo contains disallowed active or external content')
+      return undefined
+    }
+  } else {
+    const rasterMatch = RASTER_DATA_URI_PATTERN.exec(src)
+    if (!rasterMatch || rasterMatch[1]!.replace(/\s+/g, '').length === 0) {
+      problem(diagnostics, 'error', 'Brand kit: logo "src" must be inline SVG markup or a data: URI (PNG, JPEG, WebP or SVG)', 'Remote URLs are not allowed so that rendering never depends on the network')
+      return undefined
+    }
+  }
+  const width = Number(value.width)
+  const height = Number(value.height)
   if (!(width > 0 && width <= 600 && height > 0 && height <= 300)) {
     problem(diagnostics, 'error', 'Brand kit: logo needs "width" (1–600) and "height" (1–300) in pixels')
     return undefined
@@ -67,11 +119,20 @@ function readLogo(value: unknown, diagnostics: Diagnostic[]): BrandLogo | undefi
 
 function readStrings(value: unknown, field: string, diagnostics: Diagnostic[]): Record<string, string> | undefined {
   if (value === undefined) return undefined
-  if (!isRecord(value) || !Object.values(value).every((entry) => typeof entry === 'string')) {
+  if (!isRecord(value)) {
     problem(diagnostics, 'error', `Brand kit: "${field}" must be an object of strings`)
     return undefined
   }
-  return value as Record<string, string>
+  const cleaned: Record<string, string> = {}
+  for (const [key, entry] of Object.entries(value)) {
+    if (DANGEROUS_KEYS.has(key)) continue
+    if (typeof entry !== 'string') {
+      problem(diagnostics, 'error', `Brand kit: "${field}" must be an object of strings`)
+      return undefined
+    }
+    cleaned[key] = entry
+  }
+  return cleaned
 }
 
 function checkContrast(kit: BrandKit, catalog: ThemeCatalog, diagnostics: Diagnostic[]): void {
@@ -117,7 +178,18 @@ export function parseBrandKit(value: unknown, catalog: ThemeCatalog = BUILT_IN_T
   const colors = readColors(value.colors, diagnostics)
   if (colors) kit.colors = colors
   const fonts = readStrings(value.fonts, 'fonts', diagnostics)
-  if (fonts) kit.fonts = { ...(fonts.heading ? { heading: fonts.heading } : {}), ...(fonts.body ? { body: fonts.body } : {}) }
+  if (fonts) {
+    const validFonts: BrandKit['fonts'] = {}
+    if (fonts.heading) {
+      if (SAFE_FONT_PATTERN.test(fonts.heading)) validFonts.heading = fonts.heading
+      else problem(diagnostics, 'error', 'Brand kit: "fonts.heading" contains disallowed characters')
+    }
+    if (fonts.body) {
+      if (SAFE_FONT_PATTERN.test(fonts.body)) validFonts.body = fonts.body
+      else problem(diagnostics, 'error', 'Brand kit: "fonts.body" contains disallowed characters')
+    }
+    if (Object.keys(validFonts).length > 0) kit.fonts = validFonts
+  }
   if (value.shape !== undefined) {
     const shape = isRecord(value.shape) ? value.shape : {}
     const radius = Number(shape.radius ?? 10)

@@ -81,7 +81,7 @@ function buildItem(node: DslNode, spec: ElementSpec, context: BuildContext, inde
     else context.diagnostics.push({ severity: 'warning', line: node.line, message: `Extra value "${value.text}" ignored for ${spec.keyword}`, hint: `${spec.keyword} accepts: ${spec.positional.join(', ')}` })
   })
   for (const [name, raw] of Object.entries(node.attributes)) {
-    const field = ATTRIBUTE_FIELDS[name]
+    const field = Object.hasOwn(ATTRIBUTE_FIELDS, name) ? ATTRIBUTE_FIELDS[name] : undefined
     if (field) assignField(item, field, raw)
     else if (name === 'icon') {
       if (resolveIconName(raw)) item.icon = raw

@@ -19,7 +19,7 @@ function readQuoted(line: string, start: number): { value: string; end: number; 
     const character = line[index]!
     if (character === '\\' && index + 1 < line.length) {
       const next = line[index + 1]!
-      value += ESCAPES[next] ?? next
+      value += Object.hasOwn(ESCAPES, next) ? ESCAPES[next]! : next
       index += 2
       continue
     }

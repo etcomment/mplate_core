@@ -21,6 +21,14 @@ export async function generateCanvasJpg(): Promise<Blob> {
   return rasterizeSvg(svg, 'image/jpeg', 0.9)
 }
 
+const MAX_CANVAS_EDGE = 8192
+
+function boundedScale(width: number, height: number, requestedScale: number): number {
+  const safeWidth = Math.max(1, width)
+  const safeHeight = Math.max(1, height)
+  return Math.min(requestedScale, MAX_CANVAS_EDGE / safeWidth, MAX_CANVAS_EDGE / safeHeight)
+}
+
 async function rasterizeSvg(svg: string, mimeType: string, quality?: number): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const img = new Image()
@@ -29,9 +37,11 @@ async function rasterizeSvg(svg: string, mimeType: string, quality?: number): Pr
 
     img.onload = () => {
       const canvas = document.createElement('canvas')
-      const scale = 3
-      canvas.width = (img.naturalWidth || img.width) * scale
-      canvas.height = (img.naturalHeight || img.height) * scale
+      const baseWidth = img.naturalWidth || img.width || 800
+      const baseHeight = img.naturalHeight || img.height || 600
+      const scale = boundedScale(baseWidth, baseHeight, 3)
+      canvas.width = Math.max(1, Math.round(baseWidth * scale))
+      canvas.height = Math.max(1, Math.round(baseHeight * scale))
       const ctx = canvas.getContext('2d')
       if (!ctx) {
         URL.revokeObjectURL(url)
@@ -41,7 +51,7 @@ async function rasterizeSvg(svg: string, mimeType: string, quality?: number): Pr
       ctx.scale(scale, scale)
       if (mimeType === 'image/jpeg') {
         ctx.fillStyle = '#ffffff'
-        ctx.fillRect(0, 0, canvas.width / scale, canvas.height / scale)
+        ctx.fillRect(0, 0, baseWidth, baseHeight)
       }
       ctx.drawImage(img, 0, 0)
       canvas.toBlob(
@@ -90,17 +100,20 @@ export async function copyCanvasToClipboard(): Promise<boolean> {
     const img = new Image()
     img.onload = async () => {
       const canvas = document.createElement('canvas')
-      canvas.width = img.width * 2
-      canvas.height = img.height * 2
+      const baseWidth = img.naturalWidth || img.width || 800
+      const baseHeight = img.naturalHeight || img.height || 600
+      const scale = boundedScale(baseWidth, baseHeight, 2)
+      canvas.width = Math.max(1, Math.round(baseWidth * scale))
+      canvas.height = Math.max(1, Math.round(baseHeight * scale))
       const ctx = canvas.getContext('2d')
       if (!ctx) {
         URL.revokeObjectURL(url)
         resolve(false)
         return
       }
-      ctx.scale(2, 2)
+      ctx.scale(scale, scale)
       ctx.fillStyle = '#ffffff'
-      ctx.fillRect(0, 0, img.width, img.height)
+      ctx.fillRect(0, 0, baseWidth, baseHeight)
       ctx.drawImage(img, 0, 0)
       URL.revokeObjectURL(url)
 

@@ -1,8 +1,8 @@
 import { describeTemplate, formatCard, listTemplates, syntaxGuide } from '../describe.js'
 import { svgToPng } from '../export/png.js'
-import { parseBrandKit } from '../brand/parse.js'
-import type { Overrides } from '../render/overrides.js'
 import { render } from '../render/render.js'
+import type { ElementOverride, Overrides } from '../render/overrides.js'
+import { parseBrandKit } from '../brand/parse.js'
 import { BUILT_IN_THEMES } from '../theme/themes.js'
 import { formatDiagnostic, validate } from '../validate.js'
 
@@ -42,6 +42,67 @@ function stringArgument(argumentsObject: Record<string, unknown>, name: string):
 }
 
 const DSL_PROPERTY = { type: 'string', description: 'mplate DSL source, starting with a header line such as @process' }
+
+const DANGEROUS_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function sanitizeOverridesArgument(value: unknown): Overrides | undefined {
+  if (!isPlainRecord(value)) return undefined
+  const clean: Overrides = {}
+  for (const [id, entry] of Object.entries(value)) {
+    if (DANGEROUS_KEYS.has(id) || !isPlainRecord(entry)) continue
+    clean[id] = entry as ElementOverride
+  }
+  return Object.keys(clean).length > 0 ? clean : undefined
+}
+
+function normalizePathSegments(input: string): { root: string; segments: string[] } {
+  const unified = input.replace(/\\/g, '/')
+  const driveMatch = /^([a-zA-Z]:)\//.exec(unified)
+  const root = driveMatch ? driveMatch[1]! + '/' : unified.startsWith('/') ? '/' : ''
+  const body = root ? unified.slice(root.length) : unified
+  const segments: string[] = []
+  for (const part of body.split('/')) {
+    if (!part || part === '.') continue
+    if (part === '..') {
+      if (segments.length > 0 && segments[segments.length - 1] !== '..') segments.pop()
+      else if (!root) segments.push('..')
+    } else {
+      segments.push(part)
+    }
+  }
+  return { root, segments }
+}
+
+function isInsideBaseDirectory(baseDirectory: string, outputPath: string): boolean {
+  const parsedBase = normalizePathSegments(baseDirectory)
+  const workingDirectory = typeof process !== 'undefined' && typeof process.cwd === 'function' ? process.cwd() : '/'
+  const base = parsedBase.root ? parsedBase : normalizePathSegments(`${workingDirectory}/${baseDirectory}`)
+  if (!base.root) return false
+  const parsedTarget = normalizePathSegments(outputPath)
+  const resolved = parsedTarget.root
+    ? parsedTarget
+    : normalizePathSegments(`${base.root}${base.segments.join('/')}/${outputPath}`)
+  if (resolved.root.toLowerCase() !== base.root.toLowerCase()) return false
+  if (resolved.segments.length <= base.segments.length) return false
+  return base.segments.every((segment, index) => resolved.segments[index] === segment)
+}
+
+function validateOutputPath(outputPath: string, format: 'svg' | 'png'): string | undefined {
+  if (outputPath.includes('\0')) return 'Invalid output_path: null bytes are not allowed.'
+  const expectedExtension = format === 'png' ? '.png' : '.svg'
+  if (!outputPath.toLowerCase().endsWith(expectedExtension)) {
+    return `Invalid output_path "${outputPath}": expected a ${expectedExtension} file for format "${format}".`
+  }
+  const baseDirectory = typeof process !== 'undefined' ? process.env?.MPLATE_MCP_OUT_DIR?.trim() : undefined
+  if (baseDirectory && !isInsideBaseDirectory(baseDirectory, outputPath)) {
+    return `Invalid output_path "${outputPath}": must stay inside MPLATE_MCP_OUT_DIR.`
+  }
+  return undefined
+}
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -104,17 +165,25 @@ export const TOOLS: ToolDefinition[] = [
       additionalProperties: false,
     },
     run: async (argumentsObject, environment) => {
+      const rawFormat = stringArgument(argumentsObject, 'format')
+      if (rawFormat !== undefined && rawFormat !== 'svg' && rawFormat !== 'png') {
+        return { content: [text(`Invalid format "${rawFormat}": expected "svg" or "png".`)], isError: true }
+      }
+      const format: 'svg' | 'png' = rawFormat ?? 'svg'
+      const outputPath = stringArgument(argumentsObject, 'output_path')
+      if (outputPath !== undefined) {
+        const pathError = validateOutputPath(outputPath, format)
+        if (pathError) return { content: [text(pathError)], isError: true }
+      }
       const theme = stringArgument(argumentsObject, 'theme')
-      const width = typeof argumentsObject.width === 'number' ? argumentsObject.width : undefined
-      const overrides = typeof argumentsObject.overrides === 'object' && argumentsObject.overrides !== null && !Array.isArray(argumentsObject.overrides) ? (argumentsObject.overrides as Overrides) : undefined
+      const width = typeof argumentsObject.width === 'number' && Number.isFinite(argumentsObject.width) ? argumentsObject.width : undefined
+      const overrides = sanitizeOverridesArgument(argumentsObject.overrides)
       const kitResult = argumentsObject.brand_kit === undefined ? undefined : parseBrandKit(argumentsObject.brand_kit)
       if (kitResult && !kitResult.kit) return { content: [text(['Invalid brand kit.', ...kitResult.diagnostics.map(formatDiagnostic)].join('\n'))], isError: true }
       const brandKit = kitResult?.kit
-      const result = render(stringArgument(argumentsObject, 'dsl') ?? '', { ...(theme ? { theme } : {}), ...(width ? { width } : {}), ...(overrides ? { overrides } : {}), ...(brandKit ? { brandKit } : {}) })
+      const result = render(stringArgument(argumentsObject, 'dsl') ?? '', { ...(theme ? { theme } : {}), ...(width !== undefined ? { width } : {}), ...(overrides ? { overrides } : {}), ...(brandKit ? { brandKit } : {}) })
       const diagnostics = [...(kitResult?.diagnostics ?? []), ...result.diagnostics].map(formatDiagnostic)
       if (!result.ok) return { content: [text(['Render failed.', ...diagnostics].join('\n'))], isError: true }
-      const format = stringArgument(argumentsObject, 'format') ?? 'svg'
-      const outputPath = stringArgument(argumentsObject, 'output_path')
       const summary = `Rendered ${result.template?.id} at ${result.width}×${result.height}px.`
       const content: ToolContent[] = []
       const needsPng = format === 'png' || argumentsObject.preview === true

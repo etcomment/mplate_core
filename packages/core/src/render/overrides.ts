@@ -31,6 +31,17 @@ export interface Offset {
 }
 
 const TEXT_FIELDS = ['title', 'subtitle', 'value', 'label'] as const
+const MAX_OFFSET = 10_000
+const DANGEROUS_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
+
+function isPlainOverride(value: unknown): value is ElementOverride {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function clampOffset(value: unknown): number {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return 0
+  return Math.min(MAX_OFFSET, Math.max(-MAX_OFFSET, value))
+}
 
 function isValidColor(theme: ResolvedTheme, color: string): boolean {
   return isHexColor(color) || /^(?:accent|palette)?\d+$/.test(color) || Object.prototype.hasOwnProperty.call(theme.colors, color)
@@ -55,8 +66,8 @@ function applyToItem(item: Item, override: ElementOverride, theme: ResolvedTheme
 
 export function applyContentOverrides(items: Item[], overrides: Overrides, theme: ResolvedTheme, diagnostics: Diagnostic[]): void {
   for (const item of items) {
-    const override = overrides[item.id]
-    if (override) applyToItem(item, override, theme, diagnostics)
+    const override = Object.hasOwn(overrides, item.id) ? overrides[item.id] : undefined
+    if (isPlainOverride(override)) applyToItem(item, override, theme, diagnostics)
     applyContentOverrides(item.children, overrides, theme, diagnostics)
   }
 }
@@ -72,15 +83,16 @@ export function collectElements(items: Item[], parentId?: string): ElementInfo[]
 export function offsetsFrom(overrides: Overrides): Map<string, Offset> {
   const offsets = new Map<string, Offset>()
   for (const [id, override] of Object.entries(overrides)) {
-    const dx = Number.isFinite(override.dx) ? override.dx! : 0
-    const dy = Number.isFinite(override.dy) ? override.dy! : 0
+    if (DANGEROUS_KEYS.has(id) || !isPlainOverride(override)) continue
+    const dx = clampOffset(override.dx)
+    const dy = clampOffset(override.dy)
     if (dx !== 0 || dy !== 0) offsets.set(id, { dx, dy })
   }
   return offsets
 }
 
 export function reportUnusedOverrides(overrides: Overrides, elementIds: Set<string>, diagnostics: Diagnostic[]): string[] {
-  const unused = Object.keys(overrides).filter((id) => !elementIds.has(id))
+  const unused = Object.keys(overrides).filter((id) => !DANGEROUS_KEYS.has(id) && !elementIds.has(id))
   for (const id of unused) diagnostics.push({ severity: 'warning', line: 1, message: `Adjustment for "${id}" ignored: that element no longer exists`, hint: 'Remove the adjustment or restore the element' })
   return unused
 }

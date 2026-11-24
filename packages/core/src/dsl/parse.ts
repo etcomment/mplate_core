@@ -5,6 +5,10 @@ const HEADER_PATTERN = /^@([a-zA-Z][a-zA-Z_-]*?)(\d+)?$/
 const ATTRIBUTE_PATTERN = /^([a-zA-Z][\w-]*):(.*)$/s
 const COLOR_PATTERN = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/
 const KEYWORD_PATTERN = /^[a-zA-Z][\w-]*$/
+const MAX_SOURCE_LENGTH = 262_144
+const MAX_LINES = 2000
+const MAX_DEPTH = 16
+const DANGEROUS_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
 
 interface ClassifiedTokens {
   values: DslNode['values']
@@ -31,7 +35,12 @@ function classifyTokens(tokens: Token[], line: number, diagnostics: Diagnostic[]
     }
     const attribute = ATTRIBUTE_PATTERN.exec(token.text)
     if (attribute) {
-      attributes[attribute[1]!.toLowerCase()] = attribute[2]!
+      const key = attribute[1]!.toLowerCase()
+      if (DANGEROUS_KEYS.has(key)) {
+        diagnostics.push({ severity: 'warning', line, message: `Attribute "${key}" is not allowed` })
+        continue
+      }
+      attributes[key] = attribute[2]!
       continue
     }
     values.push({ text: token.text, quoted: false })
@@ -63,7 +72,15 @@ interface StackEntry {
 
 export function parseDsl(source: string): ParseResult {
   const diagnostics: Diagnostic[] = []
+  if (source.length > MAX_SOURCE_LENGTH) {
+    diagnostics.push({ severity: 'error', line: 1, message: 'Document exceeds maximum size (256 KB)' })
+    return { diagnostics }
+  }
   const lines = source.replace(/\r\n?/g, '\n').split('\n')
+  if (lines.length > MAX_LINES) {
+    diagnostics.push({ severity: 'error', line: 1, message: `Document exceeds maximum line count (${MAX_LINES} lines)` })
+    return { diagnostics }
+  }
   const nodes: DslNode[] = []
   const stack: StackEntry[] = []
   let header: DslHeader | undefined
@@ -93,6 +110,10 @@ export function parseDsl(source: string): ParseResult {
     if (classified.color) node.color = classified.color
     while (stack.length > 0 && stack[stack.length - 1]!.indent >= indent) stack.pop()
     const parent = indent > baseIndent ? stack[stack.length - 1] : undefined
+    if (parent && stack.length >= MAX_DEPTH) {
+      diagnostics.push({ severity: 'error', line, message: `Maximum nesting depth (${MAX_DEPTH}) exceeded` })
+      return
+    }
     if (parent) parent.node.children.push(node)
     else {
       stack.length = 0

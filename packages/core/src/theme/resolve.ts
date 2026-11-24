@@ -38,7 +38,8 @@ export function mergeTheme(base: Theme, override: ThemeOverride): Theme {
 export type ThemeCatalog = Record<string, Theme>
 
 export function findTheme(name: string, catalog: ThemeCatalog = BUILT_IN_THEMES): Theme | undefined {
-  return catalog[name.toLowerCase()] ?? Object.values(catalog).find((theme) => theme.name.toLowerCase() === name.toLowerCase())
+  const lower = name.toLowerCase()
+  return (Object.hasOwn(catalog, lower) ? catalog[lower] : undefined) ?? Object.values(catalog).find((theme) => theme.name.toLowerCase() === lower)
 }
 
 function toTheme(input: ThemeInput | undefined, catalog: ThemeCatalog): Theme {

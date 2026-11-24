@@ -237,15 +237,40 @@ export function App() {
           }
         }
 
+        const VALID_SHAPE_TYPES = new Set<ShapeType>([
+          'rectangle', 'ellipse', 'diamond', 'stadium', 'hexagon', 'cylinder',
+          'parallelogram', 'parallelogramAlt', 'trapezoid', 'trapezoidAlt',
+          'document', 'subroutine', 'icon',
+        ])
+
+        const isValidPastedShape = (value: unknown): value is ClipboardShape => {
+          if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
+          const item = value as Record<string, unknown>
+          if (typeof item.type !== 'string' || !VALID_SHAPE_TYPES.has(item.type as ShapeType)) return false
+          const pos = item.position as Record<string, unknown> | undefined
+          const dims = item.dimensions as Record<string, unknown> | undefined
+          const style = item.style as Record<string, unknown> | undefined
+          const textObj = item.text as Record<string, unknown> | undefined
+          if (!pos || typeof pos !== 'object' || typeof pos.x !== 'number' || !Number.isFinite(pos.x) || typeof pos.y !== 'number' || !Number.isFinite(pos.y)) return false
+          if (!dims || typeof dims !== 'object' || typeof dims.width !== 'number' || !Number.isFinite(dims.width) || dims.width <= 0 || typeof dims.height !== 'number' || !Number.isFinite(dims.height) || dims.height <= 0) return false
+          if (!style || typeof style !== 'object' || Array.isArray(style)) return false
+          if (!textObj || typeof textObj !== 'object' || typeof textObj.content !== 'string') return false
+          return true
+        }
+
         const parseAndPaste = (text: string): boolean => {
-          let data: { source?: string; shapes?: ClipboardShape[] }
+          let parsed: unknown
           try {
-            data = JSON.parse(text)
+            parsed = JSON.parse(text)
           } catch {
             return false
           }
-          if (data.source !== 'mplate-studio' || !data.shapes || data.shapes.length === 0) return false
-          pasteFromData(data.shapes)
+          if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) return false
+          const data = parsed as Record<string, unknown>
+          if (data.source !== 'mplate-studio' || !Array.isArray(data.shapes) || data.shapes.length === 0) return false
+          const validShapes = data.shapes.slice(0, 200).filter(isValidPastedShape)
+          if (validShapes.length === 0) return false
+          pasteFromData(validShapes)
           return true
         }
 

@@ -53,7 +53,8 @@ function resolveDocumentTheme(engine: Engine, document: DslDocument, options: Re
 
 function lookupTemplate(engine: Engine, document: DslDocument, options: RenderOptions, diagnostics: Diagnostic[]): TemplateDefinition | undefined {
   const { header } = document
-  const kitStyle = !header.style && !header.variant ? options.brandKit?.styles?.[header.family] : undefined
+  const kitStyles = options.brandKit?.styles
+  const kitStyle = !header.style && !header.variant && kitStyles && Object.hasOwn(kitStyles, header.family) ? kitStyles[header.family] : undefined
   const lookup = engine.registry.find(header.family, header.variant, header.style ?? kitStyle)
   if (lookup.template) return lookup.template
   if (kitStyle) {

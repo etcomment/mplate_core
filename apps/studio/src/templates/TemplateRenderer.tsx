@@ -5,6 +5,8 @@ import { elementTransform, isTopLevelId, parentIdOf, projectRect } from './geome
 
 const ID_ATTRIBUTE = 'data-mplate-id'
 const SHAPE_SELECTOR = ':is(rect, path, circle, ellipse, polygon, polyline, line)'
+const SAFE_ELEMENT_ID = /^[a-zA-Z0-9_-]+$/
+const SAFE_STROKE_COLOR = /^(?:transparent|none|#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8}))$/i
 
 interface SvgContent {
   markup: string
@@ -18,23 +20,25 @@ function extractContent(svg: string): SvgContent {
   return { markup: inner, fontFamily: fontFamily.replace(/&apos;/g, "'").replace(/&quot;/g, '"') }
 }
 
-function cssEscape(id: string): string {
-  return id.replace(/["\\]/g, '\\$&')
-}
-
-function buildElementCss(hidden: ReadonlySet<string>, strokeColors: Record<string, string>, strokeWidths: Record<string, number>): string {
+export function buildElementCss(hidden: ReadonlySet<string>, strokeColors: Record<string, string>, strokeWidths: Record<string, number>): string {
   const rules: string[] = [`[${ID_ATTRIBUTE}] { pointer-events: bounding-box; }`]
-  for (const id of hidden) rules.push(`[${ID_ATTRIBUTE}="${cssEscape(id)}"] { display: none !important; }`)
+  for (const id of hidden) {
+    if (!SAFE_ELEMENT_ID.test(id)) continue
+    rules.push(`[${ID_ATTRIBUTE}="${id}"] { display: none !important; }`)
+  }
   const strokeIds = new Set([...Object.keys(strokeColors), ...Object.keys(strokeWidths)])
   for (const id of strokeIds) {
-    const color = strokeColors[id]
-    const width = strokeWidths[id]
+    if (!SAFE_ELEMENT_ID.test(id)) continue
+    const rawColor = Object.hasOwn(strokeColors, id) ? strokeColors[id] : undefined
+    const rawWidth = Object.hasOwn(strokeWidths, id) ? strokeWidths[id] : undefined
+    const color = typeof rawColor === 'string' && SAFE_STROKE_COLOR.test(rawColor) ? rawColor : undefined
+    const width = typeof rawWidth === 'number' && Number.isFinite(rawWidth) && rawWidth >= 0 && rawWidth <= 100 ? rawWidth : undefined
     if (!color && width === undefined) continue
-    const scope = `[${ID_ATTRIBUTE}="${cssEscape(id)}"]`
+    const scope = `[${ID_ATTRIBUTE}="${id}"]`
     const declarations = [
       color ? `stroke: ${color === 'transparent' ? 'none' : color} !important;` : '',
       width !== undefined ? `stroke-width: ${width}px !important;` : '',
-    ].join(' ')
+    ].filter(Boolean).join(' ')
     rules.push(`${scope} ${SHAPE_SELECTOR}:not(${scope} [${ID_ATTRIBUTE}] *) { ${declarations} }`)
   }
   return rules.join('\n')

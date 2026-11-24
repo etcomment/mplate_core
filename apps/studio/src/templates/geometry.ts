@@ -6,7 +6,7 @@ function round(value: number): number {
 
 export function parentIdOf(id: string, known: Record<string, unknown>): string | undefined {
   const parent = id.replace(/-[A-Za-z]+-\d+$/, '')
-  return parent !== id && parent in known ? parent : undefined
+  return parent !== id && Object.hasOwn(known, parent) ? parent : undefined
 }
 
 export function isTopLevelId(id: string, known: Record<string, unknown>): boolean {
