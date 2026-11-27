@@ -4,6 +4,19 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-11-27
+
+### Added
+
+- Universal `icon:` support across all 25 templates (`org:tree`, `timeline:axis`, `timeline:gantt`, `timeline:swimlanes`, `timeline:vertical`, `matrix:quadrant`, `matrix:swot`, `kpi:gauges`, `funnel:bars`, `venn:circles`, `comparison:table` row icons, `comparison:columns` header icons, `stack:layers` header icons, and side icon placement on `funnel:stack` and `pyramid:layers` when `val:`/`pct:` occupies the layer centre).
+- Studio properties panel: add, preview, search, swap and clear `icon:` on any selected template element directly from a Lucide icon picker (`listIcons()`).
+- Automated layout and `overrides` icon-swap regression tests covering every template in `packages/core/tests/templates.test.ts`, plus updated template checklist in `docs/authoring-templates.md`.
+
+### Fixed
+
+- Respect explicit `point.icon` alongside `yes`/`no` semantic flags in `comparison:columns` while preserving positive/negative colour tokens.
+- Keep `icon:` visible in `process:chevrons` on 5-column and narrow (`800px`) layouts instead of hiding icons below `150px` inner width.
+
 ## [0.1.2] - 2026-11-24
 
 ### Added

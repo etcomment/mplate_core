@@ -1,6 +1,6 @@
 {
   "name": "@mplate/studio",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "description": "Free online editor for mplate: canvas, shapes, Mermaid and the mplate template DSL, with SVG/PNG export and share links. No account.",
   "license": "Apache-2.0",
