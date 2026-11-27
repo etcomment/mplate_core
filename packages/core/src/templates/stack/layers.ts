@@ -82,16 +82,19 @@ export const stackLayers: TemplateDefinition = {
     let y = canvas.top
     input.items.forEach((layer) => {
       const { placements, height: chipsHeight } = placeChips(layer.children, chipsLeft, chipsWidth)
-      const title = canvas.measure({ text: layer.title, x: 0, y: 0, width: labelWidth - 30, size: 17, minSize: 12, weight: 800, maxLines: 2 }).height
-      const subtitle = layer.subtitle ? canvas.measure({ text: layer.subtitle, x: 0, y: 0, width: labelWidth - 30, size: 13 }).height + 2 : 0
+      const iconSlot = layer.icon ? 28 : 0
+      const labelTextWidth = labelWidth - 30 - iconSlot
+      const title = canvas.measure({ text: layer.title, x: 0, y: 0, width: labelTextWidth, size: 17, minSize: 12, weight: 800, maxLines: 2 }).height
+      const subtitle = layer.subtitle ? canvas.measure({ text: layer.subtitle, x: 0, y: 0, width: labelTextWidth, size: 13 }).height + 2 : 0
       const height = Math.max(64, title + subtitle + PADDING * 2, chipsHeight + PADDING * 2)
       canvas.group(layer.id, () => {
         canvas.rect({ x: canvas.left, y, width: canvas.contentWidth, height }, { rx: canvas.theme.shape.radius, fill: tint(canvas, layer.color, 0.86) })
         canvas.rect({ x: canvas.left, y, width: labelWidth, height }, { rx: canvas.theme.shape.radius, fill: layer.color })
         const foreground = canvas.theme.textOn(layer.color)
+        if (layer.icon) canvas.icon(layer.icon, canvas.left + 26, y + height / 2, 20, foreground)
         const labelTop = y + (height - title - subtitle) / 2
-        const box = canvas.text({ text: layer.title, x: canvas.left + 16, y: labelTop, width: labelWidth - 30, size: 17, minSize: 12, weight: 800, maxLines: 2, color: foreground, font: 'heading' })
-        if (layer.subtitle) canvas.text({ text: layer.subtitle, x: canvas.left + 16, y: box.y + box.height + 2, width: labelWidth - 30, size: 13, color: foreground })
+        const box = canvas.text({ text: layer.title, x: canvas.left + 16 + iconSlot, y: labelTop, width: labelTextWidth, size: 17, minSize: 12, weight: 800, maxLines: 2, color: foreground, font: 'heading' })
+        if (layer.subtitle) canvas.text({ text: layer.subtitle, x: canvas.left + 16 + iconSlot, y: box.y + box.height + 2, width: labelTextWidth, size: 13, color: foreground })
         const chipsTop = y + (height - chipsHeight) / 2
         for (const placement of placements) drawChip(canvas, placement, chipsTop, layer.color)
       })

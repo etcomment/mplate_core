@@ -6,9 +6,14 @@ const POSITIVE_FLAGS = ['yes', 'pro', 'plus']
 const NEGATIVE_FLAGS = ['no', 'con', 'minus']
 
 function pointMarker(canvas: Canvas, point: Item, parent: Item): { icon: string; color: string } | undefined {
-  if (point.flags.some((flag) => POSITIVE_FLAGS.includes(flag))) return { icon: 'check', color: canvas.theme.colors.positive }
-  if (point.flags.some((flag) => NEGATIVE_FLAGS.includes(flag))) return { icon: 'x', color: canvas.theme.colors.negative }
-  if (point.icon) return { icon: point.icon, color: point.hasExplicitColor ? point.color : parent.color }
+  const isPositive = point.flags.some((flag) => POSITIVE_FLAGS.includes(flag))
+  const isNegative = point.flags.some((flag) => NEGATIVE_FLAGS.includes(flag))
+  if (point.icon) {
+    const color = point.hasExplicitColor ? point.color : isPositive ? canvas.theme.colors.positive : isNegative ? canvas.theme.colors.negative : parent.color
+    return { icon: point.icon, color }
+  }
+  if (isPositive) return { icon: 'check', color: canvas.theme.colors.positive }
+  if (isNegative) return { icon: 'x', color: canvas.theme.colors.negative }
   return undefined
 }
 
@@ -49,9 +54,11 @@ export const comparisonColumns: TemplateDefinition = {
     const columnWidth = (canvas.contentWidth - gap * (count - 1)) / count
     const padding = 22
     const textWidth = columnWidth - padding * 2
+    const headerTextWidth = (item: Item): number => textWidth - (item.icon ? 34 : 0)
     const headerHeights = items.map((item) => {
-      const title = canvas.measure({ text: item.title, x: 0, y: 0, width: textWidth, size: 22, minSize: 16, weight: 800, maxLines: 2 }).height
-      const subtitle = item.subtitle ? canvas.measure({ text: item.subtitle, x: 0, y: 0, width: textWidth, size: 15 }).height + 4 : 0
+      const width = headerTextWidth(item)
+      const title = canvas.measure({ text: item.title, x: 0, y: 0, width, size: 22, minSize: 16, weight: 800, maxLines: 2 }).height
+      const subtitle = item.subtitle ? canvas.measure({ text: item.subtitle, x: 0, y: 0, width, size: 15 }).height + 4 : 0
       return title + subtitle
     })
     const headerHeight = Math.max(...headerHeights) + padding * 2
@@ -65,8 +72,10 @@ export const comparisonColumns: TemplateDefinition = {
         canvas.rect({ x, y, width: columnWidth, height: headerHeight + bodyHeight }, { rx: radius, fill: canvas.theme.colors.surface })
         canvas.path(roundedTopPath({ x, y, width: columnWidth, height: headerHeight }, radius), { fill: item.color })
         const foreground = canvas.theme.textOn(item.color)
-        const title = canvas.text({ text: item.title, x: x + padding, y: y + padding, width: textWidth, size: 22, minSize: 16, weight: 800, maxLines: 2, color: foreground, font: 'heading' })
-        if (item.subtitle) canvas.text({ text: item.subtitle, x: x + padding, y: title.y + title.height + 4, width: textWidth, size: 15, color: foreground })
+        const width = headerTextWidth(item)
+        const title = canvas.text({ text: item.title, x: x + padding, y: y + padding, width, size: 22, minSize: 16, weight: 800, maxLines: 2, color: foreground, font: 'heading' })
+        if (item.subtitle) canvas.text({ text: item.subtitle, x: x + padding, y: title.y + title.height + 4, width, size: 15, color: foreground })
+        if (item.icon) canvas.icon(item.icon, x + columnWidth - padding - 14, y + padding + 14, 24, foreground)
         let cursor = y + headerHeight + padding
         item.children.forEach((point) => {
           canvas.group(point.id, () => {

@@ -55,8 +55,11 @@ export const funnelBars: TemplateDefinition = {
         const y = canvas.top + index * (rowHeight + gap)
         const value = values[index]
         if (value === undefined) canvas.diagnostics.push({ severity: 'warning', line: item.line, message: `"${item.title}" has no figure; add val:"…" or pct:`, hint: 'Example: level "Leads" val:"6,200"' })
-        canvas.text({ text: item.title, x: canvas.left, y, width: labelWidth, height: item.subtitle ? rowHeight * 0.6 : rowHeight, size: 16, minSize: 11, weight: 700, align: 'end', valign: item.subtitle ? 'bottom' : 'middle', maxLines: 1 })
-        if (item.subtitle) canvas.text({ text: item.subtitle, x: canvas.left, y: y + rowHeight * 0.6, width: labelWidth, size: 12, maxLines: 1, align: 'end', color: canvas.theme.colors.textMuted })
+        const iconSlot = item.icon ? 28 : 0
+        const textWidth = labelWidth - iconSlot
+        if (item.icon) canvas.icon(item.icon, canvas.left + labelWidth - 12, y + rowHeight / 2, Math.min(20, rowHeight * 0.45), canvas.theme.ink(item.color, canvas.theme.colors.background))
+        canvas.text({ text: item.title, x: canvas.left, y, width: textWidth, height: item.subtitle ? rowHeight * 0.6 : rowHeight, size: 16, minSize: 11, weight: 700, align: 'end', valign: item.subtitle ? 'bottom' : 'middle', maxLines: 1 })
+        if (item.subtitle) canvas.text({ text: item.subtitle, x: canvas.left, y: y + rowHeight * 0.6, width: textWidth, size: 12, maxLines: 1, align: 'end', color: canvas.theme.colors.textMuted })
         const width = Math.max(6, barSpace * ((value ?? 0) / maximum))
         canvas.rect({ x: barLeft, y, width, height: rowHeight }, { rx: Math.min(6, canvas.theme.shape.radius), fill: item.color })
         const label = item.value ?? item.percentLabel

@@ -24,17 +24,28 @@ interface BoxOptions {
   isProminent: boolean
 }
 
+function boxIconSize(width: number, isProminent: boolean): number {
+  if (width < 100) return 14
+  return isProminent ? 22 : 18
+}
+
 function boxHeight(canvas: Canvas, item: Item, width: number, isProminent: boolean): number {
-  return 28 + measureTextStack(canvas, item, { x: 0, y: 0, width: width - 34, titleSize: isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: Infinity })
+  const iconSize = boxIconSize(width, isProminent)
+  const iconSlot = item.icon ? iconSize + 10 : 0
+  const textHeight = 28 + measureTextStack(canvas, item, { x: 0, y: 0, width: width - 34 - iconSlot, titleSize: isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: Infinity })
+  return Math.max(item.icon ? iconSize + 24 : 0, textHeight)
 }
 
 function drawBox(canvas: Canvas, item: Item, options: BoxOptions): number {
   const height = boxHeight(canvas, item, options.width, options.isProminent)
+  const iconSize = boxIconSize(options.width, options.isProminent)
+  const iconSlot = item.icon ? iconSize + 10 : 0
   canvas.group(item.id, () => {
     const fill = options.isProminent ? tint(canvas, options.color, 0.86) : canvas.theme.colors.surface
     canvas.rect({ x: options.x, y: options.y, width: options.width, height }, { rx: canvas.theme.shape.radius * 0.8, fill })
     canvas.rect({ x: options.x, y: options.y, width: 6, height }, { rx: 3, fill: options.color })
-    drawTextStack(canvas, item, { x: options.x + 20, y: options.y + 14, width: options.width - 34, titleSize: options.isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: Infinity })
+    if (item.icon) canvas.icon(item.icon, options.x + 20 + iconSize / 2, options.y + 14 + iconSize / 2, iconSize, canvas.theme.ink(options.color, fill))
+    drawTextStack(canvas, item, { x: options.x + 20 + iconSlot, y: options.y + 14, width: options.width - 34 - iconSlot, titleSize: options.isProminent ? 17 : 15, subtitleSize: 13, titleLines: 2, subtitleLines: Infinity })
   })
   return height
 }

@@ -50,9 +50,12 @@ export const matrixQuadrant: TemplateDefinition = {
         const row = Math.floor(index / 2)
         const x = gridLeft + column * (cellWidth + gap)
         const y = canvas.top + row * (cellHeight + gap)
-        canvas.rect({ x, y, width: cellWidth, height: cellHeight }, { rx: radius, fill: tint(canvas, item.color, 0.84), stroke: item.color, 'stroke-width': canvas.theme.shape.strokeWidth, 'data-position': QUADRANT_ORDER[index] })
+        const background = tint(canvas, item.color, 0.84)
+        canvas.rect({ x, y, width: cellWidth, height: cellHeight }, { rx: radius, fill: background, stroke: item.color, 'stroke-width': canvas.theme.shape.strokeWidth, 'data-position': QUADRANT_ORDER[index] })
         const padding = 22
-        const title = canvas.text({ text: item.title, x: x + padding, y: y + padding, width: cellWidth - padding * 2, size: 22, minSize: 15, weight: 800, maxLines: 1, color: canvas.theme.ink(item.color, tint(canvas, item.color, 0.84)), font: 'heading' })
+        const headerIconSlot = item.icon ? 30 : 0
+        if (item.icon) canvas.icon(item.icon, x + padding + 11, y + padding + 13, 22, canvas.theme.ink(item.color, background))
+        const title = canvas.text({ text: item.title, x: x + padding + headerIconSlot, y: y + padding, width: cellWidth - padding * 2 - headerIconSlot, size: 22, minSize: 15, weight: 800, maxLines: 1, color: canvas.theme.ink(item.color, background), font: 'heading' })
         let cursor = title.y + title.height + 4
         if (item.subtitle) {
           const subtitle = canvas.text({ text: item.subtitle, x: x + padding, y: cursor, width: cellWidth - padding * 2, size: 15, maxLines: 2, color: canvas.theme.colors.textMuted })
@@ -66,8 +69,10 @@ export const matrixQuadrant: TemplateDefinition = {
             continue
           }
           canvas.group(entry.id, () => {
-            canvas.circle(x + padding + 5, cursor + 10, 4, { fill: item.color })
-            const box = canvas.text({ text: entry.title, x: x + padding + 18, y: cursor, width: cellWidth - padding * 2 - 18, height: bottomLimit - cursor, size: 16, minSize: 12, maxLines: 2 })
+            const entryIconSlot = entry.icon ? 24 : 18
+            if (entry.icon) canvas.icon(entry.icon, x + padding + 8, cursor + 10, 16, canvas.theme.ink(entry.hasExplicitColor ? entry.color : item.color, background))
+            else canvas.circle(x + padding + 5, cursor + 10, 4, { fill: item.color })
+            const box = canvas.text({ text: entry.title, x: x + padding + entryIconSlot, y: cursor, width: cellWidth - padding * 2 - entryIconSlot, height: bottomLimit - cursor, size: 16, minSize: 12, maxLines: 2 })
             cursor = box.y + box.height + 8
           })
         }

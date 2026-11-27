@@ -11,6 +11,7 @@ export interface ElementFields {
   from: string
   to: string
   label: string
+  icon: string
   editable: EditableField[]
   spec?: ElementSpec
 }
@@ -60,6 +61,7 @@ export function readElementFields(source: string, line: number, card: IdentityCa
   if (node?.attributes.pct !== undefined || node?.attributes.percent !== undefined || card?.family === 'kpi' || card?.id === 'timeline:gantt' || card?.id === 'funnel:bars') editable.push('percent')
   if (spec?.attributes?.includes('from') || node?.attributes.from !== undefined || node?.attributes.to !== undefined) editable.push('from', 'to')
   if (positional.includes('label') || node?.attributes.label !== undefined || card?.id === 'cards:grid') editable.push('label')
+  editable.push('icon')
   const fields: ElementFields = {
     title: at('title'),
     subtitle: node?.attributes.sub ?? at('subtitle'),
@@ -70,6 +72,7 @@ export function readElementFields(source: string, line: number, card: IdentityCa
     from: node?.attributes.from ?? '',
     to: node?.attributes.to ?? '',
     label: node?.attributes.label ?? at('label'),
+    icon: node?.attributes.icon ?? '',
     editable,
   }
   if (spec) fields.spec = spec

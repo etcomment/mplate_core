@@ -29,7 +29,10 @@ export const pyramidLayers: TemplateDefinition = {
     const textLeft = canvas.left + pyramidWidth + 64
     const textWidth = canvas.left + canvas.contentWidth - textLeft
     const textOptions = { width: textWidth, titleSize: 18, subtitleSize: 14, titleLines: 1, subtitleLines: count > 5 ? 2 : 3 }
-    const measured = items.map((item) => measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 }))
+    const measured = items.map((item, index) => {
+      const reserveSide = Boolean(item.icon && (item.value ?? item.percentLabel ?? (index === 0 ? true : false)))
+      return measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0, width: textWidth - (reserveSide ? 28 : 0) })
+    })
     const gap = 5
     const layerHeight = Math.max(60, Math.min(110, 440 / count), ...measured.map((height) => height + 8))
     const totalHeight = count * layerHeight + (count - 1) * gap
@@ -49,15 +52,21 @@ export const pyramidLayers: TemplateDefinition = {
         const middleY = top + layerHeight / 2
         const figure = item.value ?? item.percentLabel ?? (item.icon ? undefined : String(index + 1))
         const innerHalf = halfWidthAt(index === 0 ? top + layerHeight * 0.62 : top)
-        if (figure && innerHalf > 22) {
+        const fitsFigure = Boolean(figure && innerHalf > 22)
+        const iconInLayer = Boolean(item.icon && !fitsFigure && innerHalf > 14)
+        if (fitsFigure && figure) {
           const boxTop = index === 0 ? top + layerHeight * 0.4 : top
           const boxHeight = index === 0 ? layerHeight * 0.6 : layerHeight
           canvas.text({ text: figure, x: apexX - innerHalf + 6, y: boxTop, width: innerHalf * 2 - 12, height: boxHeight, size: 20, minSize: 10, weight: 800, align: 'middle', valign: 'middle', maxLines: 1, color: foreground, font: 'heading' })
-        } else if (item.icon) canvas.icon(item.icon, apexX, index === 0 ? top + layerHeight * 0.66 : middleY, Math.min(26, layerHeight * 0.4), foreground)
+        } else if (iconInLayer && item.icon) {
+          canvas.icon(item.icon, apexX, index === 0 ? top + layerHeight * 0.66 : middleY, Math.min(26, layerHeight * 0.4), foreground)
+        }
         const edge = apexX + (topHalf + bottomHalf) / 2
         canvas.line(edge + 10, middleY, textLeft - 14, middleY, { stroke: canvas.theme.colors.line, 'stroke-width': 1.5 })
         canvas.circle(textLeft - 14, middleY, 4, { fill: item.color })
-        drawTextStack(canvas, item, { ...textOptions, x: textLeft, y: middleY - (measured[index] ?? 0) / 2 })
+        const sideSlot = item.icon && !iconInLayer ? 28 : 0
+        if (sideSlot > 0 && item.icon) canvas.icon(item.icon, textLeft + 10, middleY, 20, canvas.theme.ink(item.color, canvas.theme.colors.background))
+        drawTextStack(canvas, item, { ...textOptions, x: textLeft + sideSlot, y: middleY - (measured[index] ?? 0) / 2, width: textWidth - sideSlot })
       })
     })
     canvas.extendHeight(canvas.top + totalHeight)

@@ -1,9 +1,12 @@
+import { useMemo, useState } from 'react'
+import { listIcons } from '@mplate/core'
 import { useTemplateStore, type Rect } from '../../templates/store'
 import { useDiagramStore } from '../../store/diagramStore'
 import { NumberInput } from '../../ui/Input'
 import { ColorField } from './ColorField'
 import { fieldStyles } from './fieldStyles'
-import { theme } from '../../lib/theme'
+import { INK_COLOR, theme } from '../../lib/theme'
+import { TEMPLATE_ICONS } from '../../icons/registry'
 import { readElementFields } from '../../templates/elementFields'
 import { rewriteElementLine, type EditableField } from '../../templates/dslLines'
 import { boundingRect, isTopLevelId } from '../../templates/geometry'
@@ -18,6 +21,7 @@ const FIELD_LABELS: Record<EditableField, string> = {
   from: 'Début (from:)',
   to: 'Fin (to:)',
   label: 'Badge / Étiquette',
+  icon: 'Icône (icon:)',
 }
 
 const INPUT_PLACEHOLDERS: Partial<Record<EditableField, string>> = {
@@ -28,6 +32,79 @@ const INPUT_PLACEHOLDERS: Partial<Record<EditableField, string>> = {
   from: 'Ex : Jan',
   to: 'Ex : Mar',
   label: 'Ex : 01',
+  icon: 'Ex : rocket, users, shield-check',
+}
+
+function IconField({ value, placeholder, onChange }: { value: string; placeholder: string; onChange: (next: string) => void }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [search, setSearch] = useState('')
+  const icons = useMemo(() => listIcons(), [])
+  const filtered = useMemo(() => {
+    const query = search.trim().toLowerCase()
+    const matches = query ? icons.filter(id => id.includes(query) || id.replace(/-/g, ' ').includes(query)) : icons
+    return matches.slice(0, 72)
+  }, [icons, search])
+  const CurrentIcon = value.trim() ? TEMPLATE_ICONS[value.trim()] : undefined
+
+  return (
+    <div>
+      <div style={styles.iconRow}>
+        <div style={styles.iconPreview} title={value || 'Aucune icône'}>
+          {CurrentIcon ? <CurrentIcon size={16} color={INK_COLOR} /> : <span style={styles.iconEmpty}>—</span>}
+        </div>
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          style={{ ...fieldStyles.textInput, flex: 1 }}
+        />
+        {value ? (
+          <button type="button" onClick={() => onChange('')} style={styles.iconActionButton} title="Retirer l'icône">
+            ×
+          </button>
+        ) : null}
+        <button type="button" onClick={() => setIsOpen(open => !open)} style={styles.iconActionButton}>
+          {isOpen ? 'Fermer' : 'Choisir'}
+        </button>
+      </div>
+      {isOpen ? (
+        <div style={styles.iconPicker}>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Rechercher une icône..."
+            style={{ ...fieldStyles.textInput, marginBottom: theme.spacing.xs }}
+          />
+          <div style={styles.iconGrid}>
+            {filtered.map(iconId => {
+              const Icon = TEMPLATE_ICONS[iconId]
+              if (!Icon) return null
+              const isSelected = value.trim() === iconId
+              return (
+                <button
+                  key={iconId}
+                  type="button"
+                  title={iconId}
+                  onClick={() => {
+                    onChange(iconId)
+                    setIsOpen(false)
+                  }}
+                  style={{
+                    ...styles.iconChoice,
+                    ...(isSelected ? styles.iconChoiceActive : {}),
+                  }}
+                >
+                  <Icon size={16} color={INK_COLOR} />
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  )
 }
 
 export function TemplateElementProperties() {
@@ -107,7 +184,13 @@ export function TemplateElementProperties() {
       {!isMulti && fields && fields.editable.map(field => (
         <div key={field} style={fieldStyles.section}>
           <label style={fieldStyles.sectionLabel}>{FIELD_LABELS[field]}</label>
-          {field === 'title' || field === 'subtitle' ? (
+          {field === 'icon' ? (
+            <IconField
+              value={fields.icon}
+              placeholder={INPUT_PLACEHOLDERS.icon ?? ''}
+              onChange={(next) => handleFieldChange('icon', next)}
+            />
+          ) : field === 'title' || field === 'subtitle' ? (
             <textarea
               value={fields[field]}
               onChange={(e) => handleFieldChange(field, e.target.value)}
@@ -284,5 +367,63 @@ const styles: Record<string, React.CSSProperties> = {
     border: `1px solid ${theme.color.border}`,
     background: theme.color.bgSurfaceHover,
     color: theme.color.textSecondary,
+  },
+  iconRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+  },
+  iconPreview: {
+    width: 28,
+    height: 28,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: `1px solid ${theme.color.border}`,
+    borderRadius: theme.radius.sm,
+    background: theme.color.bgPanel,
+    flexShrink: 0,
+  },
+  iconEmpty: {
+    fontSize: theme.font.sizeXs,
+    color: theme.color.textSecondary,
+  },
+  iconActionButton: {
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    border: `1px solid ${theme.color.border}`,
+    borderRadius: theme.radius.sm,
+    background: theme.color.bgPanel,
+    color: theme.color.textPrimary,
+    fontSize: theme.font.sizeXs,
+    cursor: 'pointer',
+    flexShrink: 0,
+  },
+  iconPicker: {
+    marginTop: theme.spacing.xs,
+    padding: theme.spacing.xs,
+    border: `1px solid ${theme.color.border}`,
+    borderRadius: theme.radius.sm,
+    background: theme.color.bgCanvas,
+  },
+  iconGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(6, 1fr)',
+    gap: 4,
+    maxHeight: 156,
+    overflowY: 'auto',
+  },
+  iconChoice: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
+    border: `1px solid ${theme.color.border}`,
+    borderRadius: theme.radius.sm,
+    background: theme.color.bgPanel,
+    cursor: 'pointer',
+  },
+  iconChoiceActive: {
+    borderColor: theme.color.accent,
+    background: theme.color.bgSurfaceHover,
   },
 }

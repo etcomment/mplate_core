@@ -1,4 +1,4 @@
-export type EditableField = 'title' | 'subtitle' | 'value' | 'delta' | 'date' | 'percent' | 'from' | 'to' | 'label'
+export type EditableField = 'title' | 'subtitle' | 'value' | 'delta' | 'date' | 'percent' | 'from' | 'to' | 'label' | 'icon'
 
 interface LineToken {
   start: number
@@ -64,7 +64,7 @@ function rewritePositional(line: string, tokens: LineToken[], position: number, 
   return replaceRange(line, anchor.end, anchor.end, insertion)
 }
 
-const BARE_ATTRIBUTE_NAMES = new Set(['pct', 'percent', 'from', 'to', 'date'])
+const BARE_ATTRIBUTE_NAMES = new Set(['pct', 'percent', 'from', 'to', 'date', 'icon'])
 
 function formatAttributeValue(name: string, value: string): string {
   if (BARE_ATTRIBUTE_NAMES.has(name) && /^[A-Za-z0-9._%+-]+$/.test(value)) return `${name}:${value}`
@@ -101,6 +101,7 @@ const ATTRIBUTE_FIELD_NAMES: Partial<Record<EditableField, readonly string[]>> =
   from: ['from'],
   to: ['to'],
   label: ['label'],
+  icon: ['icon'],
 }
 
 export interface FieldEdit {

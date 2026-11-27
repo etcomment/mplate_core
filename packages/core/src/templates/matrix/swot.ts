@@ -47,9 +47,9 @@ export const matrixSwot: TemplateDefinition = {
     const boxWidth = (canvas.contentWidth - gap) / 2
     const padding = 20
     const headerHeight = 54
-    const entryWidth = boxWidth - padding * 2 - 18
     const groups = QUADRANTS.map((quadrant) => input.items.filter((item) => item.keyword === quadrant.keyword))
-    const entryHeight = (item: Item): number => canvas.measure({ text: item.title, x: 0, y: 0, width: entryWidth, size: ENTRY_SIZE, minSize: 12 }).height
+    const entryTextWidth = (item: Item): number => boxWidth - padding * 2 - (item.icon ? 24 : 18)
+    const entryHeight = (item: Item): number => canvas.measure({ text: item.title, x: 0, y: 0, width: entryTextWidth(item), size: ENTRY_SIZE, minSize: 12 }).height
     const listHeight = (entries: Item[]): number => entries.reduce((sum, item) => sum + entryHeight(item) + 8, 0)
     const rowHeights = [0, 1].map((row) => Math.max(110, padding * 2 + headerHeight + Math.max(listHeight(groups[row * 2]!), listHeight(groups[row * 2 + 1]!))))
     QUADRANTS.forEach((quadrant, index) => {
@@ -59,15 +59,18 @@ export const matrixSwot: TemplateDefinition = {
       const y = canvas.top + (row === 0 ? 0 : rowHeights[0]! + gap)
       const height = rowHeights[row]!
       const color = quadrant.color(canvas)
-      canvas.rect({ x, y, width: boxWidth, height }, { rx: canvas.theme.shape.radius, fill: tint(canvas, color, 0.88) })
+      const background = tint(canvas, color, 0.88)
+      canvas.rect({ x, y, width: boxWidth, height }, { rx: canvas.theme.shape.radius, fill: background })
       canvas.circle(x + padding + 20, y + padding + 20, 20, { fill: color })
       canvas.text({ text: quadrant.letter, x: x + padding, y: y + padding, width: 40, height: 40, size: 20, weight: 800, align: 'middle', valign: 'middle', maxLines: 1, color: canvas.theme.textOn(color), font: 'heading', owner: `quadrant-${quadrant.keyword}` })
-      canvas.text({ text: labels[index] ?? quadrant.label, x: x + padding + 54, y: y + padding, width: boxWidth - padding * 2 - 54, height: 40, size: 20, minSize: 14, weight: 800, valign: 'middle', maxLines: 1, color: canvas.theme.ink(color, tint(canvas, color, 0.88)), font: 'heading', owner: `quadrant-${quadrant.keyword}` })
+      canvas.text({ text: labels[index] ?? quadrant.label, x: x + padding + 54, y: y + padding, width: boxWidth - padding * 2 - 54, height: 40, size: 20, minSize: 14, weight: 800, valign: 'middle', maxLines: 1, color: canvas.theme.ink(color, background), font: 'heading', owner: `quadrant-${quadrant.keyword}` })
       let cursor = y + padding + headerHeight
       for (const item of groups[index]!) {
         canvas.group(item.id, () => {
-          canvas.circle(x + padding + 5, cursor + 10, 4, { fill: color })
-          const box = canvas.text({ text: item.title, x: x + padding + 18, y: cursor, width: entryWidth, size: ENTRY_SIZE, minSize: 12 })
+          const iconSlot = item.icon ? 24 : 18
+          if (item.icon) canvas.icon(item.icon, x + padding + 8, cursor + 10, 16, canvas.theme.ink(item.hasExplicitColor ? item.color : color, background))
+          else canvas.circle(x + padding + 5, cursor + 10, 4, { fill: color })
+          const box = canvas.text({ text: item.title, x: x + padding + iconSlot, y: cursor, width: entryTextWidth(item), size: ENTRY_SIZE, minSize: 12 })
           cursor = box.y + box.height + 8
         })
       }

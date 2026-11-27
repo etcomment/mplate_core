@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
+import { describeTemplate } from '@mplate/core'
 import { readDocumentSubtitle, readHeaderTitle, rewriteDocumentSubtitle, rewriteElementLine, rewriteHeaderTitle } from '../src/templates/dslLines'
+import { readElementFields } from '../src/templates/elementFields'
 
 const SOURCE = `@process style:chevrons "Delivery"
   step "Discover" "Interviews" icon:search
@@ -87,6 +89,17 @@ describe('rewriteElementLine', () => {
     const card = '@cards\n  card "Pillar" "Desc"'
     expect(rewriteElementLine(card, { line: 2, field: 'label', value: 'P1', positional: ['title', 'subtitle'] }).split('\n')[1])
       .toBe('  card "Pillar" "Desc" label:"P1"')
+  })
+
+  it('adds, swaps, reads and removes icon attributes', () => {
+    const org = '@org\n  unit "CEO" "Chief Executive"'
+    const added = rewriteElementLine(org, { line: 2, field: 'icon', value: 'rocket', positional: ['title', 'subtitle'] })
+    expect(added.split('\n')[1]).toBe('  unit "CEO" "Chief Executive" icon:rocket')
+    const swapped = rewriteElementLine(added, { line: 2, field: 'icon', value: 'shield-check', positional: ['title', 'subtitle'] })
+    expect(swapped.split('\n')[1]).toBe('  unit "CEO" "Chief Executive" icon:shield-check')
+    expect(readElementFields(swapped, 2, describeTemplate('org:tree')).icon).toBe('shield-check')
+    const removed = rewriteElementLine(swapped, { line: 2, field: 'icon', value: '', positional: ['title', 'subtitle'] })
+    expect(removed.split('\n')[1]).toBe('  unit "CEO" "Chief Executive"')
   })
 })
 

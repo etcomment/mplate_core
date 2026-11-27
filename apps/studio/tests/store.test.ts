@@ -95,15 +95,15 @@ describe('element fields', () => {
   it('reads the positional and attribute values of an element line', () => {
     const card = describeTemplate('process:chevrons')
     const fields = readElementFields('@process\n  step "Discover" "Interviews" val:"3 weeks"', 2, card)
-    expect(fields).toMatchObject({ title: 'Discover', subtitle: 'Interviews', value: '3 weeks', delta: '' })
-    expect(fields.editable).toEqual(['title', 'subtitle', 'value'])
+    expect(fields).toMatchObject({ title: 'Discover', subtitle: 'Interviews', value: '3 weeks', delta: '', icon: '' })
+    expect(fields.editable).toEqual(['title', 'subtitle', 'value', 'icon'])
   })
 
   it('reads sub: and delta on kpi:tiles and updates the rendered SVG after rewriting', () => {
     const card = describeTemplate('kpi:tiles')!
     const fields = readElementFields(card.example, 5, card)
-    expect(fields).toMatchObject({ title: 'Roadmap', value: '72%', subtitle: 'of planned items shipped', delta: '', percent: '72' })
-    expect(fields.editable).toEqual(['title', 'subtitle', 'value', 'delta', 'percent'])
+    expect(fields).toMatchObject({ title: 'Roadmap', value: '72%', subtitle: 'of planned items shipped', delta: '', percent: '72', icon: 'rocket' })
+    expect(fields.editable).toEqual(['title', 'subtitle', 'value', 'delta', 'percent', 'icon'])
 
     const updated = rewriteElementLine(card.example, {
       line: 5,

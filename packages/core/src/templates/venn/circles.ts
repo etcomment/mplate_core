@@ -1,4 +1,4 @@
-import { drawTextStack, measureTextStack } from '../shared.js'
+import { drawTextStack, measureTextStack, tint } from '../shared.js'
 import type { TemplateDefinition } from '../types.js'
 
 interface CircleLayout {
@@ -6,6 +6,8 @@ interface CircleLayout {
   y: number
   labelX: number
   labelY: number
+  iconX: number
+  iconY: number
   align: 'start' | 'middle' | 'end'
   isAbove: boolean
 }
@@ -41,20 +43,20 @@ export const vennCircles: TemplateDefinition = {
     const distance = radius * 0.62
     const top = canvas.top + labelHeight + 20
     let layouts: CircleLayout[]
-    if (count === 1) layouts = [{ x: centerX, y: top + radius, labelX: centerX, labelY: top - 16, align: 'middle', isAbove: true }]
+    if (count === 1) layouts = [{ x: centerX, y: top + radius, labelX: centerX, labelY: top - 16, iconX: centerX, iconY: top + radius, align: 'middle', isAbove: true }]
     else if (count === 2) {
       const y = top + radius
       layouts = [
-        { x: centerX - distance, y, labelX: centerX - distance - radius - 20, labelY: y, align: 'end', isAbove: false },
-        { x: centerX + distance, y, labelX: centerX + distance + radius + 20, labelY: y, align: 'start', isAbove: false },
+        { x: centerX - distance, y, labelX: centerX - distance - radius - 20, labelY: y, iconX: centerX - distance - radius * 0.35, iconY: y, align: 'end', isAbove: false },
+        { x: centerX + distance, y, labelX: centerX + distance + radius + 20, labelY: y, iconX: centerX + distance + radius * 0.35, iconY: y, align: 'start', isAbove: false },
       ]
     } else {
       const upperY = top + radius
       const lowerY = upperY + distance * 1.5
       layouts = [
-        { x: centerX - distance, y: upperY, labelX: centerX - distance - radius * 0.7, labelY: top - 16, align: 'end', isAbove: true },
-        { x: centerX + distance, y: upperY, labelX: centerX + distance + radius * 0.7, labelY: top - 16, align: 'start', isAbove: true },
-        { x: centerX, y: lowerY, labelX: centerX, labelY: lowerY + radius + 16, align: 'middle', isAbove: false },
+        { x: centerX - distance, y: upperY, labelX: centerX - distance - radius * 0.7, labelY: top - 16, iconX: centerX - distance - radius * 0.32, iconY: upperY - radius * 0.25, align: 'end', isAbove: true },
+        { x: centerX + distance, y: upperY, labelX: centerX + distance + radius * 0.7, labelY: top - 16, iconX: centerX + distance + radius * 0.32, iconY: upperY - radius * 0.25, align: 'start', isAbove: true },
+        { x: centerX, y: lowerY, labelX: centerX, labelY: lowerY + radius + 16, iconX: centerX, iconY: lowerY + radius * 0.36, align: 'middle', isAbove: false },
       ]
     }
     let bottom = Math.max(...layouts.map((layout) => layout.y + radius))
@@ -62,6 +64,7 @@ export const vennCircles: TemplateDefinition = {
       const layout = layouts[index]!
       canvas.group(item.id, () => {
         canvas.circle(layout.x, layout.y, radius, { fill: item.color, 'fill-opacity': 0.28, stroke: item.color, 'stroke-width': canvas.theme.shape.strokeWidth + 1 })
+        if (item.icon) canvas.icon(item.icon, layout.iconX, layout.iconY, Math.min(34, radius * 0.24), canvas.theme.ink(item.color, tint(canvas, item.color, 0.72)))
         const height = measureTextStack(canvas, item, { ...stack, x: 0, y: 0 })
         const x = layout.align === 'middle' ? layout.labelX - labelWidth / 2 : layout.align === 'end' ? layout.labelX - labelWidth : layout.labelX
         const y = count === 2 ? layout.labelY - height / 2 : layout.isAbove ? layout.labelY - height : layout.labelY

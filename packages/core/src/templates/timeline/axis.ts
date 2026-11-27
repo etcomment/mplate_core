@@ -39,7 +39,8 @@ export const timelineAxis: TemplateDefinition = {
     const heights = items.map((item) => measureTextStack(canvas, item, { ...textOptions, x: 0, y: 0 }))
     const aboveHeight = Math.max(0, ...heights.filter((_, index) => index % 2 === 0))
     const belowHeight = Math.max(0, ...heights.filter((_, index) => index % 2 === 1))
-    const stemLength = 58
+    const hasIcons = items.some((item) => item.icon !== undefined)
+    const stemLength = hasIcons ? 68 : 58
     const axisY = canvas.top + aboveHeight + stemLength
     const currentIndex = items.findIndex((item) => item.flags.includes('current'))
     const lastDone = items.reduce((last, item, index) => (item.flags.includes('done') ? index : last), -1)
@@ -58,15 +59,19 @@ export const timelineAxis: TemplateDefinition = {
         const isCurrent = item.flags.includes('current')
         const isFuture = progressIndex >= 0 && index > progressIndex
         const color = isFuture && !item.hasExplicitColor ? canvas.theme.colors.textMuted : item.color
+        const dotRadius = item.icon ? (isCurrent ? 19 : 17) : (isCurrent ? 13 : 10)
         const stemEnd = isAbove ? axisY - stemLength + 8 : axisY + stemLength - 8
         canvas.line(x, axisY, x, stemEnd, { stroke: color, 'stroke-width': 2, 'stroke-dasharray': '3 4' })
-        canvas.circle(x, axisY, isCurrent ? 13 : 10, { fill: color, stroke: canvas.theme.colors.background, 'stroke-width': 4 })
+        canvas.circle(x, axisY, dotRadius, { fill: color, stroke: canvas.theme.colors.background, 'stroke-width': 4 })
+        if (item.icon) canvas.icon(item.icon, x, axisY, dotRadius * 1.05, canvas.theme.textOn(color))
         const label = item.date ?? item.label
         if (label) {
           const pillWidth = Math.min(slot - 8, measureText(label, 13, 700) + 20)
-          const pillTop = isAbove ? axisY + 16 : axisY - 16 - 24
+          const pillOffset = dotRadius + 8
+          const pillTop = isAbove ? axisY + pillOffset : axisY - pillOffset - 24
           canvas.rect({ x: x - pillWidth / 2, y: pillTop, width: pillWidth, height: 24 }, { rx: 12, fill: canvas.theme.colors.surface })
           canvas.text({ text: label, x: x - pillWidth / 2, y: pillTop, width: pillWidth, height: 24, size: 13, minSize: 10, weight: 700, align: 'middle', valign: 'middle', maxLines: 1, color: canvas.theme.ink(color) })
+          if (isAbove) bottom = Math.max(bottom, pillTop + 24)
         }
         const height = heights[index] ?? 0
         const top = isAbove ? axisY - stemLength - height + 2 : axisY + stemLength - 2

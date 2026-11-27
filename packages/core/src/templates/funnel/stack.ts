@@ -29,7 +29,8 @@ export const funnelStack: TemplateDefinition = {
     const textLeft = canvas.left + funnelWidth + 56
     const textWidth = canvas.left + canvas.contentWidth - textLeft
     const subtitleLines = count > 6 ? 1 : 2
-    const measured = items.map((item) => measureTextStack(canvas, item, { x: 0, y: 0, width: textWidth, titleSize: 18, subtitleSize: 14, titleLines: 1, subtitleLines }))
+    const sideSlotOf = (item: (typeof items)[number]): number => (item.icon && (item.value ?? item.percentLabel) ? 28 : 0)
+    const measured = items.map((item) => measureTextStack(canvas, item, { x: 0, y: 0, width: textWidth - sideSlotOf(item), titleSize: 18, subtitleSize: 14, titleLines: 1, subtitleLines }))
     const layerHeight = Math.max(52, Math.min(96, 420 / count), ...measured.map((height) => height + 6))
     const gap = 6
     const centerX = canvas.left + funnelWidth / 2
@@ -59,8 +60,10 @@ export const funnelStack: TemplateDefinition = {
         const leaderStart = centerX + (topHalf + bottomHalf) / 2 + 8
         canvas.line(leaderStart, top + layerHeight / 2, textLeft - 12, top + layerHeight / 2, { stroke: canvas.theme.colors.line, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' })
         canvas.circle(textLeft - 12, top + layerHeight / 2, 3.5, { fill: item.color })
+        const sideSlot = sideSlotOf(item)
+        if (sideSlot > 0 && item.icon) canvas.icon(item.icon, textLeft + 10, top + layerHeight / 2, 20, canvas.theme.ink(item.color, canvas.theme.colors.background))
         const stackHeight = measured[index] ?? 0
-        drawTextStack(canvas, item, { x: textLeft, y: top + (layerHeight - stackHeight) / 2, width: textWidth, titleSize: 18, subtitleSize: 14, titleLines: 1, subtitleLines })
+        drawTextStack(canvas, item, { x: textLeft + sideSlot, y: top + (layerHeight - stackHeight) / 2, width: textWidth - sideSlot, titleSize: 18, subtitleSize: 14, titleLines: 1, subtitleLines })
       })
     })
     canvas.extendHeight(canvas.top + count * (layerHeight + gap) - gap)

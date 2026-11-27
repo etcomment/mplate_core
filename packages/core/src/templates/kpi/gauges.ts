@@ -53,7 +53,8 @@ export const kpiGauges: TemplateDefinition = {
           if (ratio > 0.005) canvas.path(arcPath(center, radius, start, start + SWEEP * ratio), { fill: 'none', stroke: item.color, 'stroke-width': thickness, 'stroke-linecap': 'round' })
           const figure = item.value ?? item.percentLabel ?? '—'
           const inner = radius * 1.3
-          canvas.text({ text: figure, x: center.x - inner / 2, y: center.y - radius * 0.45, width: inner, height: radius * 0.8, size: Math.round(radius * 0.42), minSize: 12, weight: 800, align: 'middle', valign: 'middle', maxLines: 1, font: 'heading' })
+          canvas.text({ text: figure, x: center.x - inner / 2, y: center.y - radius * (item.icon ? 0.52 : 0.45), width: inner, height: radius * (item.icon ? 0.72 : 0.8), size: Math.round(radius * 0.42), minSize: 12, weight: 800, align: 'middle', valign: 'middle', maxLines: 1, font: 'heading' })
+          if (item.icon) canvas.icon(item.icon, center.x, center.y + radius * 0.44, Math.max(14, Math.round(radius * 0.34)), canvas.theme.ink(item.color, canvas.theme.colors.background))
           drawTextStack(canvas, item, { ...textOptions, x: center.x - textOptions.width / 2, y: center.y + radius * 0.72 + 10, align: 'middle' })
         })
       })

@@ -55,6 +55,7 @@ Before marking a template ready, verify each point:
    - On templates with vertically extensible cards, rows or lists, do not impose an arbitrary `maxLines` cap on descriptions (`subtitleLines: Infinity`): containers must grow when lines are added and shrink immediately back to their nominal height when lines are removed.
 5. **Elastic connectors**: templates that connect elements (`brain:spokes`, `brain:arc`, `org:tree`, `process:steps`, `process:vertical`, `timeline:vertical`) emit `data-mplate-connector`, `data-mplate-from`, `data-mplate-to` and origin endpoint coordinates (`data-mplate-from-x/y`, `data-mplate-to-x/y`) so editors can stretch connectors when elements move.
 6. **Theme cascade and strict types**: all colours and fonts come from theme tokens (overridable by DSL `#hex` and engine `overrides`), zero `any`, zero `NaN` in SVG output.
+7. **Dynamic icons**: every element (and child element) supports `icon:<name>` via `canvas.icon(...)` with theme-aware contrast (`textOn` / `ink`) and reserved layout space so icons never clip or overlap text. Verified automatically across all templates in `templates.test.ts`.
 
 ## 5. Register and test
 

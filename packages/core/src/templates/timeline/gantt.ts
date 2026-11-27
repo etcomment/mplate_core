@@ -42,15 +42,18 @@ export const timelineGantt: TemplateDefinition = {
     tasks.forEach((task, row) => {
       canvas.group(task.id, () => {
         const y = top + row * ROW_HEIGHT
-        if (row % 2 === 0) canvas.rect({ x: canvas.left, y, width: canvas.contentWidth, height: ROW_HEIGHT }, { fill: canvas.theme.colors.surface })
-        canvas.text({ text: task.title, x: canvas.left + 10, y, width: labelWidth - 10, height: ROW_HEIGHT, size: 14, minSize: 10, weight: 600, valign: 'middle', maxLines: 1 })
+        const rowBg = row % 2 === 0 ? canvas.theme.colors.surface : canvas.theme.colors.background
+        if (row % 2 === 0) canvas.rect({ x: canvas.left, y, width: canvas.contentWidth, height: ROW_HEIGHT }, { fill: rowBg })
+        const middleY = y + ROW_HEIGHT / 2
+        if (task.icon) canvas.icon(task.icon, canvas.left + 18, middleY, 16, canvas.theme.ink(task.color, rowBg))
+        const titleLeft = task.icon ? canvas.left + 32 : canvas.left + 10
+        canvas.text({ text: task.title, x: titleLeft, y, width: canvas.left + labelWidth - titleLeft, height: ROW_HEIGHT, size: 14, minSize: 10, weight: 600, valign: 'middle', maxLines: 1 })
         const fromLabel = task.attributes.from ?? task.date
         const fromIndex = periodIndex(periods, fromLabel)
         if (fromIndex === undefined) warnUnknownPeriod(canvas, task, fromLabel, periods)
         const start = fromIndex ?? 0
         const toIndex = periodIndex(periods, task.attributes.to)
         const end = Math.max(start, toIndex ?? start)
-        const middleY = y + ROW_HEIGHT / 2
         if (task.flags.includes('milestone')) {
           const centerX = gridLeft + (start + 0.5) * columnWidth
           canvas.path(polygonPath([{ x: centerX, y: middleY - 11 }, { x: centerX + 11, y: middleY }, { x: centerX, y: middleY + 11 }, { x: centerX - 11, y: middleY }]), { fill: task.color })

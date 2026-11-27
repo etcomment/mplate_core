@@ -56,7 +56,8 @@ export const comparisonTable: TemplateDefinition = {
     const headerHeight = 56
     const minRowHeight = rows.length > 15 ? 36 : 44
     const rowHeights = rows.map((row) => {
-      const titleHeight = canvas.measure({ text: row.title, x: 0, y: 0, width: labelWidth - 16, size: 15, minSize: 11, weight: 600 }).height + 16
+      const iconSlot = row.icon ? 24 : 0
+      const titleHeight = canvas.measure({ text: row.title, x: 0, y: 0, width: labelWidth - 16 - iconSlot, size: 15, minSize: 11, weight: 600 }).height + 16
       const cellHeights = columns.map((_, column) => {
         const value = row.values[column]
         if (value === undefined || isSymbolicCell(value)) return 0
@@ -79,9 +80,11 @@ export const comparisonTable: TemplateDefinition = {
     let rowY = top + headerHeight
     rows.forEach((row, index) => {
       const rowHeight = rowHeights[index]!
+      const iconSlot = row.icon ? 24 : 0
       canvas.group(row.id, () => {
         canvas.line(canvas.left, rowY, canvas.left + canvas.contentWidth, rowY, { stroke: canvas.theme.colors.line, 'stroke-width': 1 })
-        canvas.text({ text: row.title, x: canvas.left + 8, y: rowY, width: labelWidth - 16, height: rowHeight, size: 15, minSize: 11, weight: 600, valign: 'middle' })
+        if (row.icon) canvas.icon(row.icon, canvas.left + 16, rowY + rowHeight / 2, 16, canvas.theme.ink(row.hasExplicitColor ? row.color : canvas.theme.colors.textMuted, canvas.theme.colors.background))
+        canvas.text({ text: row.title, x: canvas.left + 8 + iconSlot, y: rowY, width: labelWidth - 16 - iconSlot, height: rowHeight, size: 15, minSize: 11, weight: 600, valign: 'middle' })
         if (row.values.length > columns.length) canvas.diagnostics.push({ severity: 'warning', line: row.line, message: `"${row.title}" has ${row.values.length} values for ${columns.length} columns; extra values ignored` })
         columns.forEach((_, column) => {
           const value = row.values[column]

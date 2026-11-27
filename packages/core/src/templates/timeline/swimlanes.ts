@@ -44,9 +44,15 @@ export const timelineSwimlanes: TemplateDefinition = {
     const gridLeft = canvas.left + labelWidth + 12
     const columnWidth = (canvas.left + canvas.contentWidth - gridLeft) / periods.length
     const cardWidth = columnWidth - 12
-    const cardText = (item: Item): number =>
-      canvas.measure({ text: item.title, x: 0, y: 0, width: cardWidth - 20, size: 14, minSize: 11, weight: 700, maxLines: 2 }).height +
-      (item.subtitle ? 2 + canvas.measure({ text: item.subtitle, x: 0, y: 0, width: cardWidth - 20, size: 12 }).height : 0)
+    const cardText = (item: Item): number => {
+      const iconSlot = item.icon ? 24 : 0
+      const textWidth = cardWidth - 20 - iconSlot
+      return (
+        canvas.measure({ text: item.title, x: 0, y: 0, width: textWidth, size: 14, minSize: 11, weight: 700, maxLines: 2 }).height +
+        (item.subtitle ? 2 + canvas.measure({ text: item.subtitle, x: 0, y: 0, width: textWidth, size: 12 }).height : 0)
+      )
+    }
+    const cardHeight = (item: Item): number => Math.max(cardText(item) + 16, item.icon ? 34 : 0)
     let y = drawPeriodHeader(canvas, periods, gridLeft, columnWidth, canvas.top) + 10
     lanes.forEach((lane, laneIndex) => {
       const cells: Item[][] = periods.map(() => [])
@@ -55,24 +61,31 @@ export const timelineSwimlanes: TemplateDefinition = {
         if (index === undefined) warnUnknownPeriod(canvas, milestone, milestone.date, periods)
         cells[index ?? 0]!.push(milestone)
       }
-      const cellHeights = cells.map((cell) => cell.reduce((sum, item) => sum + cardText(item) + 16 + CARD_GAP, 0) - (cell.length > 0 ? CARD_GAP : 0))
-      const laneLabelHeight = canvas.measure({ text: lane.title, x: 0, y: 0, width: labelWidth - 24, size: 16, minSize: 12, weight: 800, maxLines: 2 }).height + (lane.subtitle ? 18 : 0)
+      const cellHeights = cells.map((cell) => cell.reduce((sum, item) => sum + cardHeight(item) + CARD_GAP, 0) - (cell.length > 0 ? CARD_GAP : 0))
+      const laneIconSlot = lane.icon ? 24 : 0
+      const laneTextWidth = labelWidth - 24 - laneIconSlot
+      const laneLabelHeight = canvas.measure({ text: lane.title, x: 0, y: 0, width: laneTextWidth, size: 16, minSize: 12, weight: 800, maxLines: 2 }).height + (lane.subtitle ? 18 : 0)
       const laneHeight = Math.max(64, laneLabelHeight + LANE_PADDING * 2, ...cellHeights.map((height) => height + LANE_PADDING * 2))
+      const laneBg = laneIndex % 2 === 0 ? canvas.theme.colors.surface : canvas.theme.colors.background
       canvas.group(lane.id, () => {
-        canvas.rect({ x: canvas.left, y, width: canvas.contentWidth, height: laneHeight }, { rx: canvas.theme.shape.radius, fill: laneIndex % 2 === 0 ? canvas.theme.colors.surface : canvas.theme.colors.background })
+        canvas.rect({ x: canvas.left, y, width: canvas.contentWidth, height: laneHeight }, { rx: canvas.theme.shape.radius, fill: laneBg })
         canvas.rect({ x: canvas.left, y: y + 10, width: 5, height: laneHeight - 20 }, { rx: 2.5, fill: lane.color })
-        const label = canvas.text({ text: lane.title, x: canvas.left + 18, y: y + LANE_PADDING, width: labelWidth - 24, size: 16, minSize: 12, weight: 800, maxLines: 2, color: canvas.theme.ink(lane.color), font: 'heading' })
-        if (lane.subtitle) canvas.text({ text: lane.subtitle, x: canvas.left + 18, y: label.y + label.height + 2, width: labelWidth - 24, size: 12, maxLines: 1, color: canvas.theme.colors.textMuted })
+        if (lane.icon) canvas.icon(lane.icon, canvas.left + 26, y + LANE_PADDING + 10, 18, canvas.theme.ink(lane.color, laneBg))
+        const label = canvas.text({ text: lane.title, x: canvas.left + 18 + laneIconSlot, y: y + LANE_PADDING, width: laneTextWidth, size: 16, minSize: 12, weight: 800, maxLines: 2, color: canvas.theme.ink(lane.color), font: 'heading' })
+        if (lane.subtitle) canvas.text({ text: lane.subtitle, x: canvas.left + 18 + laneIconSlot, y: label.y + label.height + 2, width: laneTextWidth, size: 12, maxLines: 1, color: canvas.theme.colors.textMuted })
         cells.forEach((cell, column) => {
           let cardTop = y + LANE_PADDING
           const x = gridLeft + column * columnWidth + 6
           for (const milestone of cell) {
             canvas.group(milestone.id, () => {
               const color = milestone.hasExplicitColor ? milestone.color : lane.color
-              const height = cardText(milestone) + 16
-              canvas.rect({ x, y: cardTop, width: cardWidth, height }, { rx: Math.min(8, canvas.theme.shape.radius), fill: tint(canvas, color, 0.82), stroke: color, 'stroke-width': 1.2 })
-              const title = canvas.text({ text: milestone.title, x: x + 10, y: cardTop + 8, width: cardWidth - 20, size: 14, minSize: 11, weight: 700, maxLines: 2 })
-              if (milestone.subtitle) canvas.text({ text: milestone.subtitle, x: x + 10, y: title.y + title.height + 2, width: cardWidth - 20, size: 12, color: canvas.theme.colors.textMuted })
+              const fill = tint(canvas, color, 0.82)
+              const height = cardHeight(milestone)
+              const iconSlot = milestone.icon ? 24 : 0
+              canvas.rect({ x, y: cardTop, width: cardWidth, height }, { rx: Math.min(8, canvas.theme.shape.radius), fill, stroke: color, 'stroke-width': 1.2 })
+              if (milestone.icon) canvas.icon(milestone.icon, x + 18, cardTop + 17, 16, canvas.theme.ink(color, fill))
+              const title = canvas.text({ text: milestone.title, x: x + 10 + iconSlot, y: cardTop + 8, width: cardWidth - 20 - iconSlot, size: 14, minSize: 11, weight: 700, maxLines: 2 })
+              if (milestone.subtitle) canvas.text({ text: milestone.subtitle, x: x + 10 + iconSlot, y: title.y + title.height + 2, width: cardWidth - 20 - iconSlot, size: 12, color: canvas.theme.colors.textMuted })
               cardTop += height + CARD_GAP
             })
           }

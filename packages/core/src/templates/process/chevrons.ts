@@ -36,7 +36,6 @@ export const processChevrons: TemplateDefinition = {
     const chevronWidth = (canvas.contentWidth + overlap * (columns - 1)) / columns
     const chevronHeight = columns <= 4 ? 92 : 80
     const notch = Math.min(30, chevronWidth * 0.16)
-    const hasIcons = items.some((item) => item.icon)
     let y = canvas.top
     for (const row of chunk(items, columns)) {
       let rowBottom = y
@@ -50,21 +49,28 @@ export const processChevrons: TemplateDefinition = {
           const innerWidth = x + chevronWidth - notch - 6 - innerLeft
           let textLeft = innerLeft
           let textWidth = innerWidth
-          if (hasIcons && item.icon && innerWidth > 150) {
-            canvas.icon(item.icon, innerLeft + 14, top + chevronHeight / 2, 26, foreground)
-            textLeft = innerLeft + 38
-            textWidth = innerWidth - 38
+          const iconInBody = Boolean(item.icon && innerWidth <= 70)
+          if (item.icon && !iconInBody) {
+            const iconSize = innerWidth > 150 ? 26 : 18
+            const iconSlot = innerWidth > 150 ? 38 : 24
+            canvas.icon(item.icon, innerLeft + iconSize / 2 + 1, top + chevronHeight / 2, iconSize, foreground)
+            textLeft = innerLeft + iconSlot
+            textWidth = innerWidth - iconSlot
           }
           canvas.text({ text: item.title, x: textLeft, y: top + 8, width: textWidth, height: chevronHeight - 16, size: columns <= 4 ? 19 : 16, minSize: 11, weight: 700, valign: 'middle', maxLines: 2, color: foreground, font: 'heading' })
+          const bodyLeft = x + (column === 0 ? 4 : notch)
+          const bodyWidth = column === 0 ? chevronWidth - notch - 4 : chevronWidth - notch * 2
+          const bodySlot = iconInBody ? 24 : 0
+          if (iconInBody && item.icon) canvas.icon(item.icon, bodyLeft + 10, top + chevronHeight + 25, 16, canvas.theme.ink(item.color, canvas.theme.colors.background))
           const stackBottom = drawTextStack(canvas, { ...item, title: '' }, {
-            x: x + (column === 0 ? 4 : notch),
+            x: bodyLeft + bodySlot,
             y: top + chevronHeight + 16,
-            width: column === 0 ? chevronWidth - notch - 4 : chevronWidth - notch * 2,
+            width: bodyWidth - bodySlot,
             subtitleSize: columns <= 4 ? 15 : 13,
             subtitleLines: Infinity,
             showValue: true,
           })
-          rowBottom = Math.max(rowBottom, stackBottom, top + chevronHeight)
+          rowBottom = Math.max(rowBottom, stackBottom, iconInBody ? top + chevronHeight + 36 : top + chevronHeight)
         })
       })
       y = rowBottom + 40
